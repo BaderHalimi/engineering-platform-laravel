@@ -1,364 +1,104 @@
-﻿@php
-    $year = date('Y');
+@extends('layouts.visitor')
 
-    $navItems = [
-        ['label' => 'الرئيسية', 'href' => '/'],
-        ['label' => 'من نحن', 'href' => '/about'],
-        ['label' => 'الخدمات', 'href' => '/services'],
-        ['label' => 'المشاريع', 'href' => '/projects'],
-        ['label' => 'المعرفة', 'href' => '/knowledge'],
-        ['label' => 'تواصل معنا', 'href' => '/contact'],
-    ];
+@section('title', 'شركة الديوان للاستشارات الهندسية')
+@section('description', 'من الفكرة إلى رخصة البناء بوضوح عبر حلول هندسية تراعي الكود السعودي وتكلفة التنفيذ.')
 
-    $trustItems = [
-        ['icon' => 'M', 'title' => 'المدينة المنورة'],
-        ['icon' => 'K', 'title' => 'الكود السعودي'],
-        ['icon' => 'R', 'title' => 'تصميم ورخص'],
-        ['icon' => 'E', 'title' => 'استشارات هندسية'],
-    ];
+@push('styles')
+<style>
+    .hero { position: relative; overflow: hidden; min-height: calc(100svh - 72px); border-bottom: 1px solid rgb(255 255 255 / .1); background: var(--deep-slate); color: var(--white); }
+    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(to right, rgb(255 255 255 / .08) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / .08) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(to bottom, black, transparent 92%); }
+    .hero-ring-a, .hero-ring-b { position: absolute; border: 1px solid rgb(255 255 255 / .13); border-radius: 999px; }
+    .hero-ring-a { right: -96px; top: 96px; width: 288px; height: 288px; }
+    .hero-ring-b { left: -80px; bottom: 40px; width: 384px; height: 384px; border-color: rgb(245 173 42 / .3); }
+    .hero-layout { position: relative; display: grid; align-items: center; gap: 40px; min-height: calc(100svh - 72px); padding-block: 56px; }
+    .hero-copy { max-width: 760px; }
+    .hero-eyebrow { display: inline-flex; margin-bottom: 20px; border: 1px solid rgb(255 255 255 / .15); border-radius: 8px; background: rgb(255 255 255 / .1); padding: 6px 12px; color: var(--white); font-size: 14px; font-weight: 800; }
+    .hero h1 { margin: 0; color: var(--white); font-size: clamp(40px, 7vw, 72px); line-height: 1.15; font-weight: 950; letter-spacing: 0; }
+    .hero p { margin: 24px 0 0; max-width: 680px; color: rgb(255 255 255 / .78); font-size: 19px; line-height: 2; }
+    .hero-actions { margin-top: 32px; }
+    .hero-steps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+    .hero-steps span { border: 1px solid rgb(255 255 255 / .15); border-radius: 8px; background: rgb(255 255 255 / .1); padding: 9px 12px; color: var(--white); font-size: 14px; font-weight: 800; }
+    .hero-visual { position: relative; min-height: 560px; }
+    .permit-map { position: absolute; inset: 0; isolation: isolate; }
+    .map-orbit { position: absolute; border: 1px solid rgb(82 105 112 / .16); border-radius: 999px; animation: orbit-drift 12s ease-in-out infinite; }
+    .map-orbit-one { inset: 10% 8% 18% 0; }
+    .map-orbit-two { inset: 22% 18% 8% 12%; animation-delay: -4s; }
+    .route-line { position: absolute; inset: 6% 0 10%; z-index: 2; width: 100%; height: 84%; }
+    .route-shadow, .route-path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .route-shadow { stroke: rgb(255 255 255 / .16); stroke-width: 28; }
+    .route-path { stroke: var(--bright-orange); stroke-width: 7; stroke-dasharray: 18 18; animation: route-flow 2.4s linear infinite; }
+    .station { position: absolute; z-index: 5; display: grid; min-width: 108px; gap: 4px; border: 1px solid rgb(61 80 87 / .16); border-radius: 8px; padding: 12px 14px; background: rgb(255 255 255 / .86); box-shadow: 0 18px 50px rgb(61 80 87 / .12); backdrop-filter: blur(10px); animation: station-in 700ms ease both, station-float 6s ease-in-out infinite; }
+    .station span { color: var(--bright-orange); font-size: 12px; font-weight: 950; }
+    .station strong { color: var(--deep-slate); font-size: 16px; }
+    .station-one { right: 4%; bottom: 20%; }
+    .station-two { right: 26%; top: 18%; animation-delay: 100ms, 800ms; }
+    .station-three { left: 26%; bottom: 24%; animation-delay: 200ms, 1400ms; }
+    .station-four { left: 4%; top: 8%; animation-delay: 300ms, 2000ms; }
+    .blueprint-card { position: absolute; right: 14%; top: 38%; z-index: 3; width: min(320px, 52%); rotate: 4deg; border: 1px solid rgb(82 105 112 / .18); border-radius: 8px; padding: 18px; background: rgb(255 255 255 / .78); box-shadow: 0 28px 70px rgb(61 80 87 / .16); backdrop-filter: blur(10px); }
+    .blueprint-title { display: flex; align-items: center; gap: 8px; color: var(--soft-teal); font-weight: 950; }
+    .blueprint-title-mark { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--orange-50); color: var(--bright-orange); }
+    .blueprint-plan { position: relative; margin-top: 18px; aspect-ratio: 1.6; border: 1px solid rgb(82 105 112 / .24); background-image: linear-gradient(to right, rgb(82 105 112 / .12) 1px, transparent 1px), linear-gradient(to bottom, rgb(82 105 112 / .12) 1px, transparent 1px); background-size: 24px 24px; }
+    .blueprint-plan span { position: absolute; background: var(--deep-slate); opacity: .48; }
+    .blueprint-plan span:nth-child(1) { inset: 24% 14% auto; height: 2px; }
+    .blueprint-plan span:nth-child(2) { inset: 54% 14% auto; height: 2px; }
+    .blueprint-plan span:nth-child(3) { inset: 18% 28% 20% auto; width: 2px; }
+    .blueprint-plan span:nth-child(4) { inset: 18% auto 20% 24%; width: 2px; }
+    .blueprint-plan span:nth-child(5) { inset: auto 16% 16%; height: 2px; background: var(--bright-orange); opacity: 1; }
+    .tower-model { position: absolute; left: 11%; bottom: 11%; z-index: 4; display: flex; align-items: end; gap: 10px; height: 190px; padding-inline: 16px; }
+    .tower { width: 34px; border: 5px solid var(--bright-orange); border-bottom-width: 10px; background: rgb(255 255 255 / .5); animation: tower-rise 900ms ease both; }
+    .tower-a { height: 96px; } .tower-b { height: 146px; animation-delay: 120ms; } .tower-c { height: 112px; animation-delay: 240ms; } .tower-d { height: 78px; animation-delay: 360ms; }
+    .trust { padding-block: 40px; }
+    .trust-card { display: flex; align-items: center; gap: 12px; padding: 16px; font-weight: 800; }
+    .fit { display: block; margin-top: 16px; border-radius: 4px; background: var(--orange-50); padding: 10px 12px; color: #526970; font-size: 14px; font-weight: 800; line-height: 1.7; }
+    .assistant-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px; align-items: start; }
+    @keyframes route-flow { to { stroke-dashoffset: -72; } }
+    @keyframes station-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes station-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+    @keyframes tower-rise { from { opacity: 0; transform: scaleY(.2); transform-origin: bottom; } to { opacity: 1; transform: scaleY(1); transform-origin: bottom; } }
+    @keyframes orbit-drift { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(-16px, -12px, 0); } }
+    @media (min-width: 860px) { .hero-layout { grid-template-columns: 1.05fr .95fr; } }
+    @media (max-width: 980px) { .hero-visual { min-height: 500px; } .assistant-layout { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .hero-layout { padding-block: 44px; } .hero h1 { font-size: 38px; } .hero p { font-size: 17px; } .hero-visual { min-height: 420px; } .blueprint-card { right: 4%; width: 58%; } .tower-model { left: 2%; scale: .8; } .station { min-width: 88px; padding: 10px; } }
+</style>
+@endpush
 
+@section('content')
+@php
+    $brand = config('site.brand');
+    $trustItems = config('site.trust');
     $heroSteps = ['الفكرة', 'التصميم', 'الرخصة', 'التنفيذ'];
-
-    $services = [
-        ['icon' => '01', 'title' => 'التصميم وإصدار التراخيص', 'description' => 'تصميم معماري وإنشائي وتجهيز متطلبات الرخصة بخطوات منظمة.', 'fit' => 'يناسب ملاك الأراضي ومن يبدأ مشروع بناء جديد.'],
-        ['icon' => '02', 'title' => 'الإشراف الهندسي', 'description' => 'متابعة التنفيذ ميدانياً والتأكد من توافق العمل مع المخططات والمتطلبات.', 'fit' => 'يناسب المشاريع في مرحلة التنفيذ أو ما قبل التعاقد.'],
-        ['icon' => '03', 'title' => 'الأمن والسلامة والدفاع المدني', 'description' => 'تنظيم متطلبات السلامة والدفاع المدني للمنشآت والمشاريع.', 'fit' => 'يناسب المنشآت التجارية والمشاريع التي تحتاج اشتراطات سلامة.'],
-        ['icon' => '04', 'title' => 'الواجهات والتصميم الداخلي', 'description' => 'حلول واجهات ومساحات داخلية تراعي الهوية والاستخدام وتكلفة التنفيذ.', 'fit' => 'يناسب من يريد تحسين واجهة أو تجربة مساحة داخلية.'],
-        ['icon' => '05', 'title' => 'إدارة المشاريع', 'description' => 'تنظيم مراحل المشروع ومتابعة القرارات الفنية والجدول العام.', 'fit' => 'يناسب المطورين والملاك الذين يحتاجون وضوحاً تشغيلياً.'],
-        ['icon' => '06', 'title' => 'خدمات المساحة', 'description' => 'رفع مساحي وقراءات تساعد على تأسيس التصميم والقرارات الهندسية.', 'fit' => 'يناسب الأراضي والمواقع التي تحتاج بيانات دقيقة قبل التصميم.'],
-    ];
-
-    $processSteps = [
-        ['title' => 'فهم الاحتياج', 'description' => 'نحدد نوع المشروع والمساحة والمدينة وطبيعة القرار المطلوب.'],
-        ['title' => 'تطوير التصميم', 'description' => 'نحوّل الاحتياج إلى حل هندسي عملي قابل للمراجعة والتنفيذ.'],
-        ['title' => 'تجهيز المتطلبات', 'description' => 'نرتب المستندات والمعلومات المطلوبة قبل رفع الطلب أو المتابعة.'],
-        ['title' => 'المتابعة والتوضيح', 'description' => 'نبقي المسار واضحاً ونراجع التفاصيل مع العميل خطوة بخطوة.'],
-    ];
-
-    $reasons = [
-        ['title' => 'توضيح المتطلبات قبل التصميم', 'description' => 'نقلل الغموض حول المستندات والخطوات حتى يبدأ المشروع على أساس مفهوم.'],
-        ['title' => 'سياق سعودي ومحلي', 'description' => 'المحتوى يراعي مفردات السوق السعودي مثل الرخصة، الكود، والدفاع المدني.'],
-        ['title' => 'طلب خدمة جاهز للمراجعة', 'description' => 'نموذج الطلب يجمع بيانات العميل والخدمة والمدينة والملفات بطريقة واضحة.'],
-    ];
-
-    $projects = [
-        ['title' => 'فيلا سكنية خاصة', 'service' => 'تصميم ورخص', 'city' => 'المدينة المنورة', 'description' => 'نموذج يعرض فكرة المشروع ونوع الخدمة والموقع العام كما تتطلب الوثائق.'],
-        ['title' => 'منشأة تجارية', 'service' => 'دفاع مدني وسلامة', 'city' => 'السعودية', 'description' => 'مسار متطلبات سلامة يساعد العميل على فهم ما يلزم قبل الاعتماد.'],
-        ['title' => 'تطوير واجهة ومساحة داخلية', 'service' => 'واجهات وتصميم داخلي', 'city' => 'موقع عام', 'description' => 'عرض بصري مختصر لحلول الواجهات واستغلال المساحة حسب احتياج العميل.'],
-    ];
-
-    $articles = [
-        ['title' => 'خطوات إصدار رخصة بناء', 'description' => 'شرح مختصر لمسار الرخصة والمعلومات التي يحتاجها العميل قبل البدء.'],
-        ['title' => 'متى تحتاج إلى مكتب استشارات هندسية؟', 'description' => 'توضيح الحالات التي تستفيد من مستشار هندسي قبل التصميم أو التنفيذ.'],
-        ['title' => 'الفرق بين التصميم والإشراف', 'description' => 'مقارنة عملية تساعد العميل على فهم دور كل خدمة في رحلة المشروع.'],
-    ];
+    $services = config('site.services');
+    $projects = array_slice(config('site.projects'), 0, 3);
+    $articles = array_slice(config('site.articles'), 0, 3);
 @endphp
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="حلول تصميم ورخص بناء تساعدك على فهم خطوات مشروعك من البداية، بما يراعي احتياجك ومتطلبات الكود السعودي.">
-    <link rel="icon" href="{{ asset('logo.png') }}">
-    <title>شركة الديوان للاستشارات الهندسية</title>
-
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
-
-    <style>
-        :root { --bright-orange: #f5ad2a; --soft-teal: #526970; --light-mist: #eef2f3; --deep-slate: #3d5057; --slate-200: #d0dbdf; --orange-50: #fff8e8; --white: #ffffff; }
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { margin: 0; background: var(--white); color: var(--deep-slate); font-family: 'DIN Next LT Arabic', 'IBM Plex Sans Arabic', 'Tajawal', 'Segoe UI', system-ui, sans-serif; font-feature-settings: "kern"; }
-        a { color: inherit; text-decoration: none; }
-        select, input, button { font: inherit; }
-        .page { overflow: hidden; background: var(--white); }
-        .container { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
-        .section { padding-block: 64px; }
-        .muted-section { background: var(--light-mist); }
-        .eyebrow { margin: 0 0 12px; color: var(--bright-orange); font-size: 14px; font-weight: 800; }
-        .section-title { margin: 0; color: var(--deep-slate); font-size: clamp(30px, 4vw, 42px); line-height: 1.25; font-weight: 950; }
-        .section-copy { margin: 16px 0 0; color: #526970; font-size: 17px; line-height: 2; }
-        .section-head { max-width: 760px; margin-bottom: 36px; }
-        .grid { display: grid; gap: 16px; }
-        .card { border: 1px solid var(--slate-200); border-radius: 8px; background: var(--white); }
-        .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border-radius: 8px; padding: 12px 18px; border: 1px solid transparent; font-weight: 800; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; cursor: pointer; }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-primary { background: var(--bright-orange); color: var(--deep-slate); box-shadow: 0 14px 30px rgb(245 173 42 / .22); }
-        .btn-outline { border-color: rgb(255 255 255 / .32); color: var(--white); background: rgb(255 255 255 / .08); }
-        .btn-light { border-color: var(--slate-200); color: var(--deep-slate); background: var(--white); }
-
-        .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgb(255 255 255 / .1); background: rgb(61 80 87 / .95); color: var(--white); backdrop-filter: blur(14px); }
-        .header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-        .brand-link { display: flex; align-items: center; gap: 12px; min-width: 0; color: var(--white); }
-        .brand-logo { width: auto; height: 48px; min-width: 120px; object-fit: contain; }
-        .brand-slogan { display: block; color: rgb(255 255 255 / .7); font-size: 12px; font-weight: 600; white-space: nowrap; }
-        .nav-menu { display: flex; align-items: center; gap: 4px; }
-        .nav-menu a { border-radius: 8px; padding: 10px 12px; color: rgb(255 255 255 / .82); font-size: 14px; font-weight: 700; transition: background .2s ease, color .2s ease; }
-        .nav-menu a:hover { background: rgb(255 255 255 / .1); color: var(--white); }
-        .header-actions { display: flex; align-items: center; gap: 8px; }
-        .language-link { border-radius: 8px; padding: 9px 11px; color: var(--white); font-size: 14px; font-weight: 800; }
-        .language-link:hover { background: rgb(255 255 255 / .1); }
-
-        .hero { position: relative; overflow: hidden; min-height: calc(100svh - 72px); border-bottom: 1px solid rgb(255 255 255 / .1); background: var(--deep-slate); color: var(--white); }
-        .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(to right, rgb(255 255 255 / .08) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / .08) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(to bottom, black, transparent 92%); }
-        .hero-ring-a, .hero-ring-b { position: absolute; border: 1px solid rgb(255 255 255 / .13); border-radius: 999px; }
-        .hero-ring-a { right: -96px; top: 96px; width: 288px; height: 288px; }
-        .hero-ring-b { left: -80px; bottom: 40px; width: 384px; height: 384px; border-color: rgb(245 173 42 / .3); }
-        .hero-layout { position: relative; display: grid; align-items: center; gap: 40px; min-height: calc(100svh - 72px); padding-block: 56px; }
-        .hero-copy { max-width: 760px; }
-        .hero-eyebrow { display: inline-flex; margin-bottom: 20px; border: 1px solid rgb(255 255 255 / .15); border-radius: 8px; background: rgb(255 255 255 / .1); padding: 6px 12px; color: var(--white); font-size: 14px; font-weight: 800; }
-        .hero h1 { margin: 0; color: var(--white); font-size: clamp(40px, 7vw, 72px); line-height: 1.15; font-weight: 950; letter-spacing: 0; }
-        .hero p { margin: 24px 0 0; max-width: 680px; color: rgb(255 255 255 / .78); font-size: 19px; line-height: 2; }
-        .hero-actions { margin-top: 32px; }
-        .hero-steps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
-        .hero-steps span { border: 1px solid rgb(255 255 255 / .15); border-radius: 8px; background: rgb(255 255 255 / .1); padding: 9px 12px; color: var(--white); font-size: 14px; font-weight: 800; }
-        .hero-visual { position: relative; min-height: 560px; }
-        .permit-map { position: absolute; inset: 0; isolation: isolate; }
-        .map-orbit { position: absolute; border: 1px solid rgb(82 105 112 / .16); border-radius: 999px; animation: orbit-drift 12s ease-in-out infinite; }
-        .map-orbit-one { inset: 10% 8% 18% 0; }
-        .map-orbit-two { inset: 22% 18% 8% 12%; animation-delay: -4s; }
-        .route-line { position: absolute; inset: 6% 0 10%; z-index: 2; width: 100%; height: 84%; }
-        .route-shadow, .route-path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .route-shadow { stroke: rgb(255 255 255 / .16); stroke-width: 28; }
-        .route-path { stroke: var(--bright-orange); stroke-width: 7; stroke-dasharray: 18 18; animation: route-flow 2.4s linear infinite; }
-        .station { position: absolute; z-index: 5; display: grid; min-width: 108px; gap: 4px; border: 1px solid rgb(61 80 87 / .16); border-radius: 8px; padding: 12px 14px; background: rgb(255 255 255 / .86); box-shadow: 0 18px 50px rgb(61 80 87 / .12); backdrop-filter: blur(10px); animation: station-in 700ms ease both, station-float 6s ease-in-out infinite; }
-        .station span { color: var(--bright-orange); font-size: 12px; font-weight: 950; }
-        .station strong { color: var(--deep-slate); font-size: 16px; }
-        .station-one { right: 4%; bottom: 20%; }
-        .station-two { right: 26%; top: 18%; animation-delay: 100ms, 800ms; }
-        .station-three { left: 26%; bottom: 24%; animation-delay: 200ms, 1400ms; }
-        .station-four { left: 4%; top: 8%; animation-delay: 300ms, 2000ms; }
-        .blueprint-card { position: absolute; right: 14%; top: 38%; z-index: 3; width: min(320px, 52%); rotate: 4deg; border: 1px solid rgb(82 105 112 / .18); border-radius: 8px; padding: 18px; background: rgb(255 255 255 / .78); box-shadow: 0 28px 70px rgb(61 80 87 / .16); backdrop-filter: blur(10px); }
-        .blueprint-title { display: flex; align-items: center; gap: 8px; color: var(--soft-teal); font-weight: 950; }
-        .blueprint-title-mark { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--orange-50); color: var(--bright-orange); }
-        .blueprint-plan { position: relative; margin-top: 18px; aspect-ratio: 1.6; border: 1px solid rgb(82 105 112 / .24); background-image: linear-gradient(to right, rgb(82 105 112 / .12) 1px, transparent 1px), linear-gradient(to bottom, rgb(82 105 112 / .12) 1px, transparent 1px); background-size: 24px 24px; }
-        .blueprint-plan span { position: absolute; background: var(--deep-slate); opacity: .48; }
-        .blueprint-plan span:nth-child(1) { inset: 24% 14% auto; height: 2px; }
-        .blueprint-plan span:nth-child(2) { inset: 54% 14% auto; height: 2px; }
-        .blueprint-plan span:nth-child(3) { inset: 18% 28% 20% auto; width: 2px; }
-        .blueprint-plan span:nth-child(4) { inset: 18% auto 20% 24%; width: 2px; }
-        .blueprint-plan span:nth-child(5) { inset: auto 16% 16%; height: 2px; background: var(--bright-orange); opacity: 1; }
-        .tower-model { position: absolute; left: 11%; bottom: 11%; z-index: 4; display: flex; align-items: end; gap: 10px; height: 190px; padding-inline: 16px; }
-        .tower { width: 34px; border: 5px solid var(--bright-orange); border-bottom-width: 10px; background: rgb(255 255 255 / .5); animation: tower-rise 900ms ease both; }
-        .tower-a { height: 96px; }
-        .tower-b { height: 146px; animation-delay: 120ms; }
-        .tower-c { height: 112px; animation-delay: 240ms; }
-        .tower-d { height: 78px; animation-delay: 360ms; }
-        .trust { padding-block: 40px; }
-        .trust-grid { grid-template-columns: repeat(4, 1fr); }
-        .trust-card { display: flex; align-items: center; gap: 12px; padding: 16px; font-weight: 800; }
-        .icon-badge { display: inline-grid; place-items: center; flex: 0 0 auto; width: 38px; height: 38px; border-radius: 8px; background: #f3f7f7; color: var(--soft-teal); font-size: 13px; font-weight: 950; }
-        .services-grid { grid-template-columns: repeat(3, 1fr); }
-        .service-card, .process-card, .reason-card, .article-card { padding: 20px; }
-        .service-card h3, .article-card h3, .project-card h3, .reason-card h3, .process-card h3 { margin: 18px 0 0; color: var(--deep-slate); font-size: 22px; line-height: 1.35; font-weight: 900; }
-        .service-card p, .article-card p, .project-card p, .reason-card p, .process-card p { margin: 12px 0 0; color: #526970; line-height: 1.85; }
-        .fit { display: block; margin-top: 16px; border-radius: 4px; background: var(--orange-50); padding: 10px 12px; color: #526970; font-size: 14px; font-weight: 800; line-height: 1.7; }
-        .card-actions { margin-top: 20px; }
-        .process-grid { grid-template-columns: repeat(4, 1fr); }
-        .process-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-        .process-number { color: var(--bright-orange); font-size: 14px; font-weight: 950; }
-        .why-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 32px; align-items: start; }
-        .reason-list { display: grid; gap: 16px; }
-        .reason-inner { display: flex; gap: 16px; align-items: flex-start; }
-        .reason-card h3 { margin-top: 0; }
-        .projects-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
-        .projects-grid, .articles-grid { grid-template-columns: repeat(3, 1fr); }
-        .project-card { overflow: hidden; }
-        .project-visual { aspect-ratio: 16 / 10; background: var(--light-mist); padding: 20px; }
-        .project-pattern { display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(3, 1fr); gap: 8px; height: 100%; }
-        .project-pattern span { border-radius: 4px; border: 1px solid #aec1c8; }
-        .project-pattern span:nth-child(1) { grid-column: span 2; grid-row: span 3; background: rgb(82 105 112 / .2); border: 0; }
-        .project-pattern span:nth-child(3) { grid-column: span 2; background: rgb(245 173 42 / .85); border: 0; }
-        .project-pattern span:nth-child(4) { background: var(--deep-slate); border: 0; }
-        .project-pattern span:nth-child(5) { grid-column: span 3; }
-        .project-content { padding: 20px; }
-        .meta { display: flex; flex-wrap: wrap; gap: 8px; color: #66818a; font-size: 14px; font-weight: 800; }
-        .assistant { background: var(--deep-slate); color: var(--white); }
-        .assistant-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px; align-items: start; }
-        .assistant h2 { color: var(--white); }
-        .assistant .section-copy { color: rgb(255 255 255 / .75); }
-        .assistant-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; border: 1px solid rgb(255 255 255 / .15); border-radius: 8px; background: var(--white); padding: 20px; color: var(--deep-slate); }
-        .field { display: grid; gap: 8px; font-size: 14px; font-weight: 800; }
-        .field input, .field select { height: 44px; width: 100%; border: 1px solid var(--slate-200); border-radius: 8px; background: var(--white); padding: 0 12px; color: var(--deep-slate); }
-        .form-submit { grid-column: 1 / -1; }
-        .form-submit .btn { width: 100%; }
-        .final-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 56px; }
-        .final-cta h2 { margin: 0; color: var(--deep-slate); font-size: clamp(28px, 4vw, 38px); font-weight: 950; line-height: 1.3; }
-        .final-cta p { margin: 12px 0 0; max-width: 680px; color: #526970; line-height: 1.9; }
-        .site-footer { background: var(--deep-slate); color: var(--white); }
-        .footer-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-        .footer-copy { margin: 0; color: rgb(255 255 255 / .75); font-size: 14px; }
-        .footer-links { display: flex; flex-wrap: wrap; gap: 12px; color: rgb(255 255 255 / .72); font-size: 14px; font-weight: 700; }
-        .footer-links a:hover { color: var(--white); }
-        @keyframes route-flow { to { stroke-dashoffset: -72; } }
-        @keyframes station-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes station-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
-        @keyframes tower-rise { from { opacity: 0; transform: scaleY(.2); transform-origin: bottom; } to { opacity: 1; transform: scaleY(1); transform-origin: bottom; } }
-        @keyframes orbit-drift { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(-16px, -12px, 0); } }
-        @media (min-width: 860px) { .hero-layout { grid-template-columns: 1.05fr .95fr; } }
-        @media (max-width: 1080px) { .nav-menu { display: none; } }
-        @media (max-width: 980px) { .trust-grid, .services-grid, .process-grid, .projects-grid, .articles-grid { grid-template-columns: repeat(2, 1fr); } .why-layout, .assistant-layout { grid-template-columns: 1fr; } .hero-visual { min-height: 500px; } }
-        @media (max-width: 680px) { .container { width: min(100% - 24px, 1180px); } .section { padding-block: 48px; } .header-inner { min-height: auto; padding-block: 12px; align-items: flex-start; flex-direction: column; } .brand-logo { height: 42px; min-width: 108px; } .header-actions { width: 100%; justify-content: space-between; } .hero-layout { padding-block: 44px; } .hero h1 { font-size: 38px; } .hero p { font-size: 17px; } .trust-grid, .services-grid, .process-grid, .projects-grid, .articles-grid, .assistant-form { grid-template-columns: 1fr; } .projects-head, .final-cta, .footer-inner { align-items: stretch; flex-direction: column; } .hero-visual { min-height: 420px; } .blueprint-card { right: 4%; width: 58%; } .tower-model { left: 2%; scale: .8; } .station { min-width: 88px; padding: 10px; } }
-        @media (prefers-reduced-motion: reduce) { .route-path, .station, .tower, .map-orbit, .btn { animation: none; transition: none; } }
-    </style>
-</head>
-<body>
-    <header class="site-header">
-        <div class="container header-inner">
-            <a class="brand-link" href="/" aria-label="شركة الديوان للاستشارات الهندسية">
-                <img class="brand-logo" src="/logo.png" alt="شركة الديوان للاستشارات الهندسية">
-                <span class="brand-slogan">ابنِ على وضوح</span>
-            </a>
-
-            <nav class="nav-menu" aria-label="التنقل الرئيسي">
-                @foreach ($navItems as $item)
-                    <a href="{{ $item['href'] }}">{{ $item['label'] }}</a>
-                @endforeach
-            </nav>
-
-            <div class="header-actions">
-                <a class="language-link" href="/en">English</a>
-                <a class="btn btn-primary" href="/request-service">اطلب خدمة</a>
-            </div>
+<section class="hero">
+    <div class="hero-grid-bg"></div><div class="hero-ring-a"></div><div class="hero-ring-b"></div>
+    <div class="container hero-layout">
+        <div class="hero-copy">
+            <span class="hero-eyebrow">استشارات هندسية في المدينة المنورة</span>
+            <h1>من الفكرة إلى رخصة البناء بوضوح</h1>
+            <p>حلول تصميم ورخص بناء تساعدك على فهم خطوات مشروعك، من دراسة الاحتياج حتى جاهزية المخططات، بما يراعي الكود السعودي وتكلفة التنفيذ.</p>
+            <div class="button-row hero-actions"><a class="btn btn-primary" href="/request-service">اطلب خدمة</a><a class="btn btn-outline" href="{{ $brand['whatsapp'] }}" target="_blank" rel="noopener">تحدث معنا عبر واتساب</a></div>
+            <div class="hero-steps">@foreach ($heroSteps as $step)<span>{{ $step }}</span>@endforeach</div>
         </div>
-    </header>
+        <div class="hero-visual" aria-hidden="true"><div class="permit-map"><div class="map-orbit map-orbit-one"></div><div class="map-orbit map-orbit-two"></div><svg class="route-line" viewBox="0 0 720 520" fill="none"><path class="route-shadow" d="M92 404 C180 270 214 116 346 184 C488 258 424 396 626 116" /><path class="route-path" d="M92 404 C180 270 214 116 346 184 C488 258 424 396 626 116" /></svg><div class="station station-one"><span>01</span><strong>الفكرة</strong></div><div class="station station-two"><span>02</span><strong>التصميم</strong></div><div class="station station-three"><span>03</span><strong>الرخصة</strong></div><div class="station station-four"><span>04</span><strong>التنفيذ</strong></div><div class="blueprint-card"><div class="blueprint-title"><span class="blueprint-title-mark">+</span><span>Permit route</span></div><div class="blueprint-plan"><span></span><span></span><span></span><span></span><span></span></div></div><div class="tower-model"><span class="tower tower-a"></span><span class="tower tower-b"></span><span class="tower tower-c"></span><span class="tower tower-d"></span></div></div></div>
+    </div>
+</section>
 
-    <main class="page">
-        <section class="hero">
-            <div class="hero-grid-bg"></div>
-            <div class="hero-ring-a"></div>
-            <div class="hero-ring-b"></div>
+<section class="trust"><div class="container grid four-grid">@foreach ($trustItems as $index => $item)<div class="card trust-card"><span class="icon-badge">{{ $index + 1 }}</span><span>{{ $item }}</span></div>@endforeach</div></section>
 
-            <div class="container hero-layout">
-                <div class="hero-copy">
-                    <span class="hero-eyebrow">استشارات هندسية في المدينة المنورة</span>
-                    <h1>من الفكرة إلى رخصة البناء بوضوح</h1>
-                    <p>حلول تصميم ورخص بناء تساعدك على فهم خطوات مشروعك، من دراسة الاحتياج حتى جاهزية المخططات، بما يراعي الكود السعودي وتكلفة التنفيذ.</p>
-                    <div class="button-row hero-actions">
-                        <a class="btn btn-primary" href="/request-service">اطلب خدمة</a>
-                        <a class="btn btn-outline" href="https://wa.me/" target="_blank" rel="noopener">تحدث معنا عبر واتساب</a>
-                    </div>
-                    <div class="hero-steps">
-                        @foreach ($heroSteps as $step)
-                            <span>{{ $step }}</span>
-                        @endforeach
-                    </div>
-                </div>
+<section class="section muted-section"><div class="container"><div class="section-head"><p class="eyebrow">الخدمات الرئيسية</p><h2 class="section-title">خدمات هندسية واضحة من أول قرار</h2><p class="section-copy">بطاقات مختصرة للخدمات الأساسية، مع مسار مباشر لمعرفة التفاصيل أو طلب الخدمة.</p></div><div class="grid three-grid">@foreach ($services as $service)<article class="card card-pad"><span class="icon-badge">{{ $service['number'] }}</span><h3>{{ $service['title'] }}</h3><p>{{ $service['summary'] }}</p><span class="fit">{{ $service['audience'] }}</span><div class="button-row" style="margin-top:20px"><a class="btn btn-light" href="/services/{{ $service['slug'] }}">معرفة المزيد</a><a class="btn btn-primary" href="/request-service?service={{ $service['slug'] }}">طلب الخدمة</a></div></article>@endforeach</div></div></section>
 
-                <div class="hero-visual" aria-hidden="true">
-                    <div class="permit-map">
-                        <div class="map-orbit map-orbit-one"></div>
-                        <div class="map-orbit map-orbit-two"></div>
-                        <svg class="route-line" viewBox="0 0 720 520" fill="none">
-                            <path class="route-shadow" d="M92 404 C180 270 214 116 346 184 C488 258 424 396 626 116" />
-                            <path class="route-path" d="M92 404 C180 270 214 116 346 184 C488 258 424 396 626 116" />
-                        </svg>
-                        <div class="station station-one"><span>01</span><strong>الفكرة</strong></div>
-                        <div class="station station-two"><span>02</span><strong>التصميم</strong></div>
-                        <div class="station station-three"><span>03</span><strong>الرخصة</strong></div>
-                        <div class="station station-four"><span>04</span><strong>التنفيذ</strong></div>
-                        <div class="blueprint-card">
-                            <div class="blueprint-title"><span class="blueprint-title-mark">+</span><span>Permit route</span></div>
-                            <div class="blueprint-plan"><span></span><span></span><span></span><span></span><span></span></div>
-                        </div>
-                        <div class="tower-model"><span class="tower tower-a"></span><span class="tower tower-b"></span><span class="tower tower-c"></span><span class="tower tower-d"></span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section class="section"><div class="container"><div class="section-head"><p class="eyebrow">كيف نعمل؟</p><h2 class="section-title">خطوات منظمة من دراسة الاحتياج إلى الرخصة</h2></div><div class="grid four-grid">@foreach (['فهم الاحتياج' => 'نحدد نوع المشروع والمساحة والمدينة وطبيعة القرار المطلوب.', 'تطوير التصميم' => 'نحوّل الاحتياج إلى حل هندسي عملي قابل للمراجعة والتنفيذ.', 'تجهيز المتطلبات' => 'نرتب المستندات والمعلومات المطلوبة قبل الرفع أو المتابعة.', 'المتابعة والتوضيح' => 'نبقي المسار واضحاً ونراجع التفاصيل مع العميل خطوة بخطوة.'] as $title => $copy)<article class="card card-pad"><span class="icon-badge">{{ $loop->iteration }}</span><h3>{{ $title }}</h3><p>{{ $copy }}</p></article>@endforeach</div></div></section>
 
-        <section class="trust">
-            <div class="container grid trust-grid">
-                @foreach ($trustItems as $item)
-                    <div class="card trust-card"><span class="icon-badge">{{ $item['icon'] }}</span><span>{{ $item['title'] }}</span></div>
-                @endforeach
-            </div>
-        </section>
+<section class="section warm-section"><div class="container two-col"><div><p class="eyebrow">لماذا الديوان؟</p><h2 class="section-title">مستشار هندسي يشرح القرار لا يبيع الخدمة فقط</h2><p class="section-copy">نساعد العميل على فهم المتطلبات والخطوات قبل بدء التصميم، بلغة واضحة وسياق محلي يراعي الكود السعودي وتكلفة التنفيذ.</p></div><div class="grid">@foreach (['توضيح المتطلبات قبل التصميم', 'سياق سعودي ومحلي', 'طلب خدمة جاهز للمراجعة'] as $item)<article class="card card-pad"><span class="icon-badge">✓</span><h3>{{ $item }}</h3><p>نقلل الغموض حول المستندات والخطوات حتى يبدأ المشروع على أساس مفهوم وقابل للمراجعة.</p></article>@endforeach</div></div></section>
 
-        <section class="section muted-section">
-            <div class="container">
-                <div class="section-head"><p class="eyebrow">الخدمات الرئيسية</p><h2 class="section-title">خدمات هندسية واضحة من أول قرار</h2><p class="section-copy">بطاقات مختصرة للخدمات الأساسية المطلوبة في المرحلة الأولى حسب المستندات، مع مسار مباشر لمعرفة التفاصيل أو طلب الخدمة.</p></div>
-                <div class="grid services-grid">
-                    @foreach ($services as $service)
-                        <article class="card service-card"><span class="icon-badge">{{ $service['icon'] }}</span><h3>{{ $service['title'] }}</h3><p>{{ $service['description'] }}</p><span class="fit">{{ $service['fit'] }}</span><div class="button-row card-actions"><a class="btn btn-light" href="/services">معرفة المزيد</a><a class="btn btn-primary" href="/request-service">طلب الخدمة</a></div></article>
-                    @endforeach
-                </div>
-            </div>
-        </section>
+<section class="section"><div class="container"><div class="section-head"><p class="eyebrow">مشاريع مختارة</p><h2 class="section-title">نماذج أعمال قابلة للتصنيف حسب الخدمة</h2></div><div class="grid three-grid">@foreach ($projects as $project)<article class="card" style="overflow:hidden"><div class="project-visual"><div class="project-pattern"><span></span><span></span><span></span><span></span><span></span></div></div><div class="card-pad"><div class="meta"><span>{{ $project['service'] }}</span><span>{{ $project['city'] }}</span></div><h3>{{ $project['title'] }}</h3><p>{{ $project['summary'] }}</p></div></article>@endforeach</div><div class="button-row" style="margin-top:24px"><a class="btn btn-light" href="/projects">كل المشاريع</a></div></div></section>
 
-        <section class="section">
-            <div class="container">
-                <div class="section-head"><p class="eyebrow">كيف نعمل؟</p><h2 class="section-title">خطوات منظمة من دراسة الاحتياج إلى الرخصة</h2></div>
-                <div class="grid process-grid">
-                    @foreach ($processSteps as $index => $step)
-                        <article class="card process-card"><div class="process-top"><span class="process-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span><span class="icon-badge">{{ $index + 1 }}</span></div><h3>{{ $step['title'] }}</h3><p>{{ $step['description'] }}</p></article>
-                    @endforeach
-                </div>
-            </div>
-        </section>
+<section class="section dark-section"><div class="container assistant-layout"><div><p class="eyebrow">مساعد اختيار الخدمة</p><h2 class="section-title">غير متأكد من الخدمة المناسبة؟</h2><p class="section-copy">ابدأ بإدخال نوع العميل والخدمة والمدينة، وسنحوّل الطلب إلى ملخص واضح للفريق الداخلي.</p></div><form class="form-card form-grid" action="/request-service" method="GET"><label class="field">نوع العميل<select name="client_type"><option>مالك أرض أو عقار</option><option>مطور عقاري</option><option>مقاول</option></select></label><label class="field">نوع الخدمة<select name="service">@foreach ($services as $service)<option value="{{ $service['slug'] }}">{{ $service['title'] }}</option>@endforeach</select></label><label class="field">المدينة<input name="city" placeholder="مثال: المدينة المنورة"></label><label class="field">رقم الجوال<input name="phone" placeholder="05xxxxxxxx"></label><div class="span-2"><button class="btn btn-primary" type="submit" style="width:100%">انتقل إلى طلب الخدمة</button></div></form></div></section>
 
-        <section class="section">
-            <div class="container why-layout">
-                <div><p class="eyebrow">لماذا الديوان؟</p><h2 class="section-title">مستشار هندسي يشرح القرار لا يبيع الخدمة فقط</h2><p class="section-copy">الواجهة والمحتوى يجب أن يعكسا خبرة منظمة تساعد العميل على الفهم قبل التواصل، وهذا ما بنيت عليه الصفحة.</p></div>
-                <div class="reason-list">
-                    @foreach ($reasons as $reason)
-                        <article class="card reason-card"><div class="reason-inner"><span class="icon-badge">✓</span><div><h3>{{ $reason['title'] }}</h3><p>{{ $reason['description'] }}</p></div></div></article>
-                    @endforeach
-                </div>
-            </div>
-        </section>
+<section class="section"><div class="container"><div class="section-head"><p class="eyebrow">المعرفة الهندسية</p><h2 class="section-title">مقالات تساعد العميل قبل التواصل</h2></div><div class="grid three-grid">@foreach ($articles as $article)<article class="card card-pad"><span class="icon-badge">i</span><h3>{{ $article['title'] }}</h3><p>{{ $article['excerpt'] }}</p><div class="button-row" style="margin-top:18px"><a class="btn btn-light" href="/knowledge/{{ $article['slug'] }}">اقرأ المقال</a></div></article>@endforeach</div></div></section>
 
-        <section class="section">
-            <div class="container">
-                <div class="projects-head"><div><p class="eyebrow">مشاريع مختارة</p><h2 class="section-title">نماذج أعمال قابلة للتصنيف حسب الخدمة</h2></div><a class="btn btn-light" href="/projects">كل المشاريع</a></div>
-                <div class="grid projects-grid">
-                    @foreach ($projects as $project)
-                        <article class="card project-card"><div class="project-visual"><div class="project-pattern"><span></span><span></span><span></span><span></span><span></span></div></div><div class="project-content"><div class="meta"><span>{{ $project['service'] }}</span><span>{{ $project['city'] }}</span></div><h3>{{ $project['title'] }}</h3><p>{{ $project['description'] }}</p></div></article>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-
-        <section class="section assistant">
-            <div class="container assistant-layout">
-                <div><p class="eyebrow">مساعد اختيار الخدمة</p><h2 class="section-title">غير متأكد من الخدمة المناسبة؟</h2><p class="section-copy">ابدأ بإدخال نوع العميل والخدمة والمدينة، وسنحوّل الطلب إلى ملخص واضح للفريق الداخلي.</p></div>
-                <form class="assistant-form" action="/request-service" method="GET">
-                    <label class="field">نوع العميل<select name="client_type"><option>مالك أرض أو عقار</option><option>مطور عقاري</option><option>مقاول</option></select></label>
-                    <label class="field">نوع الخدمة<select name="service"><option>التصميم وإصدار التراخيص</option><option>الإشراف الهندسي</option><option>الأمن والسلامة والدفاع المدني</option><option>خدمات المساحة</option></select></label>
-                    <label class="field">المدينة<input name="city" placeholder="مثال: المدينة المنورة"></label>
-                    <label class="field">رقم الجوال<input name="phone" placeholder="05xxxxxxxx"></label>
-                    <div class="form-submit"><button class="btn btn-primary" type="submit">انتقل إلى طلب الخدمة</button></div>
-                </form>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="container">
-                <div class="section-head"><p class="eyebrow">المعرفة الهندسية</p><h2 class="section-title">مقالات تساعد العميل قبل التواصل</h2></div>
-                <div class="grid articles-grid">
-                    @foreach ($articles as $article)
-                        <article class="card article-card"><span class="icon-badge">i</span><h3>{{ $article['title'] }}</h3><p>{{ $article['description'] }}</p></article>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-
-        <section><div class="container final-cta"><div><h2>ابدأ مشروعك على أساس هندسي موثوق</h2><p>اطلب الخدمة وسنراجع التفاصيل معك بوضوح قبل الانتقال للخطوة التالية.</p></div><a class="btn btn-primary" href="/request-service">اطلب خدمة</a></div></section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <p class="footer-copy">شركة الديوان للاستشارات الهندسية &copy; {{ $year }}</p>
-            <nav class="footer-links" aria-label="روابط الفوتر">
-                <a href="/services">الخدمات</a>
-                <a href="/projects">المشاريع</a>
-                <a href="/contact">تواصل معنا</a>
-            </nav>
-        </div>
-    </footer>
-</body>
-</html>
+<section><div class="container" style="padding-block:56px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap"><div><h2 class="section-title">ابدأ مشروعك على أساس هندسي موثوق</h2><p class="section-copy">اطلب الخدمة وسنراجع التفاصيل معك بوضوح قبل الانتقال للخطوة التالية.</p></div><a class="btn btn-primary" href="/request-service">اطلب خدمة</a></div></section>
+@endsection

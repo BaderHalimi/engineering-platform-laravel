@@ -1,0 +1,7 @@
+@extends('layouts.visitor')
+@section('title', 'الشروط والأحكام | شركة الديوان للاستشارات الهندسية')
+@section('description', 'شروط وأحكام مبدئية لاستخدام موقع شركة الديوان للاستشارات الهندسية.')
+@section('content')
+<section class="page-hero"><div class="container"><p class="eyebrow">الشروط والأحكام</p><h1>شروط استخدام الموقع والخدمات الرقمية</h1><p>هذه صفحة مبدئية تحتاج مراجعة قانونية قبل الإطلاق الرسمي.</p></div></section>
+<section class="section"><div class="container"><div class="grid"><article class="card card-pad"><h3>طبيعة المحتوى</h3><p>المحتوى المنشور في الموقع تعريفي وتثقيفي، ولا يمثل حكماً هندسياً نهائياً على أي مشروع دون مراجعة التفاصيل والمستندات.</p></article><article class="card card-pad"><h3>طلبات الخدمة</h3><p>إرسال نموذج طلب خدمة لا يعني قبول المشروع أو تحديد تكلفة نهائية، بل يمثل بداية مراجعة أولية من الفريق.</p></article><article class="card card-pad"><h3>دقة البيانات</h3><p>يتحمل المستخدم مسؤولية تقديم بيانات صحيحة ومحدثة حتى يتمكن الفريق من مراجعة الطلب والتواصل بوضوح.</p></article><article class="card card-pad"><h3>التعديلات</h3><p>يمكن تحديث هذه الشروط عند إضافة بوابة العملاء أو لوحة التحكم أو أي خدمات رقمية جديدة.</p></article></div></div></section>
+@endsection

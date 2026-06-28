@@ -1,0 +1,10 @@
+@extends('layouts.visitor')
+@section('title', $service['title'] . ' | شركة الديوان للاستشارات الهندسية')
+@section('description', $service['summary'])
+@section('content')
+<section class="page-hero"><div class="container"><p class="eyebrow">خدمة هندسية</p><h1>{{ $service['title'] }}</h1><p>{{ $service['description'] }}</p><div class="button-row" style="margin-top:28px"><a class="btn btn-primary" href="/request-service?service={{ $service['slug'] }}">اطلب الخدمة</a><a class="btn btn-outline" href="/contact">تواصل معنا</a></div></div></section>
+<section class="section"><div class="container two-col"><div><p class="eyebrow">لمن تناسب؟</p><h2 class="section-title">{{ $service['audience'] }}</h2><p class="section-copy">نراجع تفاصيل المشروع ونوضح لك ما يمكن تنفيذه وما يحتاج إلى بيانات إضافية قبل بدء العمل.</p></div><div class="visual-panel"></div></div></section>
+<section class="section muted-section"><div class="container"><div class="grid three-grid"><article class="card card-pad"><span class="icon-badge">ش</span><h3>ماذا تشمل؟</h3>@foreach ($service['includes'] as $item)<p>• {{ $item }}</p>@endforeach</article><article class="card card-pad"><span class="icon-badge">خ</span><h3>خطوات التنفيذ</h3>@foreach ($service['steps'] as $item)<p>• {{ $item }}</p>@endforeach</article><article class="card card-pad"><span class="icon-badge">م</span><h3>المستندات المطلوبة</h3>@foreach ($service['documents'] as $item)<p>• {{ $item }}</p>@endforeach</article></div></div></section>
+<section class="section"><div class="container"><div class="section-head"><p class="eyebrow">مزايا العمل معنا</p><h2 class="section-title">وضوح هندسي قبل الانتقال للخطوة التالية</h2></div><div class="grid four-grid">@foreach ($service['benefits'] as $item)<article class="card card-pad"><span class="icon-badge">✓</span><h3>{{ $item }}</h3></article>@endforeach</div></div></section>
+@include('partials.final-cta')
+@endsection
