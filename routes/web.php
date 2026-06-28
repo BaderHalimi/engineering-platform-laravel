@@ -14,7 +14,7 @@ function site_item_by_slug(array $items, string $slug): ?array
 }
 
 Route::get('/', fn () => view('welcome'));
-Route::get('/en', fn () => view('pages.en'));
+Route::get('/en', fn () => view('welcome'));
 Route::get('/about', fn () => view('pages.about'));
 Route::get('/services', fn () => view('pages.services'));
 Route::get('/services/{slug}', function (string $slug) {
