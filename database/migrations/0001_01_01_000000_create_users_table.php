@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->enum('role', [
                 'admin',
-                'staff',
                 'user',
+                'customer',
             ])->default('user');
 
             $table->string('profile_image')->nullable();
