@@ -18,7 +18,7 @@ class UserForm
                 TextInput::make('name')
                     ->required(),
                 Select::make('role')
-                    ->options(['admin' => 'Admin', 'staff' => 'Staff', 'user' => 'User'])
+                    ->options(['admin' => 'admin', 'user' => 'user', 'customer' => 'customer'])
                     ->default('user')
                     ->required(),
                 FileUpload::make('profile_image')
@@ -31,9 +31,8 @@ class UserForm
                 TextInput::make('password')
                     ->password()
                     ->required(),
-                Textarea::make('meta')
-                    ->default(null)
-                    ->columnSpanFull(),
+
             ]);
+            
     }
 }

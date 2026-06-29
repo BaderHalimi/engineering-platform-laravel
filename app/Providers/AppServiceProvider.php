@@ -22,12 +22,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-public function boot(): void
-{
-    FilamentView::registerRenderHook(
-        PanelsRenderHook::HEAD_END,
-        fn (): HtmlString => new HtmlString('<style>' . file_get_contents(resource_path('css/filament/admin/services-request.css')) . '</style>'),
-        scopes: static::class,
-    );
-}
+    public function boot(): void
+    {
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::HEAD_END,
+            fn (): HtmlString => new HtmlString('<style>' . file_get_contents(resource_path('css/filament/admin/services-request.css')) . '</style>'),
+            scopes: static::class,
+        );
+    }
 }

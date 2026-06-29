@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\User\Resources\ArticleCategories\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Tables\Filters\SelectFilter;
 
-class UsersTable
+class ArticleCategoriesTable
 {
     public static function configure(Table $table): Table
     {
@@ -18,14 +18,15 @@ class UsersTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('role')
-                    ->badge(),
-                ImageColumn::make('profile_image'),
-                TextColumn::make('email')
-                    ->label('Email address')
+                TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
+                TextColumn::make('icon')
+                    ->searchable(),
+                ImageColumn::make('image'),
+                IconColumn::make('is_active')
+                    ->boolean(),
+                TextColumn::make('sort_order')
+                    ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -36,14 +37,9 @@ class UsersTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-        ->filters([
-            SelectFilter::make('role')
-                ->options([
-                    'admin' => 'Admin',
-                    'user' => 'User',
-                    'customer' => 'Customer',
-                ]),
-        ])
+            ->filters([
+                //
+            ])
             ->recordActions([
                 EditAction::make(),
             ])

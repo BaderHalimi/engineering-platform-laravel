@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckSiteMaintenance;
+
+Route::middleware(CheckSiteMaintenance::class)->group(function () {
 
 function site_item_by_slug(array $items, string $slug): ?array
 {
@@ -47,3 +50,4 @@ Route::get('/lang/{locale}', function ($locale) {
 
     return back();
 })->name('set-locale');
+});

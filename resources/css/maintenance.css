@@ -1,0 +1,148 @@
+/* الخط لازم يكون أول شي */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
+/* تيلويند v4 */
+@import 'tailwindcss';
+
+/* ========== الألوان والخطوط (الإعداد الجديد) ========== */
+@theme {
+    --color-brand-orange: #f5ad2a;
+    --color-brand-teal:   #526970;
+    --color-brand-mist:   #eef2f3;
+    --color-brand-ivory:  #f8f4ec;
+    --color-brand-slate:  #3d5057;
+
+    --font-arabic: 'Tajawal', sans-serif;
+}
+
+/* حدد لمين يقرأ تيلويند */
+@source "../../resources/views";
+
+/* ========== الأساسيات ========== */
+body {
+    font-family: var(--font-arabic);
+    background: linear-gradient(135deg, #f8f4ec 0%, #eef2f3 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #3d5057;
+}
+
+/* ========== الأشكال العائمة بالخلفية ========== */
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(2px);
+    animation: float 8s ease-in-out infinite;
+}
+
+.floating-shape.shape-1 {
+    width: 300px; height: 300px;
+    background: #f5ad2a;
+    top: -100px; right: -100px;
+    animation-delay: 0s;
+}
+
+.floating-shape.shape-2 {
+    width: 200px; height: 200px;
+    background: #526970;
+    bottom: -50px; left: -50px;
+    animation-delay: 2s;
+}
+
+.floating-shape.shape-3 {
+    width: 150px; height: 150px;
+    background: #f5ad2a;
+    top: 40%; left: 10%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+    33%      { transform: translateY(-30px) translateX(20px) scale(1.05); }
+    66%      { transform: translateY(20px) translateX(-20px) scale(0.95); }
+}
+
+/* ========== النقطة النابضة ========== */
+.pulse-dot { position: relative; }
+.pulse-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #f5ad2a;
+    animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring {
+    0%   { transform: scale(1);   opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0;   }
+}
+
+/* ========== الخوذة المتمايلة ========== */
+.cone-wobble {
+    animation: wobble 3s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+@keyframes wobble {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+}
+
+/* ========== الترس الدوّار ========== */
+.gear-spin            { animation: spin 6s linear infinite;        transform-origin: center; }
+.gear-spin-reverse    { animation: spin 8s linear infinite reverse; transform-origin: center; }
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ========== انيميشن الظهور ========== */
+.slide-up { animation: slideUp 0.8s ease-out backwards; }
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== شريط التقدم المتلألئ ========== */
+.progress-shimmer { position: relative; overflow: hidden; }
+.progress-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+@keyframes shimmer {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-200%); }
+}
+
+/* ========== أيقونات التواصل ========== */
+.social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.social-link:hover {
+    transform: translateY(-4px) scale(1.1);
+    background-color: #f5ad2a !important;
+    border-color: #f5ad2a !important;
+}
+
+/* ========== فاصل النقاط المتحركة ========== */
+.moving-dots {
+    background-image: radial-gradient(circle, #f5ad2a 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: dots-move 20s linear infinite;
+}
+@keyframes dots-move {
+    from { background-position: 0 0; }
+    to   { background-position: 200px 200px; }
+}
+
+/* ========== تأخيرات الأنيميشن ========== */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
