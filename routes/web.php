@@ -36,3 +36,14 @@ Route::get('/request-service', fn () => view('pages.request-service'));
 Route::get('/contact', fn () => view('pages.contact'));
 Route::get('/privacy', fn () => view('pages.privacy'));
 Route::get('/terms', fn () => view('pages.terms'));
+
+Route::get('/lang/{locale}', function ($locale) {
+
+    if (!in_array($locale, ['ar', 'en'])) {
+        abort(404);
+    }
+
+    session(['locale' => $locale]);
+
+    return back();
+})->name('set-locale');
