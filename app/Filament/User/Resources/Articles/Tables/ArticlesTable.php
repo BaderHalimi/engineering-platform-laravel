@@ -92,11 +92,16 @@ class ArticlesTable
                     ->preload(),
 
                 // 2. فلتر حسب المستخدم (User / الكاتب)
-                SelectFilter::make('user_id')
-                    ->label('تصفية حسب الكاتب')
-                    ->relationship('user', 'name')
-                    ->searchable()
-                    ->preload(),
+SelectFilter::make('user_id')
+    ->label('تصفية حسب الكاتب')
+    ->relationship(
+        name: 'user',
+        titleAttribute: 'name',
+        // هنا نقوم بفلترة الأسماء التي تظهر في القائمة المنسدلة للفلتر
+        modifyQueryUsing: fn (Builder $query) => $query->whereIn('role', ['admin', 'user'])
+    )
+    ->searchable()
+    ->preload(),
 
                 // 3. فلتر متقدم حسب الوقت والتاريخ لزمن النشر
                 Filter::make('published_at')
