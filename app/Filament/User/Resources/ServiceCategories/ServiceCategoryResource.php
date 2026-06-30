@@ -47,6 +47,11 @@ class ServiceCategoryResource extends Resource
     {
         return 'heroicon-o-tag';
     }
+        public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.services');
+    }
+
     public static function getPages(): array
     {
         return [

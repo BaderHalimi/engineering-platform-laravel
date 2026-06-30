@@ -18,7 +18,7 @@ class ArticleCategoryResource extends Resource
 {
     protected static ?string $model = ArticleCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -38,7 +38,25 @@ class ArticleCategoryResource extends Resource
             //
         ];
     }
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.article_categories');
+    }
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.content');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.article_category');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.article_categories');
+    }
     public static function getPages(): array
     {
         return [

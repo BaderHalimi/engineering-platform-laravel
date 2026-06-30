@@ -74,4 +74,29 @@ return [
         'seconds' => 'seconds',
     ],
 
+        'thumbnail' => 'Thumbnail',
+    'title' => 'Title',
+    'publisher' => 'Publisher',
+    'duration' => 'Duration',
+    'views' => 'Views',
+    'likes' => 'Likes',
+    'comments' => 'Comments',
+    'language' => 'Language',
+    'visibility' => 'Visibility',
+
+    'published' => 'Published',
+    'featured' => 'Featured',
+    'allow_comments' => 'Allow Comments',
+
+    'published_at' => 'Published At',
+    'created_at' => 'Created At',
+
+    'public' => 'Public',
+    'private' => 'Private',
+    'unlisted' => 'Unlisted',
+
+    'has_thumbnail' => 'Has Thumbnail',
+    'has_seo' => 'Has SEO',
+    'album_video' => 'Video Album',
+    'album_videos' => 'Video Albums',
 ];

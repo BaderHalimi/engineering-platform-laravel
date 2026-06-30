@@ -20,7 +20,7 @@ class ServicesRequestResource extends Resource
 {
     protected static ?string $model = ServicesRequest::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -45,7 +45,25 @@ class ServicesRequestResource extends Resource
             //
         ];
     }
+public static function getNavigationGroup(): ?string
+{
+    return __('navigation.services');
+}
 
+public static function getNavigationLabel(): string
+{
+    return __('navigation.service_requests');
+}
+
+public static function getModelLabel(): string
+{
+    return __('navigation.service_request');
+}
+
+public static function getPluralModelLabel(): string
+{
+    return __('navigation.service_requests');
+}
     public static function getPages(): array
     {
         return [

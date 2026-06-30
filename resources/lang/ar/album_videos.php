@@ -74,4 +74,27 @@ return [
         'seconds' => 'ثانية',
     ],
 
+      'thumbnail' => 'الصورة المصغرة',
+    'title' => 'العنوان',
+    'publisher' => 'الناشر',
+    'views' => 'المشاهدات',
+    'likes' => 'الإعجابات',
+    'comments' => 'التعليقات',
+
+
+    'published' => 'منشور',
+    'featured' => 'مميز',
+    'allow_comments' => 'السماح بالتعليقات',
+
+    'published_at' => 'تاريخ النشر',
+    'created_at' => 'تاريخ الإنشاء',
+
+    'public' => 'عام',
+    'private' => 'خاص',
+    'unlisted' => 'غير مدرج',
+
+    'has_thumbnail' => 'يحتوي على صورة مصغرة',
+    'has_seo' => 'يحتوي على بيانات SEO',
+    'album_video' => 'ألبوم فيديو',
+    'album_videos' => 'ألبومات الفيديو',
 ];

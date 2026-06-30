@@ -20,7 +20,7 @@ class FeedbackResource extends Resource
 {
     protected static ?string $model = Feedback::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -45,7 +45,25 @@ class FeedbackResource extends Resource
             //
         ];
     }
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.help_support');
+    }
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.feedback');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.feedback_item');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.feedback');
+    }
     public static function getPages(): array
     {
         return [

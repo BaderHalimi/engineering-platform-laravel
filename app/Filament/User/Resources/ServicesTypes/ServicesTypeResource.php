@@ -18,7 +18,7 @@ class ServicesTypeResource extends Resource
 {
     protected static ?string $model = ServicesType::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -40,13 +40,29 @@ class ServicesTypeResource extends Resource
     }
 
 
-    public static function getNavigationLabel(): string
-    {
-        return __('navigation.services');
-    }
     public static function getNavigationIcon(): string
     {
         return 'heroicon-o-briefcase';
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.services');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.services_list');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.service');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.services_list');
     }
     public static function getPages(): array
     {

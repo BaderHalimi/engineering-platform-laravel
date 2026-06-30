@@ -20,7 +20,7 @@ class ArticleResource extends Resource
 {
     protected static ?string $model = Article::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -40,7 +40,24 @@ class ArticleResource extends Resource
             //
         ];
     }
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.content');
+    }
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.articles');
+    }
 
+    public static function getModelLabel(): string
+    {
+        return __('navigation.article');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.articles');
+    }
     public static function getPages(): array
     {
         return [
@@ -49,6 +66,7 @@ class ArticleResource extends Resource
             'edit' => EditArticle::route('/{record}/edit'),
         ];
     }
+
 
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {

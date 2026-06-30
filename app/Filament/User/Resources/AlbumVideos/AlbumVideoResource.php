@@ -22,8 +22,7 @@ class AlbumVideoResource extends Resource
 {
     protected static ?string $model = AlbumVideo::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedVideoCamera;
     protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Schema $schema): Schema
@@ -57,7 +56,23 @@ class AlbumVideoResource extends Resource
             'edit' => EditAlbumVideo::route('/{record}/edit'),
         ];
     }
+    public static function getNavigationLabel(): string
+    {
+        return __('album_videos.album_videos');
+    }
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.content');
+    }
+    public static function getModelLabel(): string
+    {
+        return __('album_videos.album_video');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('album_videos.album_videos');
+    }
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()
