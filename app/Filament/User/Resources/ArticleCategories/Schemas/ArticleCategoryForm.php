@@ -24,6 +24,7 @@ class ArticleCategoryForm
                 TextInput::make('icon')
                     ->default(null),
                 FileUpload::make('image')
+                ->disk('public')
                     ->image(),
                 Toggle::make('is_active')
                     ->required(),

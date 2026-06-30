@@ -57,11 +57,13 @@ return $schema
 
         FileUpload::make('thumbnail')
             ->label(__('services.thumbnail'))
+            ->disk('public')
             ->image()
             ->directory('services')
             ->helperText(__('services.thumbnail_hint')),
 
         FileUpload::make('icon')
+        ->disk('public')
             ->label(__('services.icon'))
             ->image()
             ->directory('services/icons')
@@ -143,6 +145,7 @@ return $schema
             ->collapsible(),
 
         FileUpload::make('gallery')
+        ->disk('public')
             ->label(__('services.gallery'))
             ->multiple()
             ->image()

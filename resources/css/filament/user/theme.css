@@ -135,3 +135,15 @@
     --mist:  #222a2e;
 }
 
+
+.fi-tabs-tab[aria-selected="true"] {
+    border-bottom: 2px solid rgb(var(--primary-600));
+    font-weight: 600;
+}
+
+.fi-section-soft {
+    transition: box-shadow .2s ease;
+}
+.fi-section-soft:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,.06);
+}

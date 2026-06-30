@@ -45,6 +45,7 @@ class ArticleForm
 
                         FileUpload::make('thumbnail')
                             ->image()
+                            ->disk('public')
                             ->directory('articles/thumbnails'),
 
                         RichEditor::make('content')
@@ -58,6 +59,7 @@ class ArticleForm
 
                         FileUpload::make('attachments')
                             ->multiple()
+                            ->disk('public')
                             ->directory('articles/files')
                             ->columnSpanFull(),
 
@@ -101,6 +103,7 @@ class ArticleForm
                                 TextInput::make('canonical_url')
                                     ->url(),
                                 FileUpload::make('og_image')
+                                ->disk('public')
                                     ->image()
                                     ->directory('articles/seo'),
                             ]),

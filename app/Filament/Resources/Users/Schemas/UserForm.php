@@ -22,6 +22,7 @@ class UserForm
                     ->default('user')
                     ->required(),
                 FileUpload::make('profile_image')
+                ->disk('public')
                     ->image(),
                 TextInput::make('email')
                     ->label('Email address')
@@ -33,6 +34,6 @@ class UserForm
                     ->required(),
 
             ]);
-            
+
     }
 }
