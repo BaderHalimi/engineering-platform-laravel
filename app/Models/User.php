@@ -63,4 +63,8 @@ class User extends Authenticatable implements FilamentUser
 
         return true;
     }
+    public function readFeedback()
+    {
+        return $this->hasMany(Feedback::class, 'read_by');
+    }
 }
