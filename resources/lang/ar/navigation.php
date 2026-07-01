@@ -40,4 +40,7 @@ return [
 
     'feedback' => 'آراء المستخدمين',
     'feedback_item' => 'رأي مستخدم',
+        'content'       => 'المحتوى',
+    'album_images'  => 'ألبوم الصور',
+    'album_image'   => 'صورة',
 ];

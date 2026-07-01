@@ -32,4 +32,8 @@ return [
 
     'feedback' => 'Feedback',
     'feedback_item' => 'Feedback',
+    'content'       => 'Content',
+    'album_images'  => 'Album Images',
+    'album_image'   => 'Image',
+
 ];
