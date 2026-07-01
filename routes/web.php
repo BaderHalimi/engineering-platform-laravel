@@ -50,4 +50,14 @@ Route::get('/lang/{locale}', function ($locale) {
 
     return back();
 })->name('set-locale');
+
+
+
+
+Route::middleware(['auth','verified.email',])->group(function () { require __DIR__.'/customer.php'; }); //protected
+
+require __DIR__ . '/auth.php';
 });
+
+
+
