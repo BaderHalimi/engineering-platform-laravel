@@ -1,4 +1,3 @@
-{{-- resources/views/filament/pages/settings.blade.php --}}
 
 <x-filament-panels::page>
 
@@ -129,7 +128,7 @@
 
                 <div class="flex items-center gap-4 p-4 rounded-xl border border-dashed border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
 
-                    {{-- الصورة الحالية — ✅ الإصلاح هنا --}}
+                    {{-- الصورة الحالية --}}
                     @if ($current_logo_path)
                         <div class="relative group">
                             <img
@@ -215,6 +214,235 @@
 
         </form>
     </div>
+
+    {{-- ===== بطاقة المحتوى النصي ===== --}}
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center">
+                <svg class="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+            </div>
+            <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">المحتوى النصي</h2>
+        </div>
+
+        <form wire:submit="saveContentSettings" class="p-6 space-y-5">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        الإشعار العلوي
+                    </label>
+                    <input
+                        type="text"
+                        wire:model="top_notice"
+                        placeholder="مكتب هندسي معتمد — خبرة تفوق 12 عاماً"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                    />
+                    @error('top_notice')
+                        <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        ساعات العمل
+                    </label>
+                    <input
+                        type="text"
+                        wire:model="working_hours"
+                        placeholder="السبت - الخميس، 9 صباحاً - 6 مساءً"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                    />
+                    @error('working_hours')
+                        <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    الشروط والأحكام
+                </label>
+                <textarea
+                    wire:model="terms_and_conditions"
+                    rows="5"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                ></textarea>
+                @error('terms_and_conditions')
+                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    سياسة الخصوصية
+                </label>
+                <textarea
+                    wire:model="privacy_policy"
+                    rows="5"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                ></textarea>
+                @error('privacy_policy')
+                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    روابط CDN / CSS / JS المضمّنة
+                </label>
+                <p class="text-xs text-gray-400 mb-1">الصق أكواد الـ CSS/JS أو روابط CDN التي تريد تضمينها بالموقع</p>
+                <textarea
+                    wire:model="included_cdn"
+                    rows="5"
+                    dir="ltr"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                ></textarea>
+                @error('included_cdn')
+                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="pt-1">
+                <button
+                    type="submit"
+                    wire:loading.attr="disabled"
+                    wire:target="saveContentSettings"
+                    class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm shadow-primary-200 dark:shadow-none"
+                >
+                    <span wire:loading.remove wire:target="saveContentSettings">حفظ المحتوى</span>
+                    <span wire:loading wire:target="saveContentSettings" class="flex items-center gap-2">
+                        <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        </svg>
+                        جاري الحفظ...
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    @php
+        $jsonCards = [
+            'why_aldiwan' => ['title' => 'لماذا الديوان', 'fields' => ['icon' => 'أيقونة', 'title' => 'العنوان', 'description' => 'الوصف']],
+            'work_steps' => ['title' => 'خطوات العمل', 'fields' => ['step' => 'رقم الخطوة', 'icon' => 'أيقونة', 'title' => 'العنوان', 'description' => 'الوصف']],
+            'about_us' => ['title' => 'من نحن', 'fields' => ['title' => 'العنوان', 'description' => 'الوصف']],
+            'marquee' => ['title' => 'الشريط المتحرك', 'fields' => ['icon' => 'أيقونة', 'title' => 'العنوان', 'description' => 'الوصف']],
+            'social_links' => ['title' => 'روابط التواصل الاجتماعي', 'fields' => ['icon' => 'أيقونة', 'name' => 'الاسم', 'url' => 'الرابط']],
+        ];
+    @endphp
+
+    @foreach ($jsonCards as $collection => $card)
+    {{-- ===== بطاقة {{ $card['title'] }} ===== --}}
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18m6-18v18M3 9h18M3 15h18"/>
+                    </svg>
+                </div>
+                <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">{{ $card['title'] }}</h2>
+            </div>
+            <button
+                type="button"
+                wire:click="addJsonItem('{{ $collection }}')"
+                class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 px-3 py-2 rounded-xl text-sm font-semibold transition"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                إضافة عنصر
+            </button>
+        </div>
+
+        <div class="p-6 space-y-4">
+
+            @forelse ($this->{$collection} as $index => $item)
+                <div wire:key="{{ $collection }}-{{ $index }}" class="p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 space-y-3">
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-gray-400">عنصر #{{ $index + 1 }}</span>
+                        <div class="flex items-center gap-1">
+                            <button type="button" wire:click="moveJsonItem('{{ $collection }}', {{ $index }}, 'up')" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition" title="تحريك لأعلى">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                </svg>
+                            </button>
+                            <button type="button" wire:click="moveJsonItem('{{ $collection }}', {{ $index }}, 'down')" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition" title="تحريك لأسفل">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <button type="button" wire:click="removeJsonItem('{{ $collection }}', {{ $index }})" wire:confirm="هل تريد حذف هذا العنصر؟" class="p-1.5 rounded-lg text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition" title="حذف">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        @foreach ($card['fields'] as $field => $label)
+                            <div class="space-y-1.5 {{ $field === 'description' ? 'md:col-span-2' : '' }}">
+                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $label }}</label>
+                                @if ($field === 'description')
+                                    <textarea
+                                        wire:model="{{ $collection }}.{{ $index }}.{{ $field }}"
+                                        rows="2"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all resize-none"
+                                    ></textarea>
+                                @else
+                                    <input
+                                        type="text"
+                                        wire:model="{{ $collection }}.{{ $index }}.{{ $field }}"
+                                        dir="{{ $field === 'url' ? 'ltr' : 'rtl' }}"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                                    />
+                                @endif
+                                @error("{$collection}.{$index}.{$field}")
+                                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @empty
+                <div class="text-center py-8">
+                    <p class="text-sm text-gray-400">لا توجد عناصر بعد، اضغط "إضافة عنصر" للبدء</p>
+                </div>
+            @endforelse
+
+            @error($collection)
+                <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+            @enderror
+
+            <div class="pt-1">
+                <button
+                    type="button"
+                    wire:click="saveJsonCollection('{{ $collection }}')"
+                    wire:loading.attr="disabled"
+                    wire:target="saveJsonCollection('{{ $collection }}')"
+                    class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm shadow-primary-200 dark:shadow-none"
+                >
+                    <span wire:loading.remove wire:target="saveJsonCollection('{{ $collection }}')">حفظ {{ $card['title'] }}</span>
+                    <span wire:loading wire:target="saveJsonCollection('{{ $collection }}')" class="flex items-center gap-2">
+                        <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        </svg>
+                        جاري الحفظ...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @endforeach
 
     {{-- ===== بطاقة حالة الموقع ===== --}}
     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">

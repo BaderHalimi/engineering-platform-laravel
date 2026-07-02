@@ -52,6 +52,39 @@ class Settings extends Page
 
     public ?string $statusMessage = null;
 
+    // ===== حقول المحتوى النصي =====
+
+    #[Validate('nullable|string')]
+    public string $terms_and_conditions = '';
+
+    #[Validate('nullable|string')]
+    public string $privacy_policy = '';
+
+    #[Validate('nullable|string|max:255')]
+    public string $top_notice = '';
+
+    #[Validate('nullable|string|max:255')]
+    public string $working_hours = '';
+
+    #[Validate('nullable|string')]
+    public string $included_cdn = '';
+
+    // ===== المجموعات JSON =====
+
+    protected array $jsonSchemas = [
+        'why_aldiwan' => ['icon' => 'required|string|max:255', 'title' => 'required|string|max:255', 'description' => 'required|string'],
+        'work_steps' => ['step' => 'required|string|max:255', 'icon' => 'required|string|max:255', 'title' => 'required|string|max:255', 'description' => 'required|string'],
+        'about_us' => ['title' => 'required|string|max:255', 'description' => 'required|string'],
+        'marquee' => ['icon' => 'required|string|max:255', 'title' => 'required|string|max:255', 'description' => 'required|string'],
+        'social_links' => ['icon' => 'required|string|max:255', 'name' => 'required|string|max:255', 'url' => 'required|url'],
+    ];
+
+    public array $why_aldiwan = [];
+    public array $work_steps = [];
+    public array $about_us = [];
+    public array $marquee = [];
+    public array $social_links = [];
+
     // ===== خصائص الباك أب =====
 
     public bool $showBackupModal = false;       // نافذة اختيار storage
@@ -68,9 +101,20 @@ class Settings extends Page
         $this->site_name = Setup::get('site_name', '');
         $this->site_email = Setup::get('site_email', '');
         $this->site_address = Setup::get('site_address', '');
+        $this->phone_number = Setup::get('phone_number', '');
         $this->current_logo_path = Setup::get('site_logo_path', null);
         $this->site_active = (bool) Setup::get('site_active', true);
         $this->maintenance_message = Setup::get('maintenance_message', 'الموقع تحت الصيانة حالياً، يرجى المحاولة لاحقاً.');
+
+        $this->terms_and_conditions = Setup::get('terms_and_conditions', '');
+        $this->privacy_policy = Setup::get('privacy_policy', '');
+        $this->top_notice = Setup::get('top_notice', '');
+        $this->working_hours = Setup::get('working_hours', '');
+        $this->included_cdn = Setup::get('included_cdn', '');
+
+        foreach (array_keys($this->jsonSchemas) as $collection) {
+            $this->{$collection} = json_decode(Setup::get($collection, '[]'), true) ?: [];
+        }
 
         $this->refreshBackupsList();
     }
@@ -134,6 +178,61 @@ class Settings extends Page
         $this->current_logo_path = null;
 
         $this->statusMessage = 'تم حذف الصورة.';
+    }
+
+    public function saveContentSettings(): void
+    {
+        $this->validate([
+            'terms_and_conditions' => 'nullable|string',
+            'privacy_policy' => 'nullable|string',
+            'top_notice' => 'nullable|string|max:255',
+            'working_hours' => 'nullable|string|max:255',
+            'included_cdn' => 'nullable|string',
+        ]);
+
+        foreach (['terms_and_conditions', 'privacy_policy', 'top_notice', 'working_hours', 'included_cdn'] as $field) {
+            Setup::set($field, $this->$field);
+        }
+
+        $this->statusMessage = 'تم حفظ المحتوى بنجاح.';
+    }
+
+    public function addJsonItem(string $collection): void
+    {
+        $this->{$collection}[] = array_fill_keys(array_keys($this->jsonSchemas[$collection]), '');
+    }
+
+    public function removeJsonItem(string $collection, int $index): void
+    {
+        $items = $this->{$collection};
+        unset($items[$index]);
+        $this->{$collection} = array_values($items);
+    }
+
+    public function moveJsonItem(string $collection, int $index, string $direction): void
+    {
+        $items = $this->{$collection};
+        $target = $direction === 'up' ? $index - 1 : $index + 1;
+
+        if (!isset($items[$index]) || !isset($items[$target])) {
+            return;
+        }
+
+        [$items[$index], $items[$target]] = [$items[$target], $items[$index]];
+        $this->{$collection} = $items;
+    }
+
+    public function saveJsonCollection(string $collection): void
+    {
+        $rules = [$collection => 'array'];
+
+        foreach ($this->jsonSchemas[$collection] as $field => $rule) {
+            $rules["{$collection}.*.{$field}"] = $rule;
+        }
+
+        $this->validate($rules);
+        Setup::set($collection, json_encode($this->{$collection}, JSON_UNESCAPED_UNICODE));
+        $this->statusMessage = 'تم حفظ البيانات بنجاح.';
     }
 
     // ===== دوال الباك أب =====
@@ -244,10 +343,7 @@ class Settings extends Page
         $this->uploadedRestoreFile = null;
     }
 
-    /**
-     * التنفيذ الفعلي للاستعادة بعد تأكيد التحذير
-     * (سيُربط بـ OTP بالخطوة الجاية)
-     */
+
     public function executeRestore(): void
     {
         try {
@@ -282,3 +378,4 @@ class Settings extends Page
         }
     }
 }
+
