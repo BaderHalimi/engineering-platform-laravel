@@ -16,6 +16,7 @@ use App\Mail\VerifyEmailOtpMail;
 | Authentication
 |--------------------------------------------------------------------------
 */
+Route::middleware('guest')->group(function () {
 
 Route::get('/auth', function () {
     return view('customer.auth.auth');
@@ -165,20 +166,12 @@ Route::post('/reset-password', function (Request $request) {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/logout', function (Request $request) {
-
-    auth()->logout();
-
-    $request->session()->invalidate();
-
-    $request->session()->regenerateToken();
-
-    return redirect()->route('auth');
-})->middleware('auth');
 
 
 
 
+
+});
 
 Route::post('/verify-email', function (Request $request) {
 
@@ -258,3 +251,15 @@ Route::get('/verify-email', function () {
 
     return view('customer.auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+Route::get('/logout', function (Request $request) {
+
+    auth()->logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect()->route('auth');
+})->middleware('auth');
+
+

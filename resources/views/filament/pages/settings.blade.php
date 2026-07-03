@@ -326,17 +326,38 @@
         </form>
     </div>
 
-    @php
-        $jsonCards = [
-            'why_aldiwan' => ['title' => 'لماذا الديوان', 'fields' => ['icon' => 'أيقونة', 'title' => 'العنوان', 'description' => 'الوصف']],
-            'work_steps' => ['title' => 'خطوات العمل', 'fields' => ['step' => 'رقم الخطوة', 'icon' => 'أيقونة', 'title' => 'العنوان', 'description' => 'الوصف']],
-            'about_us' => ['title' => 'من نحن', 'fields' => ['title' => 'العنوان', 'description' => 'الوصف']],
-            'marquee' => ['title' => 'الشريط المتحرك', 'fields' => ['icon' => 'أيقونة', 'title' => 'العنوان', 'description' => 'الوصف']],
-            'social_links' => ['title' => 'روابط التواصل الاجتماعي', 'fields' => ['icon' => 'أيقونة', 'name' => 'الاسم', 'url' => 'الرابط']],
-        ];
-    @endphp
+@php
+    $localeLabels = ['ar' => 'العربية', 'en' => 'English', 'fr' => 'Français'];
+    $jsonCards = [
+        'why_aldiwan' => ['title' => 'لماذا الديوان', 'fields' => [
+            'icon' => ['label' => 'أيقونة', 'translatable' => false],
+            'title' => ['label' => 'العنوان', 'translatable' => true],
+            'description' => ['label' => 'الوصف', 'translatable' => true, 'textarea' => true],
+        ]],
+        'work_steps' => ['title' => 'خطوات العمل', 'fields' => [
+            'step' => ['label' => 'رقم الخطوة', 'translatable' => false],
+            'icon' => ['label' => 'أيقونة', 'translatable' => false],
+            'title' => ['label' => 'العنوان', 'translatable' => true],
+            'description' => ['label' => 'الوصف', 'translatable' => true, 'textarea' => true],
+        ]],
+        'about_us' => ['title' => 'من نحن', 'fields' => [
+            'title' => ['label' => 'العنوان', 'translatable' => true],
+            'description' => ['label' => 'الوصف', 'translatable' => true, 'textarea' => true],
+        ]],
+        'marquee' => ['title' => 'الشريط المتحرك', 'fields' => [
+            'icon' => ['label' => 'أيقونة', 'translatable' => false],
+            'title' => ['label' => 'العنوان', 'translatable' => true],
+            'description' => ['label' => 'الوصف', 'translatable' => true, 'textarea' => true],
+        ]],
+        'social_links' => ['title' => 'روابط التواصل الاجتماعي', 'fields' => [
+            'icon' => ['label' => 'أيقونة', 'translatable' => false],
+            'name' => ['label' => 'الاسم', 'translatable' => true],
+            'url' => ['label' => 'الرابط', 'translatable' => false],
+        ]],
+    ];
+@endphp
 
-    @foreach ($jsonCards as $collection => $card)
+@foreach ($jsonCards as $collection => $card)
     {{-- ===== بطاقة {{ $card['title'] }} ===== --}}
     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
 
@@ -361,89 +382,162 @@
             </button>
         </div>
 
-        <div class="p-6 space-y-4">
-
+        <!-- قائمة العناصر مع سكرول -->
+        <div class="max-h-96 overflow-y-auto p-6 space-y-4 custom-scroll">
             @forelse ($this->{$collection} as $index => $item)
-                <div wire:key="{{ $collection }}-{{ $index }}" class="p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 space-y-3">
+                <div
+                    wire:key="{{ $collection }}-{{ $index }}"
+                    x-data="{ open: true, locale: 'ar' }"
+                    class="border border-gray-100 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/50 rounded-2xl overflow-hidden"
+                >
+                    <!-- Header (قابل للطي) -->
+                    <div
+                        @click="open = !open"
+                        class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                    >
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-semibold text-gray-400">عنصر #{{ $index + 1 }}</span>
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                                {{ $item['title']['ar'] ?? $item['name']['ar'] ?? 'عنصر جديد' }}
+                            </span>
+                        </div>
 
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-gray-400">عنصر #{{ $index + 1 }}</span>
-                        <div class="flex items-center gap-1">
-                            <button type="button" wire:click="moveJsonItem('{{ $collection }}', {{ $index }}, 'up')" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition" title="تحريك لأعلى">
+                        <div class="flex items-center gap-2">
+                            <button type="button"
+                                    wire:click.stop="moveJsonItem('{{ $collection }}', {{ $index }}, 'up')"
+                                    class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                                    title="تحريك لأعلى">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
                                 </svg>
                             </button>
-                            <button type="button" wire:click="moveJsonItem('{{ $collection }}', {{ $index }}, 'down')" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition" title="تحريك لأسفل">
+                            <button type="button"
+                                    wire:click.stop="moveJsonItem('{{ $collection }}', {{ $index }}, 'down')"
+                                    class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                                    title="تحريك لأسفل">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </button>
-                            <button type="button" wire:click="removeJsonItem('{{ $collection }}', {{ $index }})" wire:confirm="هل تريد حذف هذا العنصر؟" class="p-1.5 rounded-lg text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition" title="حذف">
+                            <button type="button"
+                                    wire:click.stop="removeJsonItem('{{ $collection }}', {{ $index }})"
+                                    wire:confirm="هل تريد حذف هذا العنصر؟"
+                                    class="p-1.5 rounded-lg text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition"
+                                    title="حذف">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                 </svg>
                             </button>
+                            <span class="text-gray-400 transition" :class="open ? 'rotate-180' : ''">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </span>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        @foreach ($card['fields'] as $field => $label)
-                            <div class="space-y-1.5 {{ $field === 'description' ? 'md:col-span-2' : '' }}">
-                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $label }}</label>
-                                @if ($field === 'description')
-                                    <textarea
-                                        wire:model="{{ $collection }}.{{ $index }}.{{ $field }}"
-                                        rows="2"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all resize-none"
-                                    ></textarea>
-                                @else
-                                    <input
-                                        type="text"
-                                        wire:model="{{ $collection }}.{{ $index }}.{{ $field }}"
-                                        dir="{{ $field === 'url' ? 'ltr' : 'rtl' }}"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
-                                    />
-                                @endif
-                                @error("{$collection}.{$index}.{$field}")
-                                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
-                                @enderror
+                    <!-- Body -->
+                    <div x-show="open" class="p-5 space-y-5 border-t border-gray-100 dark:border-gray-700">
+
+                        <!-- الحقول غير القابلة للترجمة -->
+                        @if (collect($card['fields'])->contains('translatable', false))
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                @foreach ($card['fields'] as $field => $conf)
+                                    @unless ($conf['translatable'])
+                                        <div class="space-y-1.5">
+                                            <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $conf['label'] }}</label>
+                                            <input
+                                                type="text"
+                                                wire:model="{{ $collection }}.{{ $index }}.{{ $field }}"
+                                                dir="{{ $field === 'url' ? 'ltr' : 'rtl' }}"
+                                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500"
+                                            />
+                                            @error("{$collection}.{$index}.{$field}")
+                                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    @endunless
+                                @endforeach
                             </div>
-                        @endforeach
+                        @endif
+
+                        <!-- اختيار اللغة (Selectable) -->
+                        @if (collect($card['fields'])->contains('translatable', true))
+                            <div class="flex items-center gap-3">
+                                <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">اللغة:</label>
+                                <select
+                                    x-model="locale"
+                                    class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                >
+                                    @foreach ($localeLabels as $loc => $label)
+                                        <option value="{{ $loc }}">{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- الحقول القابلة للترجمة -->
+                            @foreach ($localeLabels as $loc => $label)
+                                <div x-show="locale === '{{ $loc }}'" x-cloak class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    @foreach ($card['fields'] as $field => $conf)
+                                        @if ($conf['translatable'])
+                                            <div class="space-y-1.5 {{ !empty($conf['textarea']) ? 'md:col-span-2' : '' }}">
+                                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                                    {{ $conf['label'] }} ({{ $label }})
+                                                </label>
+                                                @if (!empty($conf['textarea']))
+                                                    <textarea
+                                                        wire:model="{{ $collection }}.{{ $index }}.{{ $field }}.{{ $loc }}"
+                                                        rows="3"
+                                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 resize-y"
+                                                    ></textarea>
+                                                @else
+                                                    <input
+                                                        type="text"
+                                                        wire:model="{{ $collection }}.{{ $index }}.{{ $field }}.{{ $loc }}"
+                                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500"
+                                                    />
+                                                @endif
+                                                @error("{$collection}.{$index}.{$field}.{$loc}")
+                                                    <p class="text-red-500 text-xs">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             @empty
-                <div class="text-center py-8">
+                <div class="text-center py-12 border border-dashed border-gray-200 dark:border-gray-700 rounded-2xl">
                     <p class="text-sm text-gray-400">لا توجد عناصر بعد، اضغط "إضافة عنصر" للبدء</p>
                 </div>
             @endforelse
+        </div>
 
-            @error($collection)
-                <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
-            @enderror
+        @error($collection)
+            <p class="text-red-500 text-xs px-6 pb-4">{{ $message }}</p>
+        @enderror
 
-            <div class="pt-1">
-                <button
-                    type="button"
-                    wire:click="saveJsonCollection('{{ $collection }}')"
-                    wire:loading.attr="disabled"
-                    wire:target="saveJsonCollection('{{ $collection }}')"
-                    class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm shadow-primary-200 dark:shadow-none"
-                >
-                    <span wire:loading.remove wire:target="saveJsonCollection('{{ $collection }}')">حفظ {{ $card['title'] }}</span>
-                    <span wire:loading wire:target="saveJsonCollection('{{ $collection }}')" class="flex items-center gap-2">
-                        <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
-                        </svg>
-                        جاري الحفظ...
-                    </span>
-                </button>
-            </div>
+        <div class="p-6 border-t border-gray-100 dark:border-gray-800">
+            <button
+                type="button"
+                wire:click="saveJsonCollection('{{ $collection }}')"
+                wire:loading.attr="disabled"
+                class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
+            >
+                <span wire:loading.remove>حفظ {{ $card['title'] }}</span>
+                <span wire:loading class="flex items-center gap-2">
+                    <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                    </svg>
+                    جاري الحفظ...
+                </span>
+            </button>
         </div>
     </div>
-    @endforeach
-
+@endforeach
     {{-- ===== بطاقة حالة الموقع ===== --}}
     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
 

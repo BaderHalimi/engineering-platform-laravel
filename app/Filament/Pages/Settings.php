@@ -71,12 +71,14 @@ class Settings extends Page
 
     // ===== المجموعات JSON =====
 
+    public array $locales = ['ar', 'en', 'fr'];
+
     protected array $jsonSchemas = [
-        'why_aldiwan' => ['icon' => 'required|string|max:255', 'title' => 'required|string|max:255', 'description' => 'required|string'],
-        'work_steps' => ['step' => 'required|string|max:255', 'icon' => 'required|string|max:255', 'title' => 'required|string|max:255', 'description' => 'required|string'],
-        'about_us' => ['title' => 'required|string|max:255', 'description' => 'required|string'],
-        'marquee' => ['icon' => 'required|string|max:255', 'title' => 'required|string|max:255', 'description' => 'required|string'],
-        'social_links' => ['icon' => 'required|string|max:255', 'name' => 'required|string|max:255', 'url' => 'required|url'],
+        'why_aldiwan' => ['icon' => 'required|string|max:255', 'title' => 'translatable|string|max:255', 'description' => 'translatable|string'],
+        'work_steps' => ['step' => 'required|string|max:255', 'icon' => 'required|string|max:255', 'title' => 'translatable|string|max:255', 'description' => 'translatable|string'],
+        'about_us' => ['title' => 'translatable|string|max:255', 'description' => 'translatable|string'],
+        'marquee' => ['icon' => 'required|string|max:255', 'title' => 'translatable|string|max:255', 'description' => 'translatable|string'],
+        'social_links' => ['icon' => 'required|string|max:255', 'name' => 'translatable|string|max:255', 'url' => 'required|url'],
     ];
 
     public array $why_aldiwan = [];
@@ -113,10 +115,25 @@ class Settings extends Page
         $this->included_cdn = Setup::get('included_cdn', '');
 
         foreach (array_keys($this->jsonSchemas) as $collection) {
-            $this->{$collection} = json_decode(Setup::get($collection, '[]'), true) ?: [];
+            $items = json_decode(Setup::get($collection, '[]'), true) ?: [];
+            $this->{$collection} = array_map(fn ($item) => $this->normalizeJsonItem($collection, $item), $items);
         }
 
         $this->refreshBackupsList();
+    }
+
+    protected function normalizeJsonItem(string $collection, array $item): array
+    {
+        foreach ($this->jsonSchemas[$collection] as $field => $rule) {
+            if (str_starts_with($rule, 'translatable|')) {
+                $current = is_array($item[$field] ?? null) ? $item[$field] : [];
+                $item[$field] = array_merge(array_fill_keys($this->locales, ''), $current);
+            } else {
+                $item[$field] = $item[$field] ?? '';
+            }
+        }
+
+        return $item;
     }
 
 
@@ -199,7 +216,13 @@ class Settings extends Page
 
     public function addJsonItem(string $collection): void
     {
-        $this->{$collection}[] = array_fill_keys(array_keys($this->jsonSchemas[$collection]), '');
+        $item = [];
+
+        foreach ($this->jsonSchemas[$collection] as $field => $rule) {
+            $item[$field] = str_starts_with($rule, 'translatable|') ? array_fill_keys($this->locales, '') : '';
+        }
+
+        $this->{$collection}[] = $item;
     }
 
     public function removeJsonItem(string $collection, int $index): void
@@ -227,7 +250,15 @@ class Settings extends Page
         $rules = [$collection => 'array'];
 
         foreach ($this->jsonSchemas[$collection] as $field => $rule) {
-            $rules["{$collection}.*.{$field}"] = $rule;
+            if (str_starts_with($rule, 'translatable|')) {
+                $baseRule = substr($rule, strlen('translatable|'));
+
+                foreach ($this->locales as $locale) {
+                    $rules["{$collection}.*.{$field}.{$locale}"] = ($locale === 'ar' ? 'required|' : 'nullable|') . $baseRule;
+                }
+            } else {
+                $rules["{$collection}.*.{$field}"] = $rule;
+            }
         }
 
         $this->validate($rules);
