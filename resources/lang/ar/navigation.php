@@ -43,4 +43,8 @@ return [
         'content'       => 'المحتوى',
     'album_images'  => 'ألبوم الصور',
     'album_image'   => 'صورة',
+
+    'projects' => 'المشاريع',
+    'project' => 'مشروع',
+    
 ];

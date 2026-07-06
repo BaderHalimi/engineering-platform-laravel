@@ -36,4 +36,8 @@ return [
     'album_images'  => 'Album Images',
     'album_image'   => 'Image',
 
+    'projects' => 'Projects',
+    'project' => 'Project',
+    
+
 ];
