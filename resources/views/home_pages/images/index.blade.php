@@ -95,7 +95,7 @@
         <i class="ph-bold ph-magnifying-glass"></i> بحث
       </button>
       @if(request('search'))
-        <a href="{{ route('pages.images') }}" class="shrink-0 text-sm font-bold rounded-full px-5 py-3 flex items-center justify-center gap-2 border border-gray-200 text-gray-500 hover:border-gray-300">
+        <a href="{{ route('home_pages.images.index') }}" class="shrink-0 text-sm font-bold rounded-full px-5 py-3 flex items-center justify-center gap-2 border border-gray-200 text-gray-500 hover:border-gray-300">
           <i class="ph-bold ph-x"></i> إلغاء
         </a>
       @endif

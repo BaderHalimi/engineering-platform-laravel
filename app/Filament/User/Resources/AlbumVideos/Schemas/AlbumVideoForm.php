@@ -61,7 +61,7 @@ class AlbumVideoForm
                                                     ])
                                                     ->inline()
                                                     ->live()
-                                                    ->dehydrated(false)
+                                                    //->dehydrated(false)
                                                     ->default(fn ($record) => filled($record?->embed) ? 'embed' : 'upload')
                                                     ->required(),
 

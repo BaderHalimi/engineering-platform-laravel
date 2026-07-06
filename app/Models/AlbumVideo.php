@@ -20,8 +20,9 @@ class AlbumVideo extends Model
         'description',
         'content',
 
-        'video_url',
-        'embed_url',
+        'video_path',
+        'embed',
+        'video_type',
         'provider',
 
         'duration',
