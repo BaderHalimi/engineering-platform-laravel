@@ -20,7 +20,10 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('role')
                     ->badge(),
-                ImageColumn::make('profile_image'),
+                ImageColumn::make('profile_image')
+                    ->disk('public')
+                    ->circular()
+                    ->label('Profile Image')    ,
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),

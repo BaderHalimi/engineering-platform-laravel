@@ -20,6 +20,7 @@ class ProjectsTable
             ->columns([
                 ImageColumn::make('image')
                     ->label('الصورة')
+                    ->disk('public')
                     ->circular(),
 
                 TextColumn::make('title')

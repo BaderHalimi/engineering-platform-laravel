@@ -39,10 +39,13 @@ public static function configure(Table $table): Table
 
             ImageColumn::make('thumbnail')
                 ->label(__('services.thumbnail'))
+                    ->disk('public')
+
                 ->circular(),
 
             ImageColumn::make('icon')
                 ->label(__('services.icon'))
+                ->disk('public')
                 ->circular(),
 
             TextColumn::make('estimated_time')

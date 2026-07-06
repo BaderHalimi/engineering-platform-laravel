@@ -30,6 +30,8 @@ class ArticlesTable
             ->columns([
                 ImageColumn::make('thumbnail')
                     ->label('الصورة')
+                        ->disk('public')
+
                     ->circular(),
 
                 TextColumn::make('title')

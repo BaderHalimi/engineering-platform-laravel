@@ -83,6 +83,9 @@ Route::get('/', function ()
     }
 );
 
+require __DIR__ . '/home.php';
+
+
 
 Route::post('/feedback', function (\Illuminate\Http\Request $request) {
     $data = $request->validate([

@@ -29,6 +29,8 @@ class AlbumVideosTable
     ImageColumn::make('thumbnail')
         ->label(__('album_videos.thumbnail'))
         ->square()
+            ->disk('public')
+
         ->defaultImageUrl(asset('images/video-placeholder.png')),
 
     TextColumn::make('title')

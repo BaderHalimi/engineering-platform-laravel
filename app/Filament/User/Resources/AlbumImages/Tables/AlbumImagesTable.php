@@ -27,6 +27,8 @@ class AlbumImagesTable
                 ImageColumn::make('image_path')
                     ->label(__('album_images.fields.image_path'))
                     ->square()
+                        ->disk('public')
+
                     ->url(fn ($record) => $record->image_path ? Storage::url($record->image_path) : null),
 
                 TextColumn::make('title')
