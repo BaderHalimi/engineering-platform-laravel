@@ -61,7 +61,7 @@
 <title>{{ $siteName }}</title>
 
 {{-- Tailwind --}}
-<script src="https://cdn.tailwindcss.com"></script>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 {{-- Remix Icon (بدل Phosphor) - الأيقونات في قاعدة البيانات مخزّنة بصيغة ri-xxx-line/fill --}}
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">

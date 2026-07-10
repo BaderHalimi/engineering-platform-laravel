@@ -32,7 +32,10 @@ class ProfileSettings extends Page
     public ?array $data = [];
 
     public ?string $profileImageUrl = null;
-
+public static function shouldRegisterNavigation(): bool
+{
+    return false;
+}
     public function mount(): void
     {
         $user = Auth::user();

@@ -62,12 +62,17 @@ class AdminPanelProvider extends PanelProvider
 
             ->viteTheme('resources/css/filament/admin/theme.css')
 
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
+->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
+            ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\Filament\User\Resources')
+
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\Filament\User\Pages')
             ->pages([
                 Dashboard::class,
             ])
+
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/User/Widgets'), for: 'App\Filament\User\Widgets')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,

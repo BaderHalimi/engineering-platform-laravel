@@ -322,4 +322,22 @@ Route::get('images/{slug}/download', function (string $slug) {
     );
 })->name('home_pages.images.download');
 
+Route::get('/privacy-policy', function () {
+    $data = json_decode(Setup::get('privacy_policy', '{}'), true) ?: [];
+    $content = $data[app()->getLocale()] ?? $data['ar'] ?? '';
 
+    return view('home_pages.privacy-policy', [
+        'title' => 'سياسة الخصوصية',
+        'content' => $content,
+    ]);
+})->name('privacy-policy');
+
+Route::get('/terms-conditions', function () {
+    $data = json_decode(Setup::get('terms_and_conditions', '{}'), true) ?: [];
+    $content = $data[app()->getLocale()] ?? $data['ar'] ?? '';
+
+    return view('home_pages.terms-of-service', [
+        'title' => 'الشروط والأحكام',
+        'content' => $content,
+    ]);
+})->name('terms-conditions');

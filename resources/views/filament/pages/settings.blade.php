@@ -262,32 +262,54 @@
                 </div>
             </div>
 
-            <div class="space-y-1.5">
-                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    الشروط والأحكام
-                </label>
-                <textarea
-                    wire:model="terms_and_conditions"
-                    rows="5"
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
-                ></textarea>
-                @error('terms_and_conditions')
-                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
-                @enderror
-            </div>
+@php $contentLocaleLabels = ['ar' => 'العربية', 'en' => 'English', 'fr' => 'Français']; @endphp
 
-            <div class="space-y-1.5">
-                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    سياسة الخصوصية
-                </label>
-                <textarea
-                    wire:model="privacy_policy"
-                    rows="5"
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
-                ></textarea>
-                @error('privacy_policy')
-                    <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
-                @enderror
+            <div x-data="{ contentLocale: 'ar' }" class="space-y-5">
+
+                <div class="flex items-center gap-3">
+                    <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">لغة المحتوى:</label>
+                    <select
+                        x-model="contentLocale"
+                        class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    >
+                        @foreach ($contentLocaleLabels as $loc => $label)
+                            <option value="{{ $loc }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                @foreach ($contentLocaleLabels as $loc => $label)
+                    <div x-show="contentLocale === '{{ $loc }}'" x-cloak class="space-y-5">
+
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                الشروط والأحكام ({{ $label }})
+                            </label>
+                            <textarea
+                                wire:model="terms_and_conditions.{{ $loc }}"
+                                rows="5"
+                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                            ></textarea>
+                            @error("terms_and_conditions.{$loc}")
+                                <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                سياسة الخصوصية ({{ $label }})
+                            </label>
+                            <textarea
+                                wire:model="privacy_policy.{{ $loc }}"
+                                rows="5"
+                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400 transition-all"
+                            ></textarea>
+                            @error("privacy_policy.{$loc}")
+                                <p class="text-red-500 text-xs flex items-center gap-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
             <div class="space-y-1.5">

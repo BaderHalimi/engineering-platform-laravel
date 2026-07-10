@@ -46,6 +46,10 @@ class UserResource extends Resource
     {
         return 'heroicon-o-users';
     }
+    public static function shouldRegisterNavigation(): bool
+{
+    return false;
+}
     public static function getPages(): array
     {
         return [

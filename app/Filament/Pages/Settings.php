@@ -54,11 +54,9 @@ class Settings extends Page
 
     // ===== حقول المحتوى النصي =====
 
-    #[Validate('nullable|string')]
-    public string $terms_and_conditions = '';
+public array $terms_and_conditions = [];
 
-    #[Validate('nullable|string')]
-    public string $privacy_policy = '';
+    public array $privacy_policy = [];
 
     #[Validate('nullable|string|max:255')]
     public string $top_notice = '';
@@ -108,8 +106,14 @@ class Settings extends Page
         $this->site_active = (bool) Setup::get('site_active', true);
         $this->maintenance_message = Setup::get('maintenance_message', 'الموقع تحت الصيانة حالياً، يرجى المحاولة لاحقاً.');
 
-        $this->terms_and_conditions = Setup::get('terms_and_conditions', '');
-        $this->privacy_policy = Setup::get('privacy_policy', '');
+        $this->terms_and_conditions = array_merge(
+            array_fill_keys($this->locales, ''),
+            json_decode(Setup::get('terms_and_conditions', '{}'), true) ?: []
+        );
+        $this->privacy_policy = array_merge(
+            array_fill_keys($this->locales, ''),
+            json_decode(Setup::get('privacy_policy', '{}'), true) ?: []
+        );
         $this->top_notice = Setup::get('top_notice', '');
         $this->working_hours = Setup::get('working_hours', '');
         $this->included_cdn = Setup::get('included_cdn', '');
@@ -197,19 +201,27 @@ class Settings extends Page
         $this->statusMessage = 'تم حذف الصورة.';
     }
 
-    public function saveContentSettings(): void
+public function saveContentSettings(): void
     {
-        $this->validate([
-            'terms_and_conditions' => 'nullable|string',
-            'privacy_policy' => 'nullable|string',
+        $rules = [
             'top_notice' => 'nullable|string|max:255',
             'working_hours' => 'nullable|string|max:255',
             'included_cdn' => 'nullable|string',
-        ]);
+        ];
 
-        foreach (['terms_and_conditions', 'privacy_policy', 'top_notice', 'working_hours', 'included_cdn'] as $field) {
+        foreach ($this->locales as $locale) {
+            $rules["terms_and_conditions.{$locale}"] = ($locale === 'ar' ? 'required|' : 'nullable|') . 'string';
+            $rules["privacy_policy.{$locale}"] = ($locale === 'ar' ? 'required|' : 'nullable|') . 'string';
+        }
+
+        $this->validate($rules);
+
+        foreach (['top_notice', 'working_hours', 'included_cdn'] as $field) {
             Setup::set($field, $this->$field);
         }
+
+        Setup::set('terms_and_conditions', json_encode($this->terms_and_conditions, JSON_UNESCAPED_UNICODE));
+        Setup::set('privacy_policy', json_encode($this->privacy_policy, JSON_UNESCAPED_UNICODE));
 
         $this->statusMessage = 'تم حفظ المحتوى بنجاح.';
     }

@@ -113,6 +113,10 @@ return [
         'details_placeholder' => 'Briefly describe your project (location, area, building type, etc.)',
         'submit' => 'Send request',
         'privacy_notice' => 'By submitting this form, you agree to our <a href="#" class="text-[var(--gold-dark)] font-bold">privacy policy</a>.',
+        'documents' => 'Required Documents',
+        'documents_hint' => 'Please attach the required copies',
+        'upload_click' => 'Click to select files or drag them here',
+        'max_size' => 'Max size',
     ],
 
     'feedback' => [

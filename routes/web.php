@@ -82,7 +82,14 @@ Route::get('/', function ()
         ));
     }
 );
-
+Route::get("privacy-policy", function () {
+    $setup = Setup::first();
+    return view('home_pages.privacy-policy', compact('setup'));
+})->name('home_pages.privacy_policy');
+Route::get("terms-of-service", function () {
+    $setup = Setup::first();
+    return view('home_pages.terms-of-service', compact('setup'));
+})->name('home_pages.terms_of_service');
 require __DIR__ . '/home.php';
 
 
@@ -115,76 +122,70 @@ Route::post('/feedback', function (\Illuminate\Http\Request $request) {
 
 Route::post('/service-request', function (Request $request) {
 
+    $service = ServicesType::findOrFail($request->input('service_id'));
 
-    $data = $request->validate([
-
+    $rules = [
         'customer_name'    => 'required|string|max:255',
-
         'customer_email'   => 'nullable|email|max:255',
-
         'customer_phone'   => 'required|string|max:20',
-
         'customer_address' => 'nullable|string|max:500',
-
         'service_id'       => 'required|exists:services_types,id',
-
         'title'            => 'required|string|max:255',
-
         'details'          => 'nullable|string|max:5000',
+    ];
 
-    ], [
+    // لو الخدمة موثّقة (documented) نضيف قواعد التحقق للملفات
+    if ($service->documented) {
+        $rules['documents']   = 'required|array|min:1|max:5';
+        $rules['documents.*'] = 'file|mimes:pdf,jpg,jpeg,png|max:5120'; // 5MB لكل ملف
+    }
 
+    $data = $request->validate($rules, [
         'customer_name.required' => 'الاسم الكامل مطلوب',
-
         'customer_phone.required'=> 'رقم الجوال مطلوب',
-
         'service_id.required'    => 'نوع الخدمة مطلوب',
-
         'service_id.exists'      => 'الخدمة المختارة غير موجودة',
-
         'title.required'         => 'عنوان الطلب مطلوب',
-
         'customer_email.email'   => 'البريد الإلكتروني غير صحيح',
-
+        'documents.required'     => 'هذه الخدمة تتطلب رفع مستندات',
+        'documents.*.mimes'      => 'صيغة الملف غير مدعومة (PDF, JPG, PNG فقط)',
+        'documents.*.max'        => 'حجم الملف يجب ألا يتجاوز 5 ميغابايت',
     ]);
 
+    // رفع المستندات إن وجدت
+    $documentPaths = [];
+
+    if ($request->hasFile('documents')) {
+        foreach ($request->file('documents') as $file) {
+            $path = $file->store('service-requests/documents', 'public');
+            $documentPaths[] = [
+                'name' => $file->getClientOriginalName(),
+                'path' => $path,
+                'size' => $file->getSize(),
+            ];
+        }
+    }
 
     ServicesRequest::create([
-
         'service_id'       => $data['service_id'],
-
         'title'            => $data['title'],
-
         'reference'        => 'SR-' . strtoupper(Str::random(8)),
-
         'details'          => $data['details'],
-
         'status'           => 'pending',
-
         'customer_name'    => $data['customer_name'],
-
         'customer_email'   => $data['customer_email'],
-
         'customer_phone'   => $data['customer_phone'],
-
         'customer_address' => $data['customer_address'],
-
+        'documents'        => $documentPaths,
         'meta'             => [
-
             'source' => 'website',
-
             'ip'     => $request->ip(),
-
         ],
-
     ]);
-
 
     return back()->with('success', 'تم استلام طلبك بنجاح! سنتواصل معك خلال 24 ساعة.');
 
-
 })->name('service-request.store');
-
 
 
 Route::get('/lang/{locale}', function ($locale) {

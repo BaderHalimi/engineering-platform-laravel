@@ -36,7 +36,7 @@
         <h4 class="font-extrabold text-base md:text-lg mb-4 md:mb-5 relative inline-block">{{ __('home.nav.services') }}<span class="absolute -bottom-2 start-0 h-1 w-10 bg-[var(--gold)] rounded-full"></span></h4>
         <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-white/70 mt-5">
           @foreach($services->take(6) as $svc)
-            <li><a href="#services" class="hover:text-[var(--gold)] transition">{{ $tr($svc->title) }}</a></li>
+            <li><a href="#services" class="hover:text-[var(--gold)] transition">{{ $tr($svc->name) }}</a></li>
           @endforeach
         </ul>
       </div>

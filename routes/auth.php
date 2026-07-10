@@ -22,6 +22,10 @@ Route::get('/auth', function () {
     return view('customer.auth.auth');
 })->name('auth');
 
+Route::get('/login', function () {
+    return redirect()->route('auth');
+})->name('login');
+
 Route::post('/register', function (Request $request) {
     $validated = $request->validate([
         'name' => ['required', 'string', 'max:255'],

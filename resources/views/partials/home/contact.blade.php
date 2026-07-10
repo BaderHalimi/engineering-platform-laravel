@@ -43,7 +43,7 @@
       </div>
 
       <div class="lg:col-span-3 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-        <form action="{{ route('service-request.store') }}" method="POST" class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-xl shadow-gray-200/50">
+        <form action="{{ route('service-request.store') }}" method="POST" enctype="multipart/form-data" class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-xl shadow-gray-200/50">
           @csrf
           <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">{{ __('home.contact.form_title') }}</h3>
           <p class="text-gray-500 text-sm mb-5 md:mb-7">{{ __('home.contact.form_subtitle') }}</p>
@@ -69,11 +69,15 @@
             </div>
             <div>
               <label class="block text-sm font-bold text-[var(--teal)] mb-2">{{ __('home.contact.service_type') }} *</label>
-              <select name="service_id" required class="field @error('service_id') border-red-500 @enderror">
+              <select name="service_id" id="service_id" required class="field @error('service_id') border-red-500 @enderror">
                 <option value="">-- {{ __('home.contact.choose_service') }} --</option>
                 @foreach($services as $svc)
-                  <option value="{{ $svc->id }}" {{ old('service_id') == $svc->id ? 'selected' : '' }}>
-                    {{ $tr($svc->title) }}
+                  <option
+                    value="{{ $svc->id }}"
+                    data-documented="{{ $svc->documented ? '1' : '0' }}"
+                    {{ old('service_id') == $svc->id ? 'selected' : '' }}
+                  >
+                    {{ $tr($svc->name) }}
                   </option>
                 @endforeach
               </select>
@@ -97,6 +101,33 @@
             <textarea name="details" rows="5" class="field" placeholder="{{ __('home.contact.details_placeholder') }}">{{ old('details') }}</textarea>
           </div>
 
+          {{-- ===== حقل رفع المستندات (يظهر فقط إذا الخدمة موثّقة) ===== --}}
+          <div id="documents-section" class="mb-4 md:mb-5 hidden">
+            <label class="block text-sm font-bold text-[var(--teal)] mb-2">
+              {{ __('home.contact.documents') }}
+              <span class="text-xs font-normal text-gray-400">({{ __('home.contact.documents_hint') }})</span>
+            </label>
+
+            <label for="documents_input" class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-2xl p-6 cursor-pointer hover:border-[var(--gold)] hover:bg-gray-50 transition">
+              <i class="ri-upload-cloud-2-line text-3xl text-[var(--teal)]"></i>
+              <span class="text-sm font-semibold text-[var(--teal)]">{{ __('home.contact.upload_click') }}</span>
+              <span class="text-xs text-gray-400">PDF, JPG, PNG — {{ __('home.contact.max_size') }} 5MB</span>
+              <input
+                type="file"
+                name="documents[]"
+                id="documents_input"
+                multiple
+                accept=".pdf,.jpg,.jpeg,.png"
+                class="hidden"
+              >
+            </label>
+
+            <div id="documents-preview" class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3"></div>
+
+            @error('documents')<span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>@enderror
+            @error('documents.*')<span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>@enderror
+          </div>
+
           <button type="submit" class="btn-primary w-full text-base md:text-lg font-bold rounded-full inline-flex items-center justify-center gap-2" style="padding:.9rem 1rem;">
             {{ __('home.contact.submit') }} <i class="ri-send-plane-fill text-lg md:text-xl"></i>
           </button>
@@ -106,3 +137,41 @@
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const serviceSelect = document.getElementById('service_id');
+  const docsSection = document.getElementById('documents-section');
+  const docsInput = document.getElementById('documents_input');
+  const docsPreview = document.getElementById('documents-preview');
+
+  if (!serviceSelect) return;
+
+  function toggleDocsSection() {
+    const selected = serviceSelect.options[serviceSelect.selectedIndex];
+    const isDocumented = selected && selected.dataset.documented === '1';
+
+    if (isDocumented) {
+      docsSection.classList.remove('hidden');
+    } else {
+      docsSection.classList.add('hidden');
+      docsInput.value = '';
+      docsPreview.innerHTML = '';
+    }
+  }
+
+  serviceSelect.addEventListener('change', toggleDocsSection);
+  toggleDocsSection(); // في حال في old() قيمة محفوظة بعد فشل تحقق
+
+  docsInput.addEventListener('change', function () {
+    docsPreview.innerHTML = '';
+    Array.from(docsInput.files).forEach(function (file) {
+      const sizeKb = (file.size / 1024).toFixed(0);
+      const item = document.createElement('div');
+      item.className = 'flex items-center gap-2 text-xs bg-gray-50 border border-gray-100 rounded-xl px-3 py-2 text-[var(--teal)]';
+      item.innerHTML = `<i class="ri-file-line"></i> <span class="truncate">${file.name}</span> <span class="text-gray-400 mr-auto">${sizeKb} KB</span>`;
+      docsPreview.appendChild(item);
+    });
+  });
+});
+</script>

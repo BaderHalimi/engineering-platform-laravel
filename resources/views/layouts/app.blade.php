@@ -7,12 +7,16 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>@yield('title', 'الديوان للاستشارات الهندسية')</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/swup@4"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css">
 
 <script>
 const swup = new Swup();
@@ -98,6 +102,45 @@ const swup = new Swup();
     .lang-switch a.active { background: var(--teal); color: #fff; }
     .lang-switch a:not(.active):hover { color: var(--teal-dark); }
 
+    /* ===== قائمة "المزيد" المنسدلة (الخصوصية / الشروط) ===== */
+    .more-dropdown { position: relative; }
+    .more-dropdown-panel {
+        position: absolute;
+        top: calc(100% + 10px);
+        inset-inline-end: 0;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 12px 30px -8px rgba(34,38,43,.15);
+        min-width: 190px;
+        padding: 6px;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition: all .18s ease;
+        z-index: 60;
+    }
+    .more-dropdown:hover .more-dropdown-panel,
+    .more-dropdown-panel.force-open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .more-dropdown-panel a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--slate);
+        transition: all .15s ease;
+        white-space: nowrap;
+    }
+    .more-dropdown-panel a:hover { background: var(--paper); color: var(--teal-dark); }
+    .more-dropdown-panel a i { font-size: 15px; color: var(--gold); }
+
     .site-footer {
         text-align: center;
         font-size: 12px;
@@ -108,6 +151,19 @@ const swup = new Swup();
         position: relative;
         z-index: 1;
     }
+
+    .footer-legal {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        margin-bottom: 10px;
+    }
+    .footer-legal a {
+        color: #A5A099;
+        font-weight: 600;
+        transition: color .15s ease;
+    }
+    .footer-legal a:hover { color: var(--teal-dark); }
 
     @stack('styles')
 </style>
@@ -140,13 +196,29 @@ const swup = new Swup();
                class="nav-link {{ request()->routeIs('home_pages.videos.*') ? 'active' : '' }}">
                 <i class="ri-vidicon-line"></i> {{ app()->getLocale() === 'ar' ? 'الفيديوهات' : 'Videos' }}
             </a>
+
+            {{-- قائمة منسدلة: سياسة الخصوصية + الشروط والأحكام --}}
+            <div class="more-dropdown">
+                <span class="nav-link cursor-pointer {{ (request()->routeIs('privacy-policy') || request()->routeIs('terms-conditions')) ? 'active' : '' }}">
+                    <i class="ri-shield-check-line"></i> {{ app()->getLocale() === 'ar' ? 'قانوني' : 'Legal' }}
+                    <i class="ri-arrow-down-s-line text-xs"></i>
+                </span>
+                <div class="more-dropdown-panel">
+                    <a href="{{ route('privacy-policy') }}">
+                        <i class="ri-lock-2-line"></i> {{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}
+                    </a>
+                    <a href="{{ route('terms-conditions') }}">
+                        <i class="ri-file-text-line"></i> {{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="flex items-center gap-3">
             <div class="lang-switch">
-                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ar']) }}"
+                <a href="{{ route('set-locale', 'ar') }}"
                    class="{{ app()->getLocale() === 'ar' ? 'active' : '' }}">AR</a>
-                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}"
+                <a href="{{ route('set-locale', 'en') }}"
                    class="{{ app()->getLocale() === 'en' ? 'active' : '' }}">EN</a>
             </div>
 
@@ -169,6 +241,15 @@ const swup = new Swup();
         <a href="{{ route('home_pages.videos.index') }}" class="nav-link {{ request()->routeIs('home_pages.videos.*') ? 'active' : '' }}">
             <i class="ri-vidicon-line"></i> {{ app()->getLocale() === 'ar' ? 'الفيديوهات' : 'Videos' }}
         </a>
+
+        <div class="border-t border-[var(--line)] my-1"></div>
+
+        <a href="{{ route('privacy-policy') }}" class="nav-link {{ request()->routeIs('privacy-policy') ? 'active' : '' }}">
+            <i class="ri-lock-2-line"></i> {{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}
+        </a>
+        <a href="{{ route('terms-conditions') }}" class="nav-link {{ request()->routeIs('terms-conditions') ? 'active' : '' }}">
+            <i class="ri-file-text-line"></i> {{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}
+        </a>
     </div>
 
     <div class="relative z-10">
@@ -176,6 +257,11 @@ const swup = new Swup();
     </div>
 
     <footer class="site-footer">
+        <div class="footer-legal">
+            <a href="{{ route('privacy-policy') }}">{{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
+            <span>|</span>
+            <a href="{{ route('terms-conditions') }}">{{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}</a>
+        </div>
         © {{ date('Y') }} الديوان للاستشارات الهندسية
     </footer>
 

@@ -16,7 +16,7 @@
              x-data="{ playing: false }" x-intersect.once="$el.classList.add('visible')">
           <div class="relative overflow-hidden h-52 bg-black">
             <template x-if="!playing">
-              <button type="button" @click="playing = true" class="w-full h-full block relative">
+        <a href="{{ route('home_pages.videos.view', $video->slug) }}" class="w-full h-full block relative">
                 <img src="{{ $asset($video->thumbnail) }}" class="w-full h-full object-cover">
                 <span class="absolute inset-0 flex items-center justify-center bg-black/20">
                   <i class="ri-play-fill text-white text-4xl bg-black/40 rounded-full p-3"></i>
@@ -26,7 +26,7 @@
                     {{ gmdate('i:s', $video->duration) }}
                   </span>
                 @endif
-              </button>
+              </a>
             </template>
             <template x-if="playing">
               <div class="w-full h-full">

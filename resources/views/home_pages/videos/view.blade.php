@@ -26,7 +26,29 @@
         height: 100%;
         border: 0;
     }
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+}
 
+.video-wrapper iframe,
+.video-wrapper video,
+.video-wrapper embed,
+.video-wrapper object {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border: 0 !important;
+}
     .ad-slot {
         background: repeating-linear-gradient(45deg, #F1F0EC, #F1F0EC 10px, #EAE8E2 10px, #EAE8E2 20px);
         border: 1px dashed #C9C6BD;
