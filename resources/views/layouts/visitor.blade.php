@@ -16,7 +16,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
     <style>
-     </style>
+        .brand-logo { height: 64px; width: auto; min-width: 140px; object-fit: contain; }
+        @media (max-width: 680px) { .brand-logo { height: 52px; min-width: 110px; } }
+    </style>
     @stack('styles')
 </head>
 <body>
