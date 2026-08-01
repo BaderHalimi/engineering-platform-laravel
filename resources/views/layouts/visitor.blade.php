@@ -32,7 +32,7 @@
                 @endforeach
             </nav>
             <div class="header-actions">
-                <a class="language-link" href="/en">English</a>
+                <a class="language-link" style="opacity:.4;pointer-events:none;cursor:default;">English</a>
                 <a class="btn btn-primary" href="/request-service">اطلب خدمة</a>
             </div>
         </div>

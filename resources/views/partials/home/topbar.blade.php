@@ -32,7 +32,9 @@
         x-transition
         class="absolute top-full mt-2 right-0 w-28 bg-white text-[var(--teal)] rounded-xl shadow-2xl border border-gray-100 py-2 z-[99999]">
         @foreach(['ar' => 'العربية', 'en' => 'English'] as $code => $label)
-            <a href="{{ route('set-locale', $code) }}"
+            <a
+               @if($code === 'en') style="opacity:.4;pointer-events:none;cursor:default;" @endif
+               href="{{ $code === 'en' ? '#' : route('set-locale', $code) }}"
                class="block px-4 py-1.5 text-sm hover:bg-gray-50 {{ app()->getLocale() === $code ? 'font-bold text-[var(--gold-dark)]' : '' }}">
                 {{ $label }}
             </a>

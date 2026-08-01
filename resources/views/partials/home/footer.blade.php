@@ -65,6 +65,6 @@
         x-data="{ visible: false }"
         x-init="window.addEventListener('scroll', () => visible = window.scrollY > 400)"
         x-show="visible" x-cloak
-        class="fixed bottom-6 start-6 z-50 w-12 h-12 rounded-full btn-primary flex items-center justify-center shadow-xl transition-all duration-300" style="padding:0;">
+        class="fixed bottom-6 start-6 z-50 w-12 h-12 rounded-full btn-primary flex items-center justify-center shadow-xl transition-all duration-300" style="padding:0;cursor:pointer;">
   <i class="ri-arrow-up-line text-xl"></i>
 </button>

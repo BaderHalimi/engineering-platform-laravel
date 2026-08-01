@@ -218,8 +218,7 @@ const swup = new Swup();
             <div class="lang-switch">
                 <a href="{{ route('set-locale', 'ar') }}"
                    class="{{ app()->getLocale() === 'ar' ? 'active' : '' }}">AR</a>
-                <a href="{{ route('set-locale', 'en') }}"
-                   class="{{ app()->getLocale() === 'en' ? 'active' : '' }}">EN</a>
+                <a style="opacity:.4;pointer-events:none;cursor:default;">EN</a>
             </div>
 
             <button id="mobile-menu-btn" class="md:hidden text-2xl text-[var(--teal)]">
