@@ -173,7 +173,7 @@ const swup = new Swup();
     <nav class="bg-white/90 backdrop-blur border border-[var(--line)] rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 mx-4 md:mx-6 mt-4 md:mt-5 flex items-center justify-between sticky top-2 md:top-3 z-50 relative">
 
         <div class="flex items-center gap-3">
-            <img src="https://files.catbox.moe/ekyv64.webp" alt="لوجو الديوان" class="h-11">
+            <img src="https://files.catbox.moe/ekyv64.webp" alt="لوجو الديوان" style="height:44px;width:auto;">
             <span class="font-extrabold text-[var(--teal)] text-sm md:text-base hidden sm:block" style="font-family:var(--font-display)">
                 الديوان للاستشارات الهندسية
             </span>

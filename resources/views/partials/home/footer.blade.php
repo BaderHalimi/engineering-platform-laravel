@@ -12,7 +12,7 @@
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-8 md:mb-10">
       <div class="col-span-2 md:col-span-1">
-        @if($siteLogo)<img src="{{ $asset($siteLogo) }}" alt="{{ $siteName }}" class="mb-4 bg-white/10 rounded-2xl p-2" style="height:50px;">@endif
+        @if($siteLogo)<img src="{{ $asset($siteLogo) }}" alt="{{ $siteName }}" class="mb-4 bg-white/10 rounded-2xl p-2" style="height:70px;width:auto;">@endif
         <p class="text-white/70 text-xs md:text-sm leading-relaxed mb-4 md:mb-5">{{ __('home.footer.about_text', ['name' => $siteName]) }}</p>
         <div class="flex items-center gap-2 md:gap-3">
           @foreach($socialLinks as $link)
