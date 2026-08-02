@@ -19,14 +19,17 @@ use App\Mail\VerifyEmailOtpMail;
 Route::middleware('guest')->group(function () {
 
 Route::get('/auth', function () {
+    abort(400,'comming soon');
     return view('customer.auth.auth');
 })->name('auth');
 
 Route::get('/login', function () {
+    abort(400,'comming soon');
     return redirect()->route('auth');
 })->name('login');
 
 Route::post('/register', function (Request $request) {
+    abort(400,'comming soon');
     $validated = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
@@ -57,6 +60,7 @@ Route::post('/register', function (Request $request) {
 })->name('register');
 
 Route::post('/login', function (Request $request) {
+    abort(400,'comming soon');
     $credentials = $request->validate([
         'email' => ['required', 'email'],
         'password' => ['required', 'string'],
@@ -86,6 +90,7 @@ Route::post('/login', function (Request $request) {
 */
 
 Route::get('/verify-email', function () {
+    abort(400,'comming soon');
 
     if (auth()->user()->email_verified_at) {
         return redirect()->route('dashboard');
@@ -102,10 +107,12 @@ Route::get('/verify-email', function () {
 */
 
 Route::get('/forgot-password', function () {
+    abort(400,'comming soon');
     return view('customer.auth.forgot-password');
 })->middleware('guest')->name('password.request');
 
 Route::post('/forgot-password', function (Request $request) {
+    abort(400,'comming soon');
     $request->validate([
         'email' => ['required', 'email'],
     ]);
@@ -128,6 +135,7 @@ Route::post('/forgot-password', function (Request $request) {
 */
 
 Route::get('/reset-password/{token}', function (string $token, Request $request) {
+    abort(400,'comming soon');
     return view('customer.auth.reset-password', [
         'token' => $token,
         'email' => $request->email,
@@ -135,6 +143,7 @@ Route::get('/reset-password/{token}', function (string $token, Request $request)
 })->middleware('guest')->name('password.reset');
 
 Route::post('/reset-password', function (Request $request) {
+    abort(400,'comming soon');
     $request->validate([
         'token' => ['required'],
         'email' => ['required', 'email'],
@@ -179,6 +188,7 @@ Route::post('/reset-password', function (Request $request) {
 });
 
 Route::post('/verify-email', function (Request $request) {
+    abort(400,'comming soon');
 
     $request->validate([
         'otp' => ['required', 'digits:6'],
@@ -225,6 +235,7 @@ Route::post('/verify-email', function (Request $request) {
 
 
 Route::post('/verify-email/resend', function () {
+    abort(400,'comming soon');
 
     $user = auth()->user();
 
@@ -249,6 +260,7 @@ Route::post('/verify-email/resend', function () {
     ]);
 })->middleware('auth')->name('verification.resend');
 Route::get('/verify-email', function () {
+    abort(400,'comming soon');
 
     if (auth()->user()->email_verified_at) {
         return redirect()->route('dashboard');
@@ -257,6 +269,7 @@ Route::get('/verify-email', function () {
     return view('customer.auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 Route::get('/logout', function (Request $request) {
+    abort(400,'comming soon');
 
     auth()->logout();
 
