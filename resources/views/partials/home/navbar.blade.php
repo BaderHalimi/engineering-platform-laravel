@@ -8,10 +8,10 @@
 @if($siteLogo)
   <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}"
        class="h-8 md:hidden"
-       style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+       style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
   <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}"
        class="h-9 hidden md:block"
-       style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+       style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
 @endif <div class="w-10 hidden md:block"></div>
 
   <ul class="hidden md:flex items-center gap-3 text-gray-600 text-base font-bold">
