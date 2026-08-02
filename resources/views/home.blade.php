@@ -67,9 +67,9 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 
 @if($siteLogo)
-    <link rel="icon" href="{{ asset($siteLogo) }}">
+    <link rel="shortcut icon" href="{{ asset($siteLogo) }}" type="image/x-icon">
   @endif
-  
+
 {{-- Alpine.js لتنظيم التفاعلات (القائمة، الأكورديون، active state، reveal on scroll) --}}
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>

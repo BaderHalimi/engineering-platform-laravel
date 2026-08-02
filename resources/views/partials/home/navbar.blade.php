@@ -8,7 +8,7 @@
 @if($siteLogo)
   <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}"
        class="h-8 md:hidden"
-       style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+       style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
   <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}"
        class="h-9 hidden md:block"
        style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
