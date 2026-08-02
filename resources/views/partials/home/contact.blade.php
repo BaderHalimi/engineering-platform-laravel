@@ -131,8 +131,14 @@
           <button type="submit" class="btn-primary w-full text-base md:text-lg font-bold rounded-full inline-flex items-center justify-center gap-2" style="padding:.9rem 1rem;">
             {{ __('home.contact.submit') }} <i class="ri-send-plane-fill text-lg md:text-xl"></i>
           </button>
-          <p class="text-xs text-gray-400 mt-3 md:mt-4 text-center">{!! __('home.contact.privacy_notice') !!}</p>
-        </form>
+<p class="text-xs text-gray-400 mt-3 md:mt-4 text-center">
+    <a href="{{ route('privacy-policy') }}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="hover:text-[var(--gold)] transition duration-300 hover:underline">
+        {!! __('home.contact.privacy_notice') !!}
+    </a>
+</p>        </form>
       </div>
     </div>
   </div>
