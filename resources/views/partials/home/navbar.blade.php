@@ -5,6 +5,14 @@
   @else
     <div class="w-10"></div>
   @endif
+@if($siteLogo)
+  <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}"
+       class="h-8 md:hidden"
+       style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+  <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}"
+       class="h-9 hidden md:block"
+       style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+@endif <div class="w-10 hidden md:block"></div>
 
   <ul class="hidden md:flex items-center gap-3 text-gray-600 text-base font-bold">
     <li><a href="#home" @click.prevent="activeSection = 'home'; $el.scrollIntoView ? document.querySelector('#home').scrollIntoView({behavior:'smooth'}) : null" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>

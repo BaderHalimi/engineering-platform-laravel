@@ -16,10 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
             $middleware->web(append: [
                 \App\Http\Middleware\SetLocale::class,
 
+
                 //\App\Http\Middleware\CheckSiteMaintenance::class,
             ]);
         $middleware->alias([
             'verified.email' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+            'IsCustomer' => \App\Http\Middleware\IsCustomer::class,
         ]);
 
         })

@@ -37,6 +37,7 @@ Route::post('/register', function (Request $request) {
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => Hash::make($validated['password']),
+        'role' => "customer",
     ]);
 
     /*

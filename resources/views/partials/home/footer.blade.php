@@ -52,11 +52,11 @@
     </div>
     <div class="border-t border-white/10 pt-5 md:pt-6 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-xs md:text-sm text-white/50">
       <div>© {{ date('Y') }} {{ $siteName }}. {{ __('home.footer.rights') }}</div>
-      <div class="flex items-center gap-4 md:gap-5">
-        <a href="#" class="hover:text-[var(--gold)] transition">{{ __('home.footer.privacy') }}</a>
-        <a href="#" class="hover:text-[var(--gold)] transition">{{ __('home.footer.terms') }}</a>
-        <a href="#" class="hover:text-[var(--gold)] transition">{{ __('home.footer.sitemap') }}</a>
-      </div>
+<div class="flex items-center gap-4 md:gap-5">
+    <a href="{{ route('privacy-policy') }}" class="hover:text-[var(--gold)] transition">{{ __('home.footer.privacy') }}</a>
+    <a href="{{ route('terms-conditions') }}" class="hover:text-[var(--gold)] transition">{{ __('home.footer.terms') }}</a>
+    {{-- <a href="#" class="hover:text-[var(--gold)] transition">{{ __('home.footer.sitemap') }}</a> --}}
+</div>
     </div>
   </div>
 </footer>

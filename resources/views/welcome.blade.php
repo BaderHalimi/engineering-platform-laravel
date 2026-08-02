@@ -751,7 +751,7 @@
           <button type="submit" class="btn-primary w-full text-base md:text-lg font-bold rounded-full inline-flex items-center justify-center gap-2" style="padding:.9rem 1rem;">
             إرسال الطلب <i class="ph-bold ph-paper-plane-tilt text-lg md:text-xl"></i>
           </button>
-          <p class="text-xs text-gray-400 mt-3 md:mt-4 text-center">بإرسالك النموذج، فأنت توافق على <a href="#" class="text-[var(--gold-dark)] font-bold">سياسة الخصوصية</a>.</p>
+          <p class="text-xs text-gray-400 mt-3 md:mt-4 text-center">بإرسالك النموذج، فأنت توافق على <a href="{{ route('privacy-policy') }}" class="text-[var(--gold-dark)] font-bold">سياسة الخصوصية</a>.</p>
         </form>
       </div>
     </div>

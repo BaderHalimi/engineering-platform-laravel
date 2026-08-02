@@ -12,6 +12,8 @@ use App\Models\ServicesRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Faq;
+use App\Http\Middleware\IsCustomer;
+
 Route::middleware(CheckSiteMaintenance::class)->group(function () {
 
 function site_item_by_slug(array $items, string $slug): ?array
@@ -201,8 +203,7 @@ Route::get('/lang/{locale}', function ($locale) {
 
 
 
-
-Route::middleware(['auth','verified.email',])->group(function () { require __DIR__.'/customer.php'; }); //protected
+Route::middleware(['auth','verified.email', 'IsCustomer'])->group(function () { require __DIR__.'/customer.php'; }); //protected
 
 require __DIR__ . '/auth.php';
 });
