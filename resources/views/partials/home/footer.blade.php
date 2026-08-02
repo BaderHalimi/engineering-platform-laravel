@@ -1,6 +1,6 @@
 <footer class="relative pt-16 pb-6 overflow-hidden" style="background: linear-gradient(135deg, var(--teal-dark) 0%, #1f2e34 100%);">
   <div class="absolute inset-0 geo-pattern opacity-5"></div>
-  <div class="container mx-auto px-5 md:px-6 relative z-10 text-white">
+  <div class="site-container relative z-10 text-white">
     <div class="bg-gradient-to-l from-[var(--gold)] to-[var(--gold-dark)] rounded-3xl p-5 md:p-8 mb-10 md:mb-12 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
       <div class="text-center md:text-start">
         <h3 class="text-lg md:text-2xl font-black text-white mb-1">{{ __('home.footer.cta_title') }}</h3>

@@ -22,7 +22,7 @@
   <div class="absolute inset-0 blueprint-grid pointer-events-none"></div>
   <div class="blob hidden md:block" style="width:280px;height:280px;background:var(--gold);top:80px;inset-inline-start:-60px;opacity:.08;"></div>
 
-  <div class="container mx-auto px-5 md:px-6 relative z-10">
+  <div class="site-container relative z-10">
 
     <!-- ===== عنوان القسم ===== -->
     <div x-data x-intersect.once="$el.classList.add('is-visible')" class="services-reveal text-center max-w-2xl mx-auto mb-14 md:mb-20">

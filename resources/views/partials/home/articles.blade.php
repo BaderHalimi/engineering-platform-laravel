@@ -1,5 +1,5 @@
 <section id="articles" class="relative py-16 md:py-24 bg-white overflow-hidden">
-  <div class="container mx-auto px-5 md:px-6">
+  <div class="site-container">
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-newspaper-line"></i> {{ __('home.articles.badge') }}

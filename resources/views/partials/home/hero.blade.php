@@ -7,7 +7,7 @@
   <div class="hero-orb hero-orb-1 absolute rounded-full" aria-hidden="true"></div>
   <div class="hero-orb hero-orb-2 absolute rounded-full" aria-hidden="true"></div>
 
-  <div class="container relative z-10 mx-auto px-6 py-16 md:py-24">
+  <div class="site-container relative z-10 py-16 md:py-24">
     <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
       {{-- المحتوى النصي --}}
@@ -112,7 +112,7 @@
   {{-- شريط الخدمات السفلي --}}
   @if(($services ?? collect())->count() >= 4)
   <div class="absolute bottom-0 left-0 right-0 hidden xl:block">
-    <div class="container mx-auto px-6">
+    <div class="site-container">
       <div class="services-strip bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[#E6E3DC] px-8 py-5 -mb-8 grid grid-cols-4 gap-4">
         @foreach($services->take(4) as $svc)
         <div class="flex items-center gap-4 {{ !$loop->last ? 'border-r border-[#E6E3DC]' : '' }} pr-5 last:pr-0">

@@ -4,7 +4,7 @@
 </div>
 @endif --}}
 
-<div class="w-full bg-gradient-to-l from-[var(--teal)] to-[var(--teal-dark)] text-white text-sm py-2 px-6 items-center justify-between hidden md:flex">
+<div class="site-topbar w-full bg-gradient-to-l from-[var(--teal)] to-[var(--teal-dark)] text-white text-sm py-2 items-center justify-between hidden md:flex">
   <div class="flex items-center gap-5">
     @if($sitePhone)<span class="flex items-center gap-2"><i class="ri-phone-fill"></i> {{ $sitePhone }}</span>@endif
     @if($siteEmail)<span class="flex items-center gap-2"><i class="ri-mail-fill"></i> {{ $siteEmail }}</span>@endif

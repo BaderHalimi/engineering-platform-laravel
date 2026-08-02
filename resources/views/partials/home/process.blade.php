@@ -28,8 +28,8 @@
     </div>
   </div>
 
-  <div class="hidden md:flex relative min-h-[70vh] overflow-hidden flex-col py-16">
-    <div class="px-10 text-start max-w-3xl ms-10 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
+  <div class="hidden md:flex site-container relative min-h-[70vh] overflow-hidden flex-col py-16">
+    <div class="text-start max-w-3xl generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
       <div class="flex items-center gap-2 mb-3">
         <span class="font-display font-bold text-[11px] tracking-[0.35em]" style="color:var(--gold);">{{ __('home.process.eyebrow') }}</span>
         <span class="w-8 h-px" style="background:var(--gold);"></span>
@@ -37,7 +37,7 @@
       <h1 class="font-display font-black text-5xl mb-3" style="color:var(--gold);">{{ __('home.process.title') }}</h1>
       <p class="text-xl font-bold leading-relaxed" style="color:var(--teal);">{{ __('home.process.subtitle') }}</p>
     </div>
-    <div class="flex-1 flex items-center px-16 mt-10">
+    <div class="flex-1 flex items-center mt-10">
       <div class="w-full grid grid-cols-{{ max(count($workSteps), 2) }} gap-6 relative">
         @foreach($workSteps as $i => $step)
         <div class="relative text-start generic-reveal" x-data x-intersect.once="$el.classList.add('visible')" style="transition-delay:{{ $loop->iteration * 0.1 }}s;">

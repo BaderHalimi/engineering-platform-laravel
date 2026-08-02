@@ -12,6 +12,14 @@
   *{ font-family:'Cairo','Tajawal',sans-serif; }
   html{ scroll-behavior:smooth; }
   body{ background-color:#fff; color:var(--teal); overflow-x:hidden; }
+  .site-container{ width:100%; margin-inline:auto; padding-inline:1.25rem; }
+  .site-nav{ width:calc(100% - 2rem); margin-inline:auto; }
+  .site-topbar{ padding-inline:1.25rem; }
+  @media (min-width:768px){
+    .site-container{ padding-inline:10vw; }
+    .site-nav{ width:80%; }
+    .site-topbar{ padding-inline:10vw; }
+  }
   .font-body{ font-family:'IBM Plex Sans Arabic',sans-serif; }
   .font-display{font-family:'Tajawal',sans-serif;}
   [dir="ltr"] .font-body, [dir="ltr"] .font-display{ font-family:'Tajawal','Cairo',sans-serif; }
