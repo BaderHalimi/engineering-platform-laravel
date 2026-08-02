@@ -66,6 +66,10 @@
 {{-- Remix Icon (بدل Phosphor) - الأيقونات في قاعدة البيانات مخزّنة بصيغة ri-xxx-line/fill --}}
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 
+@if($siteLogo)
+    <link rel="icon" href="{{ asset($siteLogo) }}">
+  @endif
+  
 {{-- Alpine.js لتنظيم التفاعلات (القائمة، الأكورديون، active state، reveal on scroll) --}}
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
