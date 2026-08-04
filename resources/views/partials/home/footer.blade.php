@@ -73,7 +73,7 @@
 <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $sitePhone) }}"
    target="_blank" rel="noopener"
    title="تواصل معنا عبر واتساب"
-   class="fixed bottom-6 end-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl pulse-ring transition-all duration-300 hover:scale-110"
+   class="fixed bottom-12 end-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl pulse-ring transition-all duration-300 hover:scale-110"
    style="background:#25D366; padding:0;">
   <i class="ri-whatsapp-fill text-2xl text-white"></i>
 </a>
