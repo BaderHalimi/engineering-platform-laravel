@@ -6,8 +6,8 @@
 
 <div class="site-topbar w-full bg-gradient-to-l from-[var(--teal)] to-[var(--teal-dark)] text-white text-sm py-2 items-center justify-between hidden md:flex">
   <div class="flex items-center gap-5">
-    @if($sitePhone)<span class="flex items-center gap-2"><i class="ri-phone-fill"></i> {{ $sitePhone }}</span>@endif
-    @if($siteEmail)<span class="flex items-center gap-2"><i class="ri-mail-fill"></i> {{ $siteEmail }}</span>@endif
+    @if($sitePhone)<a href="tel:{{ preg_replace('/[^0-9+]/', '', $sitePhone) }}" class="flex items-center gap-2 hover:text-[var(--gold)] transition"><i class="ri-phone-fill"></i> {{ $sitePhone }}</a>@endif
+    @if($siteEmail)<a href="mailto:{{ $siteEmail }}" class="flex items-center gap-2 hover:text-[var(--gold)] transition"><i class="ri-mail-fill"></i> {{ $siteEmail }}</a>@endif
     @if($siteAddress)<span class="flex items-center gap-2"><i class="ri-map-pin-fill"></i> {{ $siteAddress }}</span>@endif
   </div>
   <div class="flex items-center gap-3 text-white/80">
