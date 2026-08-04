@@ -30,6 +30,8 @@ Route::middleware(CheckSiteMaintenance::class)->group(function () {
     Route::middleware(['auth', 'verified.email', IsCustomer::class])->group(function () {
         require __DIR__.'/customer.php';
     });
-
     require __DIR__.'/auth.php';
+});
+Route::get('user',function(){
+    return redirect(url('/user/login'));
 });
