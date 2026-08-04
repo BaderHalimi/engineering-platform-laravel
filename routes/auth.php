@@ -81,7 +81,7 @@ Route::post('/login', function (Request $request) {
     }
 
     return redirect()->intended(route('dashboard'));
-})->name('login');
+})->name('login.submit');
 
 /*
 |--------------------------------------------------------------------------
@@ -259,15 +259,6 @@ Route::post('/verify-email/resend', function () {
         'message' => 'Verification code sent successfully.',
     ]);
 })->middleware('auth')->name('verification.resend');
-Route::get('/verify-email', function () {
-    abort(404,'comming soon');
-
-    if (auth()->user()->email_verified_at) {
-        return redirect()->route('dashboard');
-    }
-
-    return view('customer.auth.verify-email');
-})->middleware('auth')->name('verification.notice');
 Route::get('/logout', function (Request $request) {
     abort(404,'comming soon');
 
