@@ -53,7 +53,7 @@
     <div class="border-t border-white/10 pt-5 md:pt-6 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-xs md:text-sm text-white/50">
       <div>© {{ date('Y') }} {{ $siteName }}. {{ __('home.footer.rights') }}</div>
 <div class="flex items-center gap-4 md:gap-5">
-    <a href="{{ url('/user') }}" class="inline-flex items-center gap-1.5 rounded-full border border-[var(--gold)]/50 px-3 py-1.5 font-bold text-white hover:bg-[var(--gold)] hover:text-white transition">
+    <a href="{{ url('/user/login') }}" class="inline-flex items-center gap-1.5 rounded-full border border-[var(--gold)]/50 px-3 py-1.5 font-bold text-white hover:bg-[var(--gold)] hover:text-white transition">
       <i class="ri-user-settings-line"></i>
       {{ app()->getLocale() === 'ar' ? 'دخول الموظفين' : 'Employee login' }}
     </a>
