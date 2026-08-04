@@ -17,7 +17,7 @@
 <script>
     (() => {
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => navigator.serviceWorker.register('{{ url('/user/service-worker.js') }}', { scope: '/user/' }).catch(() => {}));
+            window.addEventListener('load', () => navigator.serviceWorker.register('{{ url('/pwa/user/service-worker.js') }}', { scope: '/user/' }).catch(() => {}));
         }
 
         const box = document.getElementById('employee-pwa-install');
