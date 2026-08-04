@@ -18,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Filament\Navigation\MenuItem;
+use Filament\View\PanelsRenderHook;
 
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
@@ -33,6 +34,14 @@ class UserPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             ->viteTheme('resources/css/filament/user/theme.css')
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => view('filament.user.pwa-head')->render(),
+            )
+            ->renderHook(
+                PanelsRenderHook::BODY_END,
+                fn (): string => view('filament.user.pwa-install')->render(),
+            )
             ->userMenuItems([
 
                 MenuItem::make()
