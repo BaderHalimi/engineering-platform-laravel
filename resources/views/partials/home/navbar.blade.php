@@ -15,17 +15,17 @@
 @endif <div class="w-10 hidden md:block"></div>
 
   <ul class="hidden md:flex items-center gap-3 text-gray-600 text-base font-bold">
-    <li><a href="?p=home" @click.prevent="goTo('home')" :class="page === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
-    <li><a href="?p=services" @click.prevent="goTo('services')" :class="page === 'services' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.services') }}</a></li>
-    <li><a href="?p=projects" @click.prevent="goTo('projects')" :class="page === 'projects' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.projects') }}</a></li>
-    <li><a href="?p=about" @click.prevent="goTo('about')" :class="page === 'about' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.about') }}</a></li>
-    <li><a href="?p=articles" @click.prevent="goTo('articles')" :class="page === 'articles' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.articles') }}</a></li>
-    <li><a href="?p=media" @click.prevent="goTo('media')" :class="page === 'media' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.media') }}</a></li>
-    <li><a href="?p=faqs" @click.prevent="goTo('faqs')" :class="page === 'faqs' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.faqs') }}</a></li>
-    <li><a href="?p=contact" @click.prevent="goTo('contact')" :class="page === 'contact' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.contact') }}</a></li>
+    <li><a href="#home" @click.prevent="activeSection = 'home'; $el.scrollIntoView ? document.querySelector('#home').scrollIntoView({behavior:'smooth'}) : null" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
+    <li><a href="#services" @click.prevent="activeSection = 'services'; document.querySelector('#services').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'services' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.services') }}</a></li>
+    <li><a href="#projects" @click.prevent="activeSection = 'projects'; document.querySelector('#projects').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'projects' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.projects') }}</a></li>
+    <li><a href="#about" @click.prevent="activeSection = 'about'; document.querySelector('#about').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'about' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.about') }}</a></li>
+    <li><a href="#articles" @click.prevent="activeSection = 'articles'; document.querySelector('#articles').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'articles' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.articles') }}</a></li>
+    <li><a href="#media" @click.prevent="activeSection = 'media'; document.querySelector('#media').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'media' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.media') }}</a></li>
+    <li><a href="#faqs" @click.prevent="activeSection = 'faqs'; document.querySelector('#faqs').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'faqs' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.faqs') }}</a></li>
+    <li><a href="#contact" @click.prevent="activeSection = 'contact'; document.querySelector('#contact').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'contact' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.contact') }}</a></li>
   </ul>
 
-  <a href="?p=contact" @click.prevent="goTo('contact')" class="btn-blue text-sm md:text-base font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-full flex items-center gap-2">
+  <a href="#contact" class="btn-blue text-sm md:text-base font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-full flex items-center gap-2">
     {{ __('home.nav.request_service') }} <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
   </a>
 
@@ -49,10 +49,10 @@
         ['contact', 'home.nav.contact'],
     ] as [$section, $label])
     <li>
-      <a href="?p={{ $section }}"
-         @click.prevent="goTo('{{ $section }}')"
+      <a href="#{{ $section }}"
+         @click.prevent="activeSection = '{{ $section }}'; mobileMenuOpen = false; document.querySelector('#{{ $section }}').scrollIntoView({behavior:'smooth'})"
          class="block px-4 py-3 rounded-2xl"
-         :style="page === '{{ $section }}' ? 'color:#fff;background-color:#f5ad2a;' : ''">
+         :style="activeSection === '{{ $section }}' ? 'color:#fff;background-color:#f5ad2a;' : ''">
         {{ __($label) }}
       </a>
     </li>

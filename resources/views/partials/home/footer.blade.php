@@ -1,9 +1,4 @@
-<footer
-  x-data="{ revealed: false }"
-  x-intersect.once="revealed = true"
-  :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'"
-  class="relative pt-16 pb-6 overflow-hidden transition-all duration-1000 ease-out"
-  style="background: linear-gradient(135deg, var(--teal-dark) 0%, #1f2e34 100%);">
+<footer class="relative pt-16 pb-6 overflow-hidden" style="background: linear-gradient(135deg, var(--teal-dark) 0%, #1f2e34 100%);">
   <div class="absolute inset-0 geo-pattern opacity-5"></div>
   <div class="container mx-auto px-5 md:px-6 relative z-10 text-white">
     <div class="bg-gradient-to-l from-[var(--gold)] to-[var(--gold-dark)] rounded-3xl p-5 md:p-8 mb-10 md:mb-12 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
@@ -11,7 +6,7 @@
         <h3 class="text-lg md:text-2xl font-black text-white mb-1">{{ __('home.footer.cta_title') }}</h3>
         <p class="text-white/90 text-xs md:text-sm">{{ __('home.footer.cta_subtitle') }}</p>
       </div>
-      <a href="?p=contact" @click.prevent="goTo('contact')" class="bg-white text-[var(--gold-dark)] font-extrabold text-sm md:text-base rounded-full inline-flex items-center gap-2 hover:scale-105 transition" style="padding:.7rem 1.5rem;">
+      <a href="#contact" @click.prevent="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})" class="bg-white text-[var(--gold-dark)] font-extrabold text-sm md:text-base rounded-full inline-flex items-center gap-2 hover:scale-105 transition" style="padding:.7rem 1.5rem;">
         {{ __('home.footer.cta_button') }} <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
       </a>
     </div>
@@ -28,20 +23,20 @@
       <div>
         <h4 class="font-extrabold text-base md:text-lg mb-4 md:mb-5 relative inline-block">{{ __('home.footer.quick_links') }}<span class="absolute -bottom-2 start-0 h-1 w-10 bg-[var(--gold)] rounded-full"></span></h4>
         <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-white/70 mt-5">
-          <li><a href="?p=home" @click.prevent="goTo('home')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.home') }}</a></li>
-          <li><a href="?p=services" @click.prevent="goTo('services')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.services') }}</a></li>
-          <li><a href="?p=projects" @click.prevent="goTo('projects')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.projects') }}</a></li>
-          <li><a href="?p=about" @click.prevent="goTo('about')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.about') }}</a></li>
-          <li><a href="?p=articles" @click.prevent="goTo('articles')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.articles') }}</a></li>
-          <li><a href="?p=media" @click.prevent="goTo('media')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.media') }}</a></li>
-          <li><a href="?p=contact" @click.prevent="goTo('contact')" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.contact') }}</a></li>
+          <li><a href="#home" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.home') }}</a></li>
+          <li><a href="#services" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.services') }}</a></li>
+          <li><a href="#projects" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.projects') }}</a></li>
+          <li><a href="#about" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.about') }}</a></li>
+          <li><a href="#articles" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.articles') }}</a></li>
+          <li><a href="#media" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.media') }}</a></li>
+          <li><a href="#contact" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.contact') }}</a></li>
         </ul>
       </div>
       <div>
         <h4 class="font-extrabold text-base md:text-lg mb-4 md:mb-5 relative inline-block">{{ __('home.nav.services') }}<span class="absolute -bottom-2 start-0 h-1 w-10 bg-[var(--gold)] rounded-full"></span></h4>
         <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-white/70 mt-5">
           @foreach($services->take(6) as $svc)
-            <li><a href="?p=services" @click.prevent="goTo('services')" class="hover:text-[var(--gold)] transition">{{ $tr($svc->name) }}</a></li>
+            <li><a href="#services" class="hover:text-[var(--gold)] transition">{{ $tr($svc->name) }}</a></li>
           @endforeach
         </ul>
       </div>
