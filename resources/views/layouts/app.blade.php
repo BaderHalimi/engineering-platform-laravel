@@ -18,35 +18,42 @@
 
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css">
 
+{{-- Alpine.js: التوب بار وhead-styles تاع الصفحة الرئيسية معتمدين عليه --}}
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
 <script>
 const swup = new Swup();
 </script>
 @stack('meta')
 
-<style>
-    :root {
-        --ink: #22262B;
-        --slate: #5B6067;
-        --teal: #526970;
-        --teal-dark: #3E5057;
-        --gold: #C89B3C;
-        --gold-soft: #E8D3A0;
-        --cream: #FBFAF7;
-        --paper: #F4F2ED;
-        --line: #E6E3DC;
-        --font-display: 'Cairo', sans-serif;
-        --font-body: 'IBM Plex Sans Arabic', sans-serif;
-    }
+{{-- ===========================================================================
+     هاذ الـ include هو المصدر الحقيقي لهوية الموقع: فيه تعريف .nav-link,
+     .nav-link.active, .btn-blue, .lang-switch, ستايل التوب بار... إلخ.
+     بلاه، الناف بار يبقى بلا highlight لأن الكلاسات ماكاينش ليها CSS.
+     =========================================================================== --}}
+@include('partials.home.head-styles')
 
+{{--
+    ===========================================================================
+    ملاحظة مهمة: شلت من هنا كل تعريف محلي لـ .nav-link / .lang-switch /
+    .more-dropdown / أزرار الألوان لأنها كانت تفرض ثيم خاص بهذا الملف فقط
+    (--teal / --gold المحليين) وهذا كان يخلق تعارض مع هوية الموقع الحقيقية
+    المعرّفة في resources/css/app.css (.btn-blue, .nav-link, إلخ).
+    دابا الناف تحت تستعمل نفس الكلاسات العامة (.btn-blue, .nav-link) بلا أي
+    override محلي، باش تبان بالضبط كيما فالصفحة الرئيسية.
+    ===========================================================================
+--}}
+<style>
     * { box-sizing: border-box; }
 
     body {
-        font-family: var(--font-body);
-        color: var(--ink);
-        background-color: var(--cream);
+        color: var(--ink, #22262B);
+        background-color: var(--cream, #FBFAF7);
         background-image:
-            linear-gradient(var(--line) 1px, transparent 1px),
-            linear-gradient(90deg, var(--line) 1px, transparent 1px);
+            linear-gradient(var(--line, #E6E3DC) 1px, transparent 1px),
+            linear-gradient(90deg, var(--line, #E6E3DC) 1px, transparent 1px);
         background-size: 48px 48px;
         background-position: center top;
         background-attachment: fixed;
@@ -62,54 +69,14 @@ const swup = new Swup();
         z-index: 0;
     }
 
-    .nav-link {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--slate);
-        padding: 8px 16px;
-        border-radius: 999px;
-        transition: all .2s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        white-space: nowrap;
-    }
-    .nav-link i { font-size: 15px; }
-    .nav-link:hover { background: var(--paper); color: var(--teal-dark); }
-    .nav-link.active {
-        background: var(--teal);
-        color: #fff;
-        box-shadow: 0 4px 10px -4px rgba(82,105,112,.6);
-    }
-    .nav-link.active:hover { background: var(--teal-dark); color: #fff; }
-
-    .lang-switch {
-        display: flex;
-        gap: 4px;
-        background: var(--paper);
-        border-radius: 999px;
-        padding: 3px;
-    }
-    .lang-switch a {
-        padding: 5px 12px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        color: #A5A099;
-        letter-spacing: .3px;
-        transition: all .2s ease;
-    }
-    .lang-switch a.active { background: var(--teal); color: #fff; }
-    .lang-switch a:not(.active):hover { color: var(--teal-dark); }
-
-    /* ===== قائمة "المزيد" المنسدلة (الخصوصية / الشروط) ===== */
+    /* ===== قائمة "قانوني" المنسدلة (الخصوصية / الشروط) — هيكلة فقط، بلا ألوان محلية ===== */
     .more-dropdown { position: relative; }
     .more-dropdown-panel {
         position: absolute;
         top: calc(100% + 10px);
         inset-inline-end: 0;
         background: #fff;
-        border: 1px solid var(--line);
+        border: 1px solid var(--line, #E6E3DC);
         border-radius: 16px;
         box-shadow: 0 12px 30px -8px rgba(34,38,43,.15);
         min-width: 190px;
@@ -132,21 +99,15 @@ const swup = new Swup();
         gap: 8px;
         padding: 9px 12px;
         border-radius: 10px;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--slate);
-        transition: all .15s ease;
         white-space: nowrap;
     }
-    .more-dropdown-panel a:hover { background: var(--paper); color: var(--teal-dark); }
-    .more-dropdown-panel a i { font-size: 15px; color: var(--gold); }
 
     .site-footer {
         text-align: center;
         font-size: 12px;
         color: #A5A099;
         padding: 32px 0;
-        border-top: 1px solid var(--line);
+        border-top: 1px solid var(--line, #E6E3DC);
         margin-top: 48px;
         position: relative;
         z-index: 1;
@@ -161,9 +122,8 @@ const swup = new Swup();
     .footer-legal a {
         color: #A5A099;
         font-weight: 600;
-        transition: color .15s ease;
     }
-    .footer-legal a:hover { color: var(--teal-dark); }
+    .footer-legal a:hover { color: var(--teal-dark, #3E5057); }
 
     @stack('styles')
 </style>
@@ -173,95 +133,160 @@ const swup = new Swup();
 @php
     use App\Models\Setup;
 
-    $siteLogo      = Setup::get('site_logo_path');
+    // ===== هلبر رابط الصور (نفس هلبر الصفحة الرئيسية) =====
+    $asset = fn($p) => $p ? asset('storage/' . ltrim($p, '/')) : null;
 
+    // ===== الإعدادات العامة (نفس المتغيرات لي يحتاجها partials.home.topbar وpartials.home.head-styles) =====
+    $siteName     = Setup::get('site_name', config('app.name'));
+    $siteEmail    = Setup::get('site_email', '');
+    $siteAddress  = Setup::get('site_address', '');
+    $sitePhone    = Setup::get('phone_number', '');
+    $siteLogo     = Setup::get('site_logo_path');
+    $topNotice    = Setup::get('top_notice', '');
+    $socialLinks  = json_decode(Setup::get('social_links', '[]'), true) ?: [];
 @endphp
-<body class="min-h-screen">
+<body class="min-h-screen" x-data="{ mobileMenuOpen: false }">
 
-    <nav class="bg-white/90 backdrop-blur border border-[var(--line)] rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 mx-4 md:mx-6 mt-4 md:mt-5 flex items-center justify-between sticky top-2 md:top-3 z-50 relative">
+{{-- التوب بار: نفس البارتيال تاع الصفحة الرئيسية بالضبط --}}
+@include('partials.home.topbar', [
+    'socialLinks' => $socialLinks,
+    'sitePhone'   => $sitePhone,
+    'siteEmail'   => $siteEmail,
+    'siteAddress' => $siteAddress,
+    'topNotice'   => $topNotice,
+])
 
-<div class="flex items-center gap-3">
+{{-- ============================================================
+     ناف بار: نفس هوية الصفحة الرئيسية بالضبط (نفس الكلاسات العامة
+     .btn-blue / .nav-link من partials.home.head-styles) — غير الروابط
+     هنا route-based بدل anchor scroll لأنها صفحات منفصلة.
+     ============================================================ --}}
+<nav class="bg-white/95 backdrop-blur border border-gray-100 rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 mx-4 md:mx-6 mt-4 md:mt-5 flex items-center justify-between sticky top-2 md:top-3 z-50 transition-all duration-300">
+
     @if($siteLogo)
-        <img src="{{ Storage::url($siteLogo) }}" alt="{{ $siteName ?? '' }}" class="h-8" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+        <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName }}"
+             class="h-8 md:hidden"
+             style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+        <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName }}"
+             class="h-9 hidden md:block"
+             style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
     @else
-        <img src="https://files.catbox.moe/ekyv64.webp" alt="لوجو الديوان" class="h-8" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+        <img src="https://files.catbox.moe/ekyv64.webp" alt="لوجو الديوان"
+             class="h-8 md:hidden"
+             style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
+        <img src="https://files.catbox.moe/ekyv64.webp" alt="لوجو الديوان"
+             class="h-9 hidden md:block"
+             style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
     @endif
-    <span class="font-extrabold text-[var(--teal)] text-sm md:text-base hidden sm:block" style="font-family:var(--font-display)">
-        الديوان للاستشارات الهندسية
-    </span>
-</div>
 
-        <div class="hidden md:flex items-center gap-1">
+    <ul class="hidden md:flex items-center gap-3 text-gray-600 text-base font-bold">
+        <li>
+            <a href="{{ route('home') }}"
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+                <i class="ri-home-4-line"></i> {{ app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home' }}
+            </a>
+        </li>
+        <li>
             <a href="{{ route('home_pages.projects.index') }}"
-               class="nav-link {{ request()->routeIs('home_pages.projects.*') ? 'active' : '' }}">
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.projects.*') ? 'active' : '' }}">
                 <i class="ri-briefcase-4-line"></i> {{ app()->getLocale() === 'ar' ? 'المشاريع' : 'Projects' }}
             </a>
+        </li>
+        <li>
             <a href="{{ route('home_pages.articles.index') }}"
-               class="nav-link {{ request()->routeIs('home_pages.articles.*') ? 'active' : '' }}">
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.articles.*') ? 'active' : '' }}">
                 <i class="ri-newspaper-line"></i> {{ app()->getLocale() === 'ar' ? 'المقالات' : 'Articles' }}
             </a>
+        </li>
+        <li>
             <a href="{{ route('home_pages.images.index') }}"
-               class="nav-link {{ request()->routeIs('home_pages.images.*') ? 'active' : '' }}">
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.images.*') ? 'active' : '' }}">
                 <i class="ri-image-line"></i> {{ app()->getLocale() === 'ar' ? 'الصور' : 'Gallery' }}
             </a>
+        </li>
+        <li>
             <a href="{{ route('home_pages.videos.index') }}"
-               class="nav-link {{ request()->routeIs('home_pages.videos.*') ? 'active' : '' }}">
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.videos.*') ? 'active' : '' }}">
                 <i class="ri-vidicon-line"></i> {{ app()->getLocale() === 'ar' ? 'الفيديوهات' : 'Videos' }}
             </a>
+        </li>
 
-            {{-- قائمة منسدلة: سياسة الخصوصية + الشروط والأحكام --}}
-            <div class="more-dropdown">
-                <span class="nav-link cursor-pointer {{ (request()->routeIs('privacy-policy') || request()->routeIs('terms-conditions')) ? 'active' : '' }}">
-                    <i class="ri-shield-check-line"></i> {{ app()->getLocale() === 'ar' ? 'قانوني' : 'Legal' }}
-                    <i class="ri-arrow-down-s-line text-xs"></i>
-                </span>
-                <div class="more-dropdown-panel">
-                    <a href="{{ route('privacy-policy') }}">
-                        <i class="ri-lock-2-line"></i> {{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}
-                    </a>
-                    <a href="{{ route('terms-conditions') }}">
-                        <i class="ri-file-text-line"></i> {{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}
-                    </a>
-                </div>
+        {{-- قائمة منسدلة: سياسة الخصوصية + الشروط والأحكام --}}
+        <li class="more-dropdown">
+            <span class="block px-5 py-2 rounded-full nav-link cursor-pointer {{ (request()->routeIs('privacy-policy') || request()->routeIs('terms-conditions')) ? 'active' : '' }}">
+                <i class="ri-shield-check-line"></i> {{ app()->getLocale() === 'ar' ? 'قانوني' : 'Legal' }}
+                <i class="ri-arrow-down-s-line text-xs"></i>
+            </span>
+            <div class="more-dropdown-panel">
+                <a href="{{ route('privacy-policy') }}" class="nav-link">
+                    <i class="ri-lock-2-line"></i> {{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}
+                </a>
+                <a href="{{ route('terms-conditions') }}" class="nav-link">
+                    <i class="ri-file-text-line"></i> {{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}
+                </a>
             </div>
-        </div>
+        </li>
+    </ul>
 
-        <div class="flex items-center gap-3">
-            <div class="lang-switch">
-                <a href="{{ route('set-locale', 'ar') }}"
-                   class="{{ app()->getLocale() === 'ar' ? 'active' : '' }}">AR</a>
-                <a style="opacity:.4;pointer-events:none;cursor:default;">EN</a>
-            </div>
+    <a href="{{ route('home') }}#contact" class="hidden md:flex btn-blue text-sm md:text-base font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-full items-center gap-2">
+        {{ app()->getLocale() === 'ar' ? 'اطلب خدمة' : 'Request service' }}
+        <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
+    </a>
 
-            <button id="mobile-menu-btn" class="md:hidden text-2xl text-[var(--teal)]">
-                <i class="ri-menu-line"></i>
-            </button>
-        </div>
-    </nav>
+    <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full" style="background-color:#f5ad2a;">
+        <i id="mobile-menu-icon-open" class="ri-menu-line text-white text-xl"></i>
+        <i id="mobile-menu-icon-close" class="ri-close-line text-white text-xl hidden"></i>
+    </button>
+</nav>
 
-    <div id="mobile-menu" class="hidden md:hidden mx-4 mt-2 bg-white border border-[var(--line)] rounded-2xl shadow-lg p-3 flex flex-col gap-1 relative z-40">
-        <a href="{{ route('home_pages.projects.index') }}" class="nav-link {{ request()->routeIs('home_pages.projects.*') ? 'active' : '' }}">
-            <i class="ri-briefcase-4-line"></i> {{ app()->getLocale() === 'ar' ? 'المشاريع' : 'Projects' }}
-        </a>
-        <a href="{{ route('home_pages.articles.index') }}" class="nav-link {{ request()->routeIs('home_pages.articles.*') ? 'active' : '' }}">
-            <i class="ri-newspaper-line"></i> {{ app()->getLocale() === 'ar' ? 'المقالات' : 'Articles' }}
-        </a>
-        <a href="{{ route('home_pages.images.index') }}" class="nav-link {{ request()->routeIs('home_pages.images.*') ? 'active' : '' }}">
-            <i class="ri-image-line"></i> {{ app()->getLocale() === 'ar' ? 'الصور' : 'Gallery' }}
-        </a>
-        <a href="{{ route('home_pages.videos.index') }}" class="nav-link {{ request()->routeIs('home_pages.videos.*') ? 'active' : '' }}">
-            <i class="ri-vidicon-line"></i> {{ app()->getLocale() === 'ar' ? 'الفيديوهات' : 'Videos' }}
-        </a>
+{{-- قائمة الموبايل (drawer) — نفس شكل الصفحة الرئيسية --}}
+<div id="mobile-menu" class="hidden md:hidden mx-4 mt-3 bg-white border border-gray-100 rounded-3xl shadow-lg shadow-gray-200/50 p-3">
+    <ul class="flex flex-col text-gray-600 text-base font-bold divide-y divide-gray-100">
+        <li>
+            <a href="{{ route('home') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+                <i class="ri-home-4-line"></i> {{ app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home_pages.projects.index') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.projects.*') ? 'active' : '' }}">
+                <i class="ri-briefcase-4-line"></i> {{ app()->getLocale() === 'ar' ? 'المشاريع' : 'Projects' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home_pages.articles.index') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.articles.*') ? 'active' : '' }}">
+                <i class="ri-newspaper-line"></i> {{ app()->getLocale() === 'ar' ? 'المقالات' : 'Articles' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home_pages.images.index') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.images.*') ? 'active' : '' }}">
+                <i class="ri-image-line"></i> {{ app()->getLocale() === 'ar' ? 'الصور' : 'Gallery' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home_pages.videos.index') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.videos.*') ? 'active' : '' }}">
+                <i class="ri-vidicon-line"></i> {{ app()->getLocale() === 'ar' ? 'الفيديوهات' : 'Videos' }}
+            </a>
+        </li>
 
-        <div class="border-t border-[var(--line)] my-1"></div>
+        <div class="border-t border-gray-100 my-1"></div>
 
-        <a href="{{ route('privacy-policy') }}" class="nav-link {{ request()->routeIs('privacy-policy') ? 'active' : '' }}">
-            <i class="ri-lock-2-line"></i> {{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}
-        </a>
-        <a href="{{ route('terms-conditions') }}" class="nav-link {{ request()->routeIs('terms-conditions') ? 'active' : '' }}">
-            <i class="ri-file-text-line"></i> {{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}
-        </a>
-    </div>
+        <li>
+            <a href="{{ route('privacy-policy') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('privacy-policy') ? 'active' : '' }}">
+                <i class="ri-lock-2-line"></i> {{ app()->getLocale() === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('terms-conditions') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('terms-conditions') ? 'active' : '' }}">
+                <i class="ri-file-text-line"></i> {{ app()->getLocale() === 'ar' ? 'الشروط والأحكام' : 'Terms & Conditions' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home') }}#contact" class="block px-4 py-3 rounded-2xl nav-link">
+                <i class="ri-send-plane-line"></i> {{ app()->getLocale() === 'ar' ? 'اطلب خدمة' : 'Request service' }}
+            </a>
+        </li>
+    </ul>
+</div>
 
     <div class="relative z-10">
         @yield('content')
@@ -281,6 +306,8 @@ const swup = new Swup();
     <script>
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function () {
             document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.getElementById('mobile-menu-icon-open')?.classList.toggle('hidden');
+            document.getElementById('mobile-menu-icon-close')?.classList.toggle('hidden');
         });
     </script>
 </body>

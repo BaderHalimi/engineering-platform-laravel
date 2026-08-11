@@ -83,7 +83,7 @@ Route::get('/', function ()
             'faqs'
         ));
     }
-);
+)->name('home');
 Route::get("privacy-policy", function () {
     $setup = Setup::first();
     return view('home_pages.privacy-policy', compact('setup'));
