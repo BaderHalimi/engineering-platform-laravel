@@ -1,5 +1,5 @@
 <section id="media" class="relative py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
-  <div class="container mx-auto px-5 md:px-6">
+  <div class="site-container">
 
     {{-- ====== فيديوهات (تُعرض عبر الثمبنيل - يُفتح الفيديو عند الضغط) ====== --}}
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-12 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">

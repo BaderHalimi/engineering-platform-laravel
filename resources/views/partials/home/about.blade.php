@@ -31,7 +31,7 @@
   @endif
 
   <!-- Desktop about -->
-  <div class="hidden md:flex container mx-auto px-6 items-center justify-between gap-10">
+  <div class="hidden md:flex site-container items-center justify-between gap-10">
     <img x-data x-intersect.once="$el.classList.add('is-visible')" src="https://files.catbox.moe/3i7imq.webp" alt="" class="reveal order-2 h-auto w-auto max-w-[35%] object-contain rounded-2xl shadow-xl">
     <div class="order-1 max-w-[42%] text-start" style="color:var(--teal);">
       <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal mb-10">

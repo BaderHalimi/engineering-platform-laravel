@@ -322,7 +322,7 @@
                             x-transition:leave="transition ease-in duration-300"
                             x-transition:leave-start="opacity-100 translate-y-0"
                             x-transition:leave-end="opacity-0 -translate-y-3"
-                            action="{{ route('login') }}" method="POST" class="space-y-5">
+                            action="{{ route('login.submit') }}" method="POST" class="space-y-5">
                             @csrf
 
                             <div>

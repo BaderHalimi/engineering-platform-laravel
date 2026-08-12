@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="hidden md:block container mx-auto px-6">
+  <div class="hidden md:block site-container">
     <div class="grid lg:grid-cols-2 gap-16 items-start">
       <div class="relative why-reveal lg:order-2 flex justify-start lg:ms-16 lg:mt-10" x-data x-intersect.once="$el.classList.add('is-visible')">
         <div class="absolute -top-6 -end-6 w-32 h-32 bg-[var(--gold)]/20 rounded-full blur-2xl"></div>
