@@ -1,0 +1,149 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+
+@theme {
+    /* Primary — Bright Orange */
+    --color-primary-50:  #fefaf2;
+    --color-primary-100: #fef5e5;
+    --color-primary-200: #fdedd0;
+    --color-primary-300: #fbe0ae;
+    --color-primary-400: #f9ce7f;
+    --color-primary-500: #f5ad2a;
+    --color-primary-600: #d09324;
+    --color-primary-700: #ac791d;
+    --color-primary-800: #875f17;
+    --color-primary-900: #624511;
+    --color-primary-950: #3d2b0a;
+
+    /* Gray — Deep Slate base */
+    --color-gray-50:  #f6f7f7;
+    --color-gray-100: #e8eaeb;
+    --color-gray-200: #d4d8da;
+    --color-gray-300: #b5bcbf;
+    --color-gray-400: #8b969a;
+    --color-gray-500: #3d5057;
+    --color-gray-600: #34444a;
+    --color-gray-700: #2b383d;
+    --color-gray-800: #222c30;
+    --color-gray-900: #182023;
+    --color-gray-950: #0f1416;
+
+    /* Teal — Soft Teal base (custom) */
+    --color-teal-50:  #f5f6f6;
+    --color-teal-100: #eaedee;
+    --color-teal-200: #d9dee0;
+    --color-teal-300: #bdc6c9;
+    --color-teal-400: #97a5a9;
+    --color-teal-500: #526970;
+    --color-teal-600: #46595f;
+    --color-teal-700: #394a4e;
+    --color-teal-800: #2d3a3e;
+    --color-teal-900: #212a2d;
+    --color-teal-950: #141a1c;
+
+    --color-ivory: #f8f4ec;
+    --color-mist:  #eef2f3;
+}
+
+
+:root {
+    /* Primary — Bright Orange */
+    --primary-50:  #fefaf2;
+    --primary-100: #fef5e5;
+    --primary-200: #fdedd0;
+    --primary-300: #fbe0ae;
+    --primary-400: #f9ce7f;
+    --primary-500: #f5ad2a;
+    --primary-600: #d09324;
+    --primary-700: #ac791d;
+    --primary-800: #875f17;
+    --primary-900: #624511;
+    --primary-950: #3d2b0a;
+
+    /* Gray — Deep Slate base (يُستخدم للنصوص والحدود والأسطح) */
+    --gray-50:  #f6f7f7;
+    --gray-100: #e8eaeb;
+    --gray-200: #d4d8da;
+    --gray-300: #b5bcbf;
+    --gray-400: #8b969a;
+    --gray-500: #3d5057;
+    --gray-600: #34444a;
+    --gray-700: #2b383d;
+    --gray-800: #222c30;
+    --gray-900: #182023;
+    --gray-950: #0f1416;
+
+    /* Info — Soft Teal (بدل الأزرق القياسي) */
+    --info-50:  #f5f6f6;
+    --info-100: #eaedee;
+    --info-200: #d9dee0;
+    --info-300: #bdc6c9;
+    --info-400: #97a5a9;
+    --info-500: #526970;
+    --info-600: #46595f;
+    --info-700: #394a4e;
+    --info-800: #2d3a3e;
+    --info-900: #212a2d;
+    --info-950: #141a1c;
+
+    /* Brand surfaces */
+    --ivory: #f8f4ec;
+    --mist:  #eef2f3;
+}
+
+.dark {
+    --primary-50:  #3d2b0a;
+    --primary-100: #624511;
+    --primary-200: #875f17;
+    --primary-300: #ac791d;
+    --primary-400: #d09324;
+    --primary-500: #f5ad2a;
+    --primary-600: #f9ce7f;
+    --primary-700: #fbe0ae;
+    --primary-800: #fdedd0;
+    --primary-900: #fef5e5;
+    --primary-950: #fefaf2;
+
+    --gray-50:  #0f1416;
+    --gray-100: #182023;
+    --gray-200: #222c30;
+    --gray-300: #2b383d;
+    --gray-400: #34444a;
+    --gray-500: #3d5057;
+    --gray-600: #8b969a;
+    --gray-700: #b5bcbf;
+    --gray-800: #d4d8da;
+    --gray-900: #e8eaeb;
+    --gray-950: #f6f7f7;
+
+    --info-50:  #141a1c;
+    --info-100: #212a2d;
+    --info-200: #2d3a3e;
+    --info-300: #394a4e;
+    --info-400: #46595f;
+    --info-500: #526970;
+    --info-600: #97a5a9;
+    --info-700: #bdc6c9;
+    --info-800: #d9dee0;
+    --info-900: #eaedee;
+    --info-950: #f5f6f6;
+
+    --ivory: #1a2024;
+    --mist:  #222a2e;
+}
+
+
+.fi-tabs-tab[aria-selected="true"] {
+    border-bottom: 2px solid rgb(var(--primary-600));
+    font-weight: 600;
+}
+
+.fi-section-soft {
+    transition: box-shadow .2s ease;
+}
+.fi-section-soft:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,.06);
+}

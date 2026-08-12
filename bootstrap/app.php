@@ -10,9 +10,21 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        //
-    })
+
+        ->withMiddleware(function (Middleware $middleware) {
+
+            $middleware->web(append: [
+                \App\Http\Middleware\SetLocale::class,
+
+
+                //\App\Http\Middleware\CheckSiteMaintenance::class,
+            ]);
+        $middleware->alias([
+            'verified.email' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+            'IsCustomer' => \App\Http\Middleware\IsCustomer::class,
+        ]);
+
+        })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
