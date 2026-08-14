@@ -35,103 +35,29 @@
     </div>
 
     <!-- ===== شبكة الخدمات ===== -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-      @forelse($services as $index => $service)
-      @php
-        $svcName  = is_array($service->name) ? $tr($service->name) : $service->name;
-        $svcShort = is_array($service->short_description) ? $tr($service->short_description) : $service->short_description;
-
-        $priceLabels = [
-            'fixed'         => __('home.services.price_fixed'),
-            'starting_from' => __('home.services.price_from'),
-            'quote'         => __('home.services.price_quote'),
-        ];
-
-        // رمز مرجعي بأسلوب لوحات الرسم الهندسي (A-01, A-02, ...)
-        $refCode = 'A-' . str_pad($index + 1, 2, '0', STR_PAD_LEFT);
-      @endphp
-      <div x-data x-intersect.once="$el.classList.add('is-visible')"
-           class="services-reveal blueprint-card group relative bg-white flex flex-col">
-
-        <!-- الختم الهندسي المعتمد -->
-        <div class="stamp-seal absolute -top-5 inset-inline-end-5 z-20">
-          <div class="stamp-ring">
-            <span class="stamp-code">{{ $refCode }}</span>
-          </div>
-        </div>
-
-        <!-- رأس الكارت: الثمبنيل / الأيقونة -->
-        <div class="blueprint-head relative overflow-hidden">
-          @if($service->thumbnail)
-            <img src="{{ $asset($service->thumbnail) }}" alt="{{ $svcName }}" class="blueprint-thumb">
-            <div class="blueprint-head-overlay"></div>
-          @else
-            <div class="blueprint-icon-only">
-              <i class="{{ $service->icon ?? 'ri-building-2-line' }}"></i>
+    @if(($services ?? collect())->count())
+      <div class="services-marquee-shell">
+        <div class="services-marquee-fade services-marquee-fade-start"></div>
+        <div class="services-marquee-fade services-marquee-fade-end"></div>
+        <div class="services-marquee-track">
+          @for($copy = 0; $copy < 2; $copy++)
+            <div class="services-marquee-group" aria-hidden="{{ $copy === 1 ? 'true' : 'false' }}" @if($copy === 1) inert @endif>
+              @foreach($services as $index => $service)
+                @include('partials.home.service-card', [
+                  'service' => $service,
+                  'index' => $index,
+                  'tr' => $tr,
+                  'asset' => $asset,
+                  'contactUrl' => $contactUrl ?? null,
+                ])
+              @endforeach
             </div>
-          @endif
-          <span class="blueprint-corner-tag">{{ $refCode }}</span>
-        </div>
-
-        <!-- جسم الكارت -->
-        <div class="p-6 md:p-7 flex flex-col flex-1 text-right">
-          <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">{{ $svcName }}</h3>
-
-          @if($svcShort)
-          <p class="text-gray-500 text-sm md:text-base leading-relaxed mb-5">{{ $svcShort }}</p>
-          @endif
-
-          <!-- خط قياس يفصل الوصف عن المواصفات -->
-          <div class="ruler-divider mb-5"></div>
-
-          <!-- جدول المواصفات الفنية -->
-          @if($service->estimated_time || $service->price || $service->documented || $service->visit_required)
-          <div class="spec-table mb-6">
-            @if($service->estimated_time)
-            <div class="spec-row">
-              <span class="spec-label"><i class="ri-time-line"></i> {{ __('home.services.duration_label') ?? 'المدة' }}</span>
-              <span class="spec-value">{{ $service->estimated_time }}</span>
-            </div>
-            @endif
-
-            @if($service->price)
-            <div class="spec-row">
-              <span class="spec-label"><i class="ri-price-tag-3-line"></i> {{ $priceLabels[$service->price_type] ?? '' }}</span>
-              <span class="spec-value spec-value-gold">{{ $service->price }}</span>
-            </div>
-            @endif
-
-            @if($service->documented)
-            <div class="spec-row">
-              <span class="spec-label"><i class="ri-shield-check-line"></i> {{ __('home.services.documented') }}</span>
-              <span class="spec-value spec-check"><i class="ri-check-line"></i></span>
-            </div>
-            @endif
-
-            @if($service->visit_required)
-            <div class="spec-row">
-              <span class="spec-label"><i class="ri-map-pin-line"></i> {{ __('home.services.visit_required') }}</span>
-              <span class="spec-value spec-check spec-amber"><i class="ri-check-line"></i></span>
-            </div>
-            @endif
-          </div>
-          @endif
-
-          <a href="{{ $contactUrl ?? '#contact' }}" @if(empty($contactUrl)) @click.prevent="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif
-             class="mt-auto request-link inline-flex items-center justify-center gap-2 font-bold text-sm">
-            {{ __('home.services.request') }}
-            <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
-          </a>
-          <a href="{{ route('home_pages.services.view', $service->slug) }}" class="mt-3 inline-flex items-center justify-center gap-2 text-sm font-extrabold text-[var(--teal)] hover:text-[var(--gold-dark)] transition">
-            {{ app()->getLocale() === 'ar' ? 'معرفة المزيد' : 'Learn more' }}
-            <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
-          </a>
+          @endfor
         </div>
       </div>
-      @empty
-        <div class="col-span-full text-center text-gray-400 py-10">{{ __('home.services.empty') }}</div>
-      @endforelse
-    </div>
+    @else
+      <div class="text-center text-gray-400 py-10">{{ __('home.services.empty') }}</div>
+    @endif
   </div>
 </section>
 
@@ -146,6 +72,53 @@
   }
 
   /* ===== الكارت ===== */
+  .services-marquee-shell{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-block: 1.5rem 2.25rem;
+  }
+  .services-marquee-track{
+    display: flex;
+    width: max-content;
+    gap: 0;
+    animation: services-marquee 42s linear infinite;
+    will-change: transform;
+  }
+  .services-marquee-shell:hover .services-marquee-track{
+    animation-play-state: paused;
+  }
+  .services-marquee-group{
+    display: flex;
+    align-items: stretch;
+    gap: 1.75rem;
+    padding-inline: .25rem;
+  }
+  .service-marquee-card{
+    width: min(82vw, 390px);
+    min-height: 100%;
+    flex: 0 0 min(82vw, 390px);
+  }
+  .services-marquee-fade{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    width: min(12vw, 120px);
+    pointer-events: none;
+  }
+  .services-marquee-fade-start{
+    inset-inline-start: 0;
+    background: linear-gradient(to left, transparent, #fff);
+  }
+  .services-marquee-fade-end{
+    inset-inline-end: 0;
+    background: linear-gradient(to right, transparent, #fff);
+  }
+  @keyframes services-marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
   .blueprint-card{
     border: 1.5px solid #e7e2d8;
     border-radius: 22px;
@@ -256,6 +229,7 @@
   }
 
   @media (prefers-reduced-motion: reduce){
+    .services-marquee-track{ animation:none !important; }
     .blueprint-card, .blueprint-thumb, .stamp-ring, .request-link{ transition:none !important; }
   }
 </style>
