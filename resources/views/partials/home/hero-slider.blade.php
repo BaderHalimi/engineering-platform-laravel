@@ -61,7 +61,7 @@
     </div>
   @endforeach
 
-  <div class="site-container relative z-10 min-h-screen flex items-center py-28 md:py-36">
+  <div class="site-container relative z-10 min-h-screen flex items-center pt-44 pb-24 md:pt-52 md:pb-32">
     @foreach($slides as $index => $slide)
       @php
         $title = $trSlide($slide, 'title');
