@@ -95,7 +95,7 @@
     width: max-content;
     gap: 0;
     flex-direction: row;
-    animation: services-marquee 42s linear infinite;
+    animation: services-marquee 70s linear infinite;
     will-change: transform;
   }
   .services-marquee-shell[data-marquee-dir="ltr"] .services-marquee-track{
