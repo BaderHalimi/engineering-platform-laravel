@@ -36,11 +36,21 @@
 
     <!-- ===== شبكة الخدمات ===== -->
     @if(($services ?? collect())->count())
-      <div class="services-marquee-shell">
+      @php
+        $serviceItems = ($services ?? collect())->values();
+        $serviceCount = max(1, $serviceItems->count());
+        $itemsPerLoop = max($serviceCount, (int) ceil(14 / $serviceCount) * $serviceCount);
+        $marqueeCopies = 2;
+      @endphp
+      <div class="services-marquee-shell" style="--marquee-copy-count: {{ $marqueeCopies }};">
         <div class="services-marquee-track">
-          @for($copy = 0; $copy < 3; $copy++)
+          @for($copy = 0; $copy < $marqueeCopies; $copy++)
             <div class="services-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
-              @foreach($services as $index => $service)
+              @for($loopIndex = 0; $loopIndex < $itemsPerLoop; $loopIndex++)
+                @php
+                  $service = $serviceItems[$loopIndex % $serviceCount];
+                  $index = $loopIndex % $serviceCount;
+                @endphp
                 @include('partials.home.service-card', [
                   'service' => $service,
                   'index' => $index,
@@ -48,7 +58,7 @@
                   'asset' => $asset,
                   'contactUrl' => $contactUrl ?? null,
                 ])
-              @endforeach
+              @endfor
             </div>
           @endfor
         </div>
@@ -72,16 +82,18 @@
   /* ===== الكارت ===== */
   .services-marquee-shell{
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
     overflow: hidden;
     padding-block: 1.5rem 2.25rem;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   }
   .services-marquee-track{
     display: flex;
     width: max-content;
     gap: 0;
+    direction: ltr;
     animation: services-marquee 42s linear infinite;
     will-change: transform;
   }
@@ -92,7 +104,7 @@
     display: flex;
     align-items: stretch;
     gap: 1.75rem;
-    padding-inline: .25rem;
+    padding-inline: .875rem;
   }
   .services-marquee-group[aria-hidden="true"]{
     pointer-events: none;
@@ -104,7 +116,7 @@
   }
   @keyframes services-marquee{
     from{ transform: translateX(0); }
-    to{ transform: translateX(-33.333333%); }
+    to{ transform: translateX(calc(-100% / var(--marquee-copy-count))); }
   }
   .blueprint-card{
     border: 1.5px solid #e7e2d8;
