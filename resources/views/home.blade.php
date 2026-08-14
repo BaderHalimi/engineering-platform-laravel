@@ -51,6 +51,8 @@
     $workSteps   = json_decode(Setup::get('work_steps', '[]'), true) ?: [];
     $socialLinks = json_decode(Setup::get('social_links', '[]'), true) ?: [];
     $marquee     = json_decode(Setup::get('marquee', '[]'), true) ?: [];
+    $heroSliderEnabled = (bool) Setup::get('hero_slider_enabled', true);
+    $hasHeroSlider = $heroSliderEnabled && collect($heroSlides ?? [])->contains(fn ($slide) => filled($slide['media_path'] ?? null));
 @endphp
 
 <!DOCTYPE html>
@@ -91,7 +93,7 @@
 
 @include('partials.home.topbar', ['socialLinks' => $socialLinks, 'sitePhone' => $sitePhone, 'siteEmail' => $siteEmail, 'siteAddress' => $siteAddress, 'topNotice' => $topNotice])
 
-@include('partials.home.navbar', ['siteLogo' => $siteLogo, 'asset' => $asset])
+@include('partials.home.navbar', ['siteLogo' => $siteLogo, 'asset' => $asset, 'floating' => $hasHeroSlider])
 
 @include('partials.home.hero-slider', ['heroSlides' => $heroSlides ?? []])
 
