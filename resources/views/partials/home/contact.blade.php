@@ -41,17 +41,18 @@
         </div>
         @endif
 
-        <div class="relative overflow-hidden rounded-3xl border border-[var(--gold)]/30 bg-gradient-to-br from-[var(--teal-dark)] to-[var(--teal)] p-5 md:p-6 text-white shadow-xl shadow-[rgba(82,105,112,.18)]">
-          <div class="absolute -top-12 -end-10 h-32 w-32 rounded-full bg-[var(--gold)]/20 blur-2xl"></div>
+        <div class="relative overflow-hidden rounded-3xl border border-[var(--gold)]/25 bg-white p-5 md:p-6 shadow-xl shadow-gray-200/60">
+          <div class="absolute top-0 inset-inline-end-0 h-full w-1.5 bg-gradient-to-b from-[var(--gold)] to-[var(--gold-dark)]"></div>
           <div class="relative">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-2xl text-[var(--gold)]">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-2xl text-[var(--gold-dark)]">
               <i class="ri-mail-send-line"></i>
             </div>
-            <h3 class="mb-2 text-lg md:text-xl font-black">اشترك بالحملة البريدية</h3>
-            <p class="mb-5 text-sm leading-7 text-white/75">استقبل تحديثات الخدمات، المقالات، وآخر الأعمال الهندسية مباشرة على بريدك.</p>
+            <h3 class="mb-2 text-lg md:text-xl font-black text-[var(--teal)]">اشترك بالحملة البريدية</h3>
+            <p class="mb-5 text-sm leading-7 text-gray-500">استقبل تحديثات الخدمات، المقالات، وآخر الأعمال الهندسية مباشرة على بريدك.</p>
             <form action="{{ $siteEmail ? 'mailto:' . $siteEmail : '#' }}" method="GET" class="flex flex-col gap-3">
-              <input type="email" name="email" class="w-full rounded-full border border-white/15 bg-white/10 px-4 py-3 text-sm font-bold text-white outline-none placeholder:text-white/55 focus:border-[var(--gold)]" placeholder="example@email.com">
-              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-black/10 transition hover:bg-[var(--gold-dark)]">
+              <input type="hidden" name="subject" value="اشتراك بالحملة البريدية">
+              <input type="email" name="body" class="field rounded-full" placeholder="example@email.com">
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-[rgba(245,173,42,.25)] transition hover:bg-[var(--gold-dark)]">
                 اشترك الآن
                 <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
               </button>
