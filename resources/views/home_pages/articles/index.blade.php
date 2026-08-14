@@ -130,6 +130,13 @@
   <div class="container mx-auto px-5 md:px-6">
 
     @if($articles->count())
+      @php
+        $articlesGridClass = $articles->count() === 1
+          ? 'grid grid-cols-1 gap-5 md:gap-7 max-w-xl mx-auto'
+          : ($articles->count() === 2
+            ? 'grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 max-w-5xl mx-auto'
+            : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7');
+      @endphp
       <div class="flex items-center justify-between mb-8 generic-reveal">
         <p class="text-gray-500 text-sm">
           ط¹ط±ط¶ <span class="font-bold text-[var(--teal)]">{{ $articles->count() }}</span> ظ…ظ†
@@ -137,7 +144,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
+      <div class="{{ $articlesGridClass }}">
         @foreach($articles as $article)
           <article class="article-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal">
             <a href="{{ route('home_pages.articles.view', $article->slug) }}" class="block relative overflow-hidden h-52">
@@ -194,7 +201,7 @@
           @if($articles->onFirstPage())
             <span class="page-link disabled"><i class="ph-bold ph-caret-right"></i></span>
           @else
-            <a href="{{ $articles->previousPageUrl() }}" class="page-link"><i class="ph-bold ph-caret-right"></i></a>
+            <a href="{{ $articles->previousPageUrl() }}" class="page-link" aria-label="Previous page"><i class="ph-bold ph-caret-right"></i><span class="sr-only">Previous page</span></a>
           @endif
 
           @foreach($articles->getUrlRange(max(1, $articles->currentPage() - 2), min($articles->lastPage(), $articles->currentPage() + 2)) as $page => $url)
@@ -204,7 +211,7 @@
           @endforeach
 
           @if($articles->hasMorePages())
-            <a href="{{ $articles->nextPageUrl() }}" class="page-link"><i class="ph-bold ph-caret-left"></i></a>
+            <a href="{{ $articles->nextPageUrl() }}" class="page-link" aria-label="Next page"><i class="ph-bold ph-caret-left"></i><span class="sr-only">Next page</span></a>
           @else
             <span class="page-link disabled"><i class="ph-bold ph-caret-left"></i></span>
           @endif

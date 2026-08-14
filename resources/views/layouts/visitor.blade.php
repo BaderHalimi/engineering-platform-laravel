@@ -10,10 +10,11 @@
     <meta charset="utf-8">
 
     <link rel="icon" href="{{ asset('logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
     <title>{{ \App\Support\Seo::title($pageTitle) }}</title>
     @include('partials.seo', ['seoDescription' => $pageDescription])
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css'])
     @endif
     <style>
         .brand-logo { height: 64px; width: auto; min-width: 140px; object-fit: contain; }

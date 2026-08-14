@@ -37,9 +37,9 @@
   @if($floating)
     x-data="{ scrolled: window.scrollY > 48 }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 48, { passive: true })"
-    :class="scrolled ? 'top-4 md:top-5 bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25' : 'top-16 md:top-20 bg-white/16 border-white/25 shadow-black/20'"
+    :class="scrolled ? 'top-4 md:top-5 bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25' : 'top-16 md:top-20 bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25'"
   @endif
-  class="{{ $navPositionClass }} {{ $floating ? '' : 'bg-white/95 border-gray-100 shadow-gray-200/50' }} backdrop-blur-xl border rounded-full shadow-lg px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color,border-color] duration-500 ease-out"
+  class="{{ $navPositionClass }} {{ $floating ? '' : 'bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25' }} backdrop-blur-xl border rounded-full shadow-lg px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color,border-color] duration-500 ease-out"
 >
   <!-- @if($siteLogo)
     <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}" class="h-8" style="height:52px;width:auto;">
@@ -55,7 +55,7 @@
        style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
 @endif <div class="w-10 hidden md:block"></div>
 
-  <ul class="hidden md:flex items-center gap-3 text-base font-bold {{ $floating ? 'text-white/90' : 'text-gray-600' }}" @if($floating) :class="scrolled ? 'text-[var(--teal)]' : 'text-white/90'" @endif>
+  <ul class="hidden md:flex items-center gap-3 text-base font-bold text-white/90" @if($floating) :class="scrolled ? 'text-[var(--teal)]' : 'text-white/90'" @endif>
     @foreach($navItems as $item)
       @continue($item['key'] !== 'home' && empty($navAvailability[$item['key']]))
       @php
@@ -90,8 +90,8 @@
 </nav>
 
 {{-- Mobile menu (drawer) --}}
-<div x-show="mobileMenuOpen" x-cloak x-transition class="{{ $mobileMenuPositionClass }} z-50 md:hidden bg-white border border-gray-100 rounded-3xl shadow-lg shadow-gray-200/50 p-3">
-  <ul class="flex flex-col text-gray-600 text-base font-bold divide-y divide-gray-100">
+<div x-show="mobileMenuOpen" x-cloak x-transition class="{{ $mobileMenuPositionClass }} z-50 md:hidden bg-[rgba(17,25,29,0.72)] backdrop-blur-xl border border-white/15 rounded-3xl shadow-lg shadow-black/25 p-3">
+  <ul class="flex flex-col text-white/90 text-base font-bold divide-y divide-white/10">
     @foreach($navItems as $item)
     @continue($item['key'] !== 'home' && empty($navAvailability[$item['key']]))
     @php

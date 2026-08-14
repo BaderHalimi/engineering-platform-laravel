@@ -126,8 +126,18 @@
         gap: 24px;
         margin-bottom: 40px;
     }
+    .projects-grid.is-single {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 600px;
+        margin-inline: auto;
+    }
+    .projects-grid.is-double {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 980px;
+        margin-inline: auto;
+    }
     @media (max-width: 960px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .projects-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .projects-grid, .projects-grid.is-double { grid-template-columns: 1fr; } }
 
     .project-card {
         background: #fff;
@@ -271,7 +281,10 @@
     @endif
 
     @if($projects->count())
-        <div class="projects-grid">
+        @php
+            $projectsGridClass = $projects->count() === 1 ? 'is-single' : ($projects->count() === 2 ? 'is-double' : '');
+        @endphp
+        <div class="projects-grid {{ $projectsGridClass }}">
             @foreach($projects as $project)
                 <a href="{{ route('home_pages.projects.view', $project->slug) }}" class="project-card">
                     <div class="thumb-wrap">

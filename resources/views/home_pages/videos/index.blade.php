@@ -90,8 +90,18 @@
         gap: 24px;
         margin-bottom: 32px;
     }
+    .videos-grid.is-single {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 600px;
+        margin-inline: auto;
+    }
+    .videos-grid.is-double {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 980px;
+        margin-inline: auto;
+    }
     @media (max-width: 960px) { .videos-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .videos-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .videos-grid, .videos-grid.is-double { grid-template-columns: 1fr; } }
 
     .video-card {
         background: #fff;
@@ -233,7 +243,10 @@
     @endif
 
     @if($videos->count())
-        <div class="videos-grid">
+        @php
+            $videosGridClass = $videos->count() === 1 ? 'is-single' : ($videos->count() === 2 ? 'is-double' : '');
+        @endphp
+        <div class="videos-grid {{ $videosGridClass }}">
             @foreach($videos as $video)
                 <a href="{{ route('home_pages.videos.view', $video->slug) }}" class="video-card">
                     <div class="thumb-wrap">

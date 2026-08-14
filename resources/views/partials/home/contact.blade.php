@@ -40,6 +40,24 @@
           </div>
         </div>
         @endif
+
+        <div class="relative overflow-hidden rounded-3xl border border-[var(--gold)]/30 bg-gradient-to-br from-[var(--teal-dark)] to-[var(--teal)] p-5 md:p-6 text-white shadow-xl shadow-[rgba(82,105,112,.18)]">
+          <div class="absolute -top-12 -end-10 h-32 w-32 rounded-full bg-[var(--gold)]/20 blur-2xl"></div>
+          <div class="relative">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-2xl text-[var(--gold)]">
+              <i class="ri-mail-send-line"></i>
+            </div>
+            <h3 class="mb-2 text-lg md:text-xl font-black">اشترك بالحملة البريدية</h3>
+            <p class="mb-5 text-sm leading-7 text-white/75">استقبل تحديثات الخدمات، المقالات، وآخر الأعمال الهندسية مباشرة على بريدك.</p>
+            <form action="{{ $siteEmail ? 'mailto:' . $siteEmail : '#' }}" method="GET" class="flex flex-col gap-3">
+              <input type="email" name="email" class="w-full rounded-full border border-white/15 bg-white/10 px-4 py-3 text-sm font-bold text-white outline-none placeholder:text-white/55 focus:border-[var(--gold)]" placeholder="example@email.com">
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-black/10 transition hover:bg-[var(--gold-dark)]">
+                اشترك الآن
+                <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
 
       <div class="lg:col-span-3 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">

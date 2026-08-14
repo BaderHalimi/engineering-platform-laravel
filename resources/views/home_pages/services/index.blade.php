@@ -23,6 +23,7 @@
         'tr' => $tr,
         'asset' => $asset,
         'contactUrl' => route('home') . '#contact',
+        'servicesHeadingTag' => 'h1',
     ])
 </div>
 @endsection

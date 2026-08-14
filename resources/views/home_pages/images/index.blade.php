@@ -101,6 +101,13 @@
   <div class="container mx-auto px-5 md:px-6">
 
     @if($images->count())
+      @php
+        $imagesGridClass = $images->count() === 1
+          ? 'grid grid-cols-1 gap-5 md:gap-7 max-w-xl mx-auto'
+          : ($images->count() === 2
+            ? 'grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-7 max-w-5xl mx-auto'
+            : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7');
+      @endphp
       <div class="flex items-center justify-between mb-8 generic-reveal">
         <p class="text-gray-500 text-sm">
           ط¹ط±ط¶ <span class="font-bold text-[var(--teal)]">{{ $images->count() }}</span> ظ…ظ†
@@ -108,7 +115,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
+      <div class="{{ $imagesGridClass }}">
         @foreach($images as $image)
           <article class="gallery-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal">
             <a href="{{ route('pages.image-show', $image->slug) }}" class="block relative overflow-hidden h-64">
@@ -155,7 +162,7 @@
           @if($images->onFirstPage())
             <span class="page-link disabled"><i class="ph-bold ph-caret-right"></i></span>
           @else
-            <a href="{{ $images->previousPageUrl() }}" class="page-link"><i class="ph-bold ph-caret-right"></i></a>
+            <a href="{{ $images->previousPageUrl() }}" class="page-link" aria-label="Previous page"><i class="ph-bold ph-caret-right"></i><span class="sr-only">Previous page</span></a>
           @endif
 
           @foreach($images->getUrlRange(max(1, $images->currentPage() - 2), min($images->lastPage(), $images->currentPage() + 2)) as $page => $url)
@@ -165,7 +172,7 @@
           @endforeach
 
           @if($images->hasMorePages())
-            <a href="{{ $images->nextPageUrl() }}" class="page-link"><i class="ph-bold ph-caret-left"></i></a>
+            <a href="{{ $images->nextPageUrl() }}" class="page-link" aria-label="Next page"><i class="ph-bold ph-caret-left"></i><span class="sr-only">Next page</span></a>
           @else
             <span class="page-link disabled"><i class="ph-bold ph-caret-left"></i></span>
           @endif

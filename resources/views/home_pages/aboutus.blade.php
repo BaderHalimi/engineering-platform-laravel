@@ -16,6 +16,13 @@
     };
 @endphp
 
+<section class="relative py-12 md:py-16 bg-white text-center">
+    <div class="site-container">
+        <p class="mb-3 text-sm font-bold text-[var(--gold-dark)]">{{ app()->getLocale() === 'ar' ? 'من نحن' : 'About us' }}</p>
+        <h1 class="text-3xl md:text-5xl font-black text-[var(--teal)]">{{ app()->getLocale() === 'ar' ? 'الديوان للاستشارات الهندسية' : 'Al Diwan Engineering Consulting' }}</h1>
+    </div>
+</section>
+
 @include('partials.home.about', [
     'aboutUs' => $aboutUs,
     'siteName' => $siteName,

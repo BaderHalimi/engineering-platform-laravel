@@ -138,8 +138,6 @@
 
 @include('partials.home.contact', ['services' => $services, 'tr' => $tr, 'sitePhone' => $sitePhone, 'siteEmail' => $siteEmail, 'siteAddress' => $siteAddress, 'workingHours' => $workingHours])
 
-@include('partials.home.feedback')
-
 @include('partials.home.footer', ['siteLogo' => $siteLogo, 'siteName' => $siteName, 'socialLinks' => $socialLinks, 'services' => $services, 'tr' => $tr, 'siteAddress' => $siteAddress, 'sitePhone' => $sitePhone, 'siteEmail' => $siteEmail, 'workingHours' => $workingHours, 'asset' => $asset, 'navAvailability' => $navAvailability])
 
 @include('partials.home.scripts')
