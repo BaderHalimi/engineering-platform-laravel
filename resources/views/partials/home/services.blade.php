@@ -37,12 +37,13 @@
     <!-- ===== شبكة الخدمات ===== -->
     @if(($services ?? collect())->count())
       @php
+        $siteDir = in_array(app()->getLocale(), ['ar', 'he', 'fa', 'ur'], true) ? 'rtl' : 'ltr';
         $serviceItems = ($services ?? collect())->values();
         $serviceCount = max(1, $serviceItems->count());
         $itemsPerLoop = max($serviceCount, (int) ceil(14 / $serviceCount) * $serviceCount);
         $marqueeCopies = 2;
       @endphp
-      <div class="services-marquee-shell" style="--marquee-copy-count: {{ $marqueeCopies }};">
+      <div class="services-marquee-shell" data-marquee-dir="{{ $siteDir }}" style="--marquee-copy-count: {{ $marqueeCopies }};">
         <div class="services-marquee-track">
           @for($copy = 0; $copy < $marqueeCopies; $copy++)
             <div class="services-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
@@ -93,10 +94,17 @@
     display: flex;
     width: max-content;
     gap: 0;
-    direction: ltr;
     flex-direction: row;
     animation: services-marquee 42s linear infinite;
     will-change: transform;
+  }
+  .services-marquee-shell[data-marquee-dir="ltr"] .services-marquee-track{
+    direction: ltr;
+    animation-name: services-marquee-ltr;
+  }
+  .services-marquee-shell[data-marquee-dir="rtl"] .services-marquee-track{
+    direction: rtl;
+    animation-name: services-marquee-rtl;
   }
   .services-marquee-shell:hover .services-marquee-track{
     animation-play-state: paused;
@@ -106,8 +114,13 @@
     flex-direction: row;
     align-items: stretch;
     gap: 1.75rem;
-    direction: ltr;
     padding-inline: .875rem;
+  }
+  .services-marquee-shell[data-marquee-dir="ltr"] .services-marquee-group{
+    direction: ltr;
+  }
+  .services-marquee-shell[data-marquee-dir="rtl"] .services-marquee-group{
+    direction: rtl;
   }
   .services-marquee-group[aria-hidden="true"]{
     pointer-events: none;
@@ -116,11 +129,20 @@
     width: min(82vw, 390px);
     min-height: 100%;
     flex: 0 0 min(82vw, 390px);
+  }
+  .services-marquee-shell[data-marquee-dir="ltr"] .service-marquee-card{
+    direction: ltr;
+  }
+  .services-marquee-shell[data-marquee-dir="rtl"] .service-marquee-card{
     direction: rtl;
   }
-  @keyframes services-marquee{
+  @keyframes services-marquee-ltr{
     from{ transform: translateX(0); }
     to{ transform: translateX(calc(-100% / var(--marquee-copy-count))); }
+  }
+  @keyframes services-marquee-rtl{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(calc(100% / var(--marquee-copy-count))); }
   }
   .blueprint-card{
     border: 1.5px solid #e7e2d8;
