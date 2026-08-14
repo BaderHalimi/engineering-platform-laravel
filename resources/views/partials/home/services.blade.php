@@ -94,6 +94,7 @@
     width: max-content;
     gap: 0;
     direction: ltr;
+    flex-direction: row;
     animation: services-marquee 42s linear infinite;
     will-change: transform;
   }
@@ -102,8 +103,10 @@
   }
   .services-marquee-group{
     display: flex;
+    flex-direction: row;
     align-items: stretch;
     gap: 1.75rem;
+    direction: ltr;
     padding-inline: .875rem;
   }
   .services-marquee-group[aria-hidden="true"]{
@@ -113,6 +116,7 @@
     width: min(82vw, 390px);
     min-height: 100%;
     flex: 0 0 min(82vw, 390px);
+    direction: rtl;
   }
   @keyframes services-marquee{
     from{ transform: translateX(0); }
