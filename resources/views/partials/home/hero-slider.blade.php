@@ -28,7 +28,7 @@
 <section
   id="home"
   class="home-hero-slider relative overflow-hidden bg-[#11191d]"
-  x-data="{ active: 0, total: {{ $slides->count() }}, timer: null, start() { this.timer = setInterval(() => this.active = (this.active + 1) % this.total, 6500) }, stop() { if (this.timer) clearInterval(this.timer) } }"
+  x-data="{ active: 0, total: {{ $slides->count() }}, timer: null, start() { this.timer = setInterval(() => this.active = (this.active + 1) % this.total, 10000) }, stop() { if (this.timer) clearInterval(this.timer) } }"
   x-init="start()"
   @mouseenter="stop()"
   @mouseleave="start()"

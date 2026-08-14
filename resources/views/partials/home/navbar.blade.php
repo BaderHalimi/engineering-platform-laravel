@@ -31,7 +31,7 @@
        style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
 @endif <div class="w-10 hidden md:block"></div>
 
-  <ul class="hidden md:flex items-center gap-3 text-base font-bold {{ $floating ? 'text-white/90' : 'text-gray-600' }}">
+  <ul class="hidden md:flex items-center gap-3 text-base font-bold {{ $floating ? 'text-white/90' : 'text-gray-600' }}" @if($floating) :class="scrolled ? 'text-[var(--teal)]' : 'text-white/90'" @endif>
     <li><a href="{{ route('home') }}" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
     <li><a href="{{ route('home_pages.services.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.services') }}</a></li>
     <li><a href="{{ route('home_pages.projects.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.projects') }}</a></li>
