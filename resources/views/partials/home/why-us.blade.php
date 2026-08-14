@@ -5,7 +5,7 @@
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 py-1.5 rounded-full text-xs font-bold mb-4">
         <i class="ri-question-line"></i> {{ __('home.why.badge') }}
       </div>
-      <h2 class="text-3xl font-black text-[var(--teal)] mb-3 leading-tight">{{ __('home.why.title') }}</h2>
+      <p class="text-3xl font-black text-[var(--teal)] mb-3 leading-tight">{{ __('home.why.title') }}</p>
       <p class="text-lg font-bold text-[var(--gold-dark)] mb-3 leading-snug">{{ __('home.why.subtitle') }}</p>
       <div class="section-title-underline mb-4"></div>
       <p class="text-gray-500 text-sm leading-relaxed">{{ __('home.why.description') }}</p>
@@ -13,7 +13,7 @@
     <div class="why-reveal relative mb-8" x-data x-intersect.once="$el.classList.add('is-visible')">
       <div class="absolute -top-4 -end-4 w-24 h-24 bg-[var(--gold)]/20 rounded-full blur-2xl"></div>
       <div class="absolute -bottom-4 -start-4 w-28 h-28 bg-[var(--teal)]/20 rounded-full blur-2xl"></div>
-      <img src="https://files.catbox.moe/8jxeio.jpg" alt="" class="relative rounded-3xl shadow-2xl w-full object-cover max-h-72">
+      <img src="https://files.catbox.moe/8jxeio.jpg" alt="{{ __('home.why.title') }}" class="relative rounded-3xl shadow-2xl w-full object-cover max-h-72">
     </div>
     <div class="space-y-5">
       @foreach($whyAldiwan as $why)
@@ -33,7 +33,7 @@
       <div class="relative why-reveal lg:order-2 flex justify-start lg:ms-16 lg:mt-10" x-data x-intersect.once="$el.classList.add('is-visible')">
         <div class="absolute -top-6 -end-6 w-32 h-32 bg-[var(--gold)]/20 rounded-full blur-2xl"></div>
         <div class="absolute -bottom-6 -start-6 w-40 h-40 bg-[var(--teal)]/20 rounded-full blur-2xl"></div>
-        <img src="https://files.catbox.moe/3i7imq.webp" alt="" class="relative rounded-3xl shadow-2xl w-auto max-w-full max-h-[520px]">
+        <img src="https://files.catbox.moe/3i7imq.webp" alt="{{ __('home.why.title') }}" class="relative rounded-3xl shadow-2xl w-auto max-w-full max-h-[520px]">
       </div>
       <div class="why-reveal lg:order-1" x-data x-intersect.once="$el.classList.add('is-visible')">
         <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-4 py-1.5 rounded-full text-sm font-bold mb-4">

@@ -22,6 +22,8 @@
 <link rel="canonical" href="{{ $canonical }}">
 <link rel="alternate" hreflang="{{ app()->getLocale() }}" href="{{ $canonical }}">
 <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
+<link rel="icon" href="{{ asset('logo.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
 
 <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_SA' : 'en_US' }}">
 <meta property="og:type" content="{{ $type }}">

@@ -59,6 +59,15 @@
     $seoSchema = array_filter([
         \App\Support\Seo::faq($faqs ?? collect()),
     ]);
+    $navAvailability = \App\Support\HomeContent::fromHomeData(
+        $services,
+        $projects ?? collect(),
+        $aboutUs,
+        $articlesByCategory ?? collect(),
+        $videos ?? collect(),
+        $images ?? collect(),
+        $faqs ?? collect()
+    );
 @endphp
 
 <!DOCTYPE html>
@@ -71,7 +80,7 @@
 
 {{-- Tailwind --}}
 @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 @endif
 
 {{-- Remix Icon (بدل Phosphor) - الأيقونات في قاعدة البيانات مخزّنة بصيغة ri-xxx-line/fill --}}
@@ -79,11 +88,16 @@
 
 @if($siteLogo)
     <link rel="shortcut icon" href="{{ $asset($siteLogo) }}" type="image/x-icon">
-  @endif
+    <link rel="apple-touch-icon" href="{{ $asset($siteLogo) }}">
+@else
+    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
+@endif
 
 {{-- Alpine.js لتنظيم التفاعلات (القائمة، الأكورديون، active state، reveal on scroll) --}}
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
+@if(($faqs ?? collect())->isNotEmpty())
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
+@endif
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
 @include('partials.local-fonts')
@@ -102,7 +116,7 @@
 
 @include('partials.home.topbar', ['socialLinks' => $socialLinks, 'sitePhone' => $sitePhone, 'siteEmail' => $siteEmail, 'siteAddress' => $siteAddress, 'topNotice' => $topNotice])
 
-@include('partials.home.navbar', ['siteLogo' => $siteLogo, 'asset' => $asset, 'floating' => $hasHeroSlider])
+@include('partials.home.navbar', ['siteLogo' => $siteLogo, 'asset' => $asset, 'floating' => $hasHeroSlider, 'navAvailability' => $navAvailability])
 
 @include('partials.home.hero-slider', ['heroSlides' => $heroSlides ?? []])
 
@@ -126,7 +140,7 @@
 
 @include('partials.home.feedback')
 
-@include('partials.home.footer', ['siteLogo' => $siteLogo, 'siteName' => $siteName, 'socialLinks' => $socialLinks, 'services' => $services, 'tr' => $tr, 'siteAddress' => $siteAddress, 'sitePhone' => $sitePhone, 'siteEmail' => $siteEmail, 'workingHours' => $workingHours, 'asset' => $asset])
+@include('partials.home.footer', ['siteLogo' => $siteLogo, 'siteName' => $siteName, 'socialLinks' => $socialLinks, 'services' => $services, 'tr' => $tr, 'siteAddress' => $siteAddress, 'sitePhone' => $sitePhone, 'siteEmail' => $siteEmail, 'workingHours' => $workingHours, 'asset' => $asset, 'navAvailability' => $navAvailability])
 
 @include('partials.home.scripts')
 

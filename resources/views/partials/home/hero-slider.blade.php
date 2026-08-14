@@ -2,6 +2,7 @@
   use App\Models\Setup;
 
   $locale = app()->getLocale();
+  $siteName = Setup::get('site_name', config('app.name'));
   $heroSliderEnabled = (bool) Setup::get('hero_slider_enabled', true);
   $slides = collect($heroSlides ?? [])
     ->filter(fn ($slide) => filled($slide['media_path'] ?? null))
@@ -79,8 +80,10 @@
           <span class="h-2.5 w-2.5 rounded-full bg-[var(--gold)]"></span>
           {{ __('home.hero.badge') }}
         </div>
-        @if($title)
-          <h1 class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">{{ $title }}</h1>
+        @if($title && $index === 0)
+          <h1 class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
+        @elseif($title)
+          <p class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">{{ $title }}</p>
         @endif
         @if($description)
           <p class="max-w-2xl text-base md:text-xl leading-9 text-white/82 mb-8">{{ $description }}</p>

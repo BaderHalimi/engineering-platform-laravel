@@ -12,7 +12,12 @@
   </div>
   <div class="flex items-center gap-3 text-white/80">
     @foreach($socialLinks as $link)
-      <a href="{{ $link['url'] ?? '#' }}" target="_blank" rel="noopener" class="hover:text-[var(--gold)] transition"><i class="{{ $link['icon'] ?? 'ri-links-line' }}"></i></a>
+      @if(filled($link['url'] ?? null) && ($link['url'] ?? '#') !== '#')
+        <a href="{{ $link['url'] }}" target="_blank" rel="noopener" aria-label="{{ $link['label'] ?? 'Social link' }}" class="hover:text-[var(--gold)] transition">
+          <i class="{{ $link['icon'] ?? 'ri-links-line' }}"></i>
+          <span class="sr-only">{{ $link['label'] ?? 'Social link' }}</span>
+        </a>
+      @endif
     @endforeach
     <span class="border-e border-white/30 h-4 mx-2"></span>
 
@@ -32,12 +37,17 @@
         x-transition
         class="absolute top-full mt-2 right-0 w-28 bg-white text-[var(--teal)] rounded-xl shadow-2xl border border-gray-100 py-2 z-[99999]">
         @foreach(['ar' => 'العربية', 'en' => 'English'] as $code => $label)
-            <a
-               @if($code === 'en') style="opacity:.4;pointer-events:none;cursor:default;" @endif
-               href="{{ $code === 'en' ? '#' : route('set-locale', $code) }}"
-               class="block px-4 py-1.5 text-sm hover:bg-gray-50 {{ app()->getLocale() === $code ? 'font-bold text-[var(--gold-dark)]' : '' }}">
-                {{ $label }}
-            </a>
+            @if($code === 'en')
+                <span class="block px-4 py-1.5 text-sm opacity-40 cursor-default">
+                    {{ $label }}
+                </span>
+            @else
+                <a
+                   href="{{ route('set-locale', $code) }}"
+                   class="block px-4 py-1.5 text-sm hover:bg-gray-50 {{ app()->getLocale() === $code ? 'font-bold text-[var(--gold-dark)]' : '' }}">
+                    {{ $label }}
+                </a>
+            @endif
         @endforeach
     </div>
 </div>

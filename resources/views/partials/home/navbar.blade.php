@@ -1,6 +1,30 @@
 {{-- Nav: desktop (md+) --}}
 @php
   $floating = $floating ?? false;
+  $navAvailability = array_merge([
+      'services' => true,
+      'projects' => true,
+      'about' => true,
+      'articles' => true,
+      'media' => true,
+      'faqs' => true,
+      'contact' => true,
+  ], $navAvailability ?? []);
+  $isHomePage = request()->routeIs('home');
+  $sectionHref = fn (string $section) => $isHomePage ? '#' . $section : route('home') . '#' . $section;
+  $sectionClick = fn (string $section) => $isHomePage
+      ? "activeSection = '{$section}'; document.querySelector('#{$section}')?.scrollIntoView({behavior:'smooth'})"
+      : null;
+  $navItems = [
+      ['key' => 'home', 'label' => __('home.nav.home'), 'href' => route('home'), 'route' => 'home', 'section' => null],
+      ['key' => 'services', 'label' => __('home.nav.services'), 'href' => route('home_pages.services.index'), 'route' => 'home_pages.services.*', 'section' => null],
+      ['key' => 'projects', 'label' => __('home.nav.projects'), 'href' => route('home_pages.projects.index'), 'route' => 'home_pages.projects.*', 'section' => null],
+      ['key' => 'about', 'label' => __('home.nav.about'), 'href' => route('home_pages.aboutus'), 'route' => 'home_pages.aboutus', 'section' => null],
+      ['key' => 'articles', 'label' => __('home.nav.articles'), 'href' => $sectionHref('articles'), 'route' => 'home_pages.articles.*', 'section' => 'articles'],
+      ['key' => 'media', 'label' => __('home.nav.media'), 'href' => $sectionHref('media'), 'route' => 'home_pages.images.*|home_pages.videos.*|pages.image-show', 'section' => 'media'],
+      ['key' => 'faqs', 'label' => __('home.nav.faqs'), 'href' => $sectionHref('faqs'), 'route' => null, 'section' => 'faqs'],
+      ['key' => 'contact', 'label' => __('home.nav.contact'), 'href' => $sectionHref('contact'), 'route' => null, 'section' => 'contact'],
+  ];
   $navPositionClass = $floating
       ? 'fixed left-4 right-4 md:left-6 md:right-6'
       : 'sticky top-2 md:top-3 mx-4 md:mx-6 mt-4 md:mt-5';
@@ -32,19 +56,32 @@
 @endif <div class="w-10 hidden md:block"></div>
 
   <ul class="hidden md:flex items-center gap-3 text-base font-bold {{ $floating ? 'text-white/90' : 'text-gray-600' }}" @if($floating) :class="scrolled ? 'text-[var(--teal)]' : 'text-white/90'" @endif>
-    <li><a href="{{ route('home') }}" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
-    <li><a href="{{ route('home_pages.services.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.services') }}</a></li>
-    <li><a href="{{ route('home_pages.projects.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.projects') }}</a></li>
-    <li><a href="{{ route('home_pages.aboutus') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.about') }}</a></li>
-    <li><a href="#articles" @click.prevent="activeSection = 'articles'; document.querySelector('#articles').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'articles' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.articles') }}</a></li>
-    <li><a href="#media" @click.prevent="activeSection = 'media'; document.querySelector('#media').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'media' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.media') }}</a></li>
-    <li><a href="#faqs" @click.prevent="activeSection = 'faqs'; document.querySelector('#faqs').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'faqs' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.faqs') }}</a></li>
-    <li><a href="#contact" @click.prevent="activeSection = 'contact'; document.querySelector('#contact').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'contact' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.contact') }}</a></li>
+    @foreach($navItems as $item)
+      @continue($item['key'] !== 'home' && empty($navAvailability[$item['key']]))
+      @php
+        $routePatterns = $item['route'] ? explode('|', $item['route']) : [];
+        $isRouteActive = collect($routePatterns)->contains(fn ($pattern) => request()->routeIs($pattern));
+        $staticActive = ! $isHomePage && $isRouteActive;
+        $click = $item['section'] ? $sectionClick($item['section']) : null;
+      @endphp
+      <li>
+        <a href="{{ $item['href'] }}"
+           @if($click) @click.prevent="{{ $click }}" @endif
+           @if($isHomePage) :class="activeSection === '{{ $item['section'] ?? $item['key'] }}' ? 'nav-link active' : 'nav-link'" @endif
+           class="block px-5 py-2 rounded-full nav-link {{ $staticActive ? 'active' : '' }}">
+          {{ $item['label'] }}
+        </a>
+      </li>
+    @endforeach
   </ul>
 
-  <a href="#contact" class="btn-blue text-sm md:text-base font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-full flex items-center gap-2">
+  @if($navAvailability['contact'])
+  <a href="{{ $sectionHref('contact') }}"
+     @if($isHomePage) @click.prevent="activeSection = 'contact'; document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif
+     class="btn-blue text-sm md:text-base font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-full flex items-center gap-2">
     {{ __('home.nav.request_service') }} <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
   </a>
+  @endif
 
   <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full" style="background-color:#f5ad2a;">
     <i class="ri-menu-line text-white text-xl" x-show="!mobileMenuOpen"></i>
@@ -55,28 +92,22 @@
 {{-- Mobile menu (drawer) --}}
 <div x-show="mobileMenuOpen" x-cloak x-transition class="{{ $mobileMenuPositionClass }} z-50 md:hidden bg-white border border-gray-100 rounded-3xl shadow-lg shadow-gray-200/50 p-3">
   <ul class="flex flex-col text-gray-600 text-base font-bold divide-y divide-gray-100">
-    @foreach([
-        ['home', 'home.nav.home'],
-        [route('home_pages.services.index'), 'home.nav.services', false],
-        [route('home_pages.projects.index'), 'home.nav.projects', false],
-        [route('home_pages.aboutus'), 'home.nav.about', false],
-        ['articles', 'home.nav.articles'],
-        ['media', 'home.nav.media'],
-        ['faqs', 'home.nav.faqs'],
-        ['contact', 'home.nav.contact'],
-    ] as $item)
+    @foreach($navItems as $item)
+    @continue($item['key'] !== 'home' && empty($navAvailability[$item['key']]))
     @php
-      $section = $item[2] ?? $item[0];
-      $href = str_starts_with($item[0], 'http') || str_starts_with($item[0], '/') ? $item[0] : '#' . $item[0];
-      $label = $item[1];
-      $isSection = $item[2] ?? true;
+      $section = $item['section'];
+      $href = $item['href'];
+      $isSection = filled($section);
+      $routePatterns = $item['route'] ? explode('|', $item['route']) : [];
+      $isRouteActive = collect($routePatterns)->contains(fn ($pattern) => request()->routeIs($pattern));
     @endphp
     <li>
       <a href="{{ $href }}"
-         @if($isSection) @click.prevent="activeSection = '{{ $section }}'; mobileMenuOpen = false; document.querySelector('#{{ $section }}')?.scrollIntoView({behavior:'smooth'})" @else @click="mobileMenuOpen = false" @endif
+         @if($isHomePage && $isSection) @click.prevent="activeSection = '{{ $section }}'; mobileMenuOpen = false; document.querySelector('#{{ $section }}')?.scrollIntoView({behavior:'smooth'})" @else @click="mobileMenuOpen = false" @endif
          class="block px-4 py-3 rounded-2xl"
-         :style="activeSection === '{{ $section }}' ? 'color:#fff;background-color:#f5ad2a;' : ''">
-        {{ __($label) }}
+         @if($isHomePage && $isSection) :style="activeSection === '{{ $section }}' ? 'color:#fff;background-color:#f5ad2a;' : ''" @endif
+         @if($isRouteActive) style="color:#fff;background-color:#f5ad2a;" @endif>
+        {{ $item['label'] }}
       </a>
     </li>
     @endforeach

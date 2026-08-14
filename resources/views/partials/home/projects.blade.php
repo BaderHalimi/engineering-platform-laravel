@@ -26,8 +26,9 @@
         <div class="relative overflow-hidden h-64">
           <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
           <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-6">
-            <a href="{{ url('/projects/'.$project->slug) }}" class="bg-white text-[var(--teal)] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[var(--gold)] hover:text-white transition">
+            <a href="{{ url('/projects/'.$project->slug) }}" aria-label="{{ $project->title }}" class="bg-white text-[var(--teal)] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[var(--gold)] hover:text-white transition">
               <i class="ri-arrow-up-line rtl:rotate-45 ltr:-rotate-45 text-xl"></i>
+              <span class="sr-only">{{ $project->title }}</span>
             </a>
           </div>
           @if($project->category)

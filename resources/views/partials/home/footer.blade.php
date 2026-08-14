@@ -1,10 +1,22 @@
+@php
+  $navAvailability = array_merge([
+      'services' => true,
+      'projects' => true,
+      'about' => true,
+      'articles' => true,
+      'media' => true,
+      'contact' => true,
+  ], $navAvailability ?? []);
+  $homeAnchor = fn (string $section) => request()->routeIs('home') ? '#' . $section : route('home') . '#' . $section;
+@endphp
+
 <div>
   <div class="bg-gradient-to-l from-[var(--gold)] to-[var(--gold-dark)] rounded-3xl p-5 md:p-8 sm:mx-[10%] mx-2 mb-10 md:mb-12 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
     <div class="text-center md:text-start">
       <h3 class="text-lg md:text-2xl font-black text-white mb-1">{{ __('home.footer.cta_title') }}</h3>
       <p class="text-white/90 text-xs md:text-sm">{{ __('home.footer.cta_subtitle') }}</p>
     </div>
-    <a href="#contact" @click.prevent="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})" class="bg-white text-[var(--gold-dark)] font-extrabold text-sm md:text-base rounded-full inline-flex items-center gap-2 hover:scale-105 transition" style="padding:.7rem 1.5rem;">
+    <a href="{{ $homeAnchor('contact') }}" @if(request()->routeIs('home')) @click.prevent="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif class="bg-white text-[var(--gold-dark)] font-extrabold text-sm md:text-base rounded-full inline-flex items-center gap-2 hover:scale-105 transition" style="padding:.7rem 1.5rem;">
       {{ __('home.footer.cta_button') }} <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
     </a>
   </div>
@@ -17,30 +29,37 @@
           <p class="text-white/70 text-xs md:text-sm leading-relaxed mb-4 md:mb-5">{{ __('home.footer.about_text', ['name' => $siteName]) }}</p>
           <div class="flex items-center gap-2 md:gap-3">
             @foreach($socialLinks as $link)
-              <a href="{{ $link['url'] ?? '#' }}" target="_blank" rel="noopener" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-[var(--gold)] flex items-center justify-center transition"><i class="{{ $link['icon'] ?? 'ri-links-line' }} text-base md:text-lg"></i></a>
+              @if(filled($link['url'] ?? null) && ($link['url'] ?? '#') !== '#')
+                <a href="{{ $link['url'] }}" target="_blank" rel="noopener" aria-label="{{ $link['label'] ?? 'Social link' }}" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-[var(--gold)] flex items-center justify-center transition">
+                  <i class="{{ $link['icon'] ?? 'ri-links-line' }} text-base md:text-lg"></i>
+                  <span class="sr-only">{{ $link['label'] ?? 'Social link' }}</span>
+                </a>
+              @endif
             @endforeach
           </div>
         </div>
         <div>
           <h4 class="font-extrabold text-base md:text-lg mb-4 md:mb-5 relative inline-block">{{ __('home.footer.quick_links') }}<span class="absolute -bottom-2 start-0 h-1 w-10 bg-[var(--gold)] rounded-full"></span></h4>
           <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-white/70 mt-5">
-            <li><a href="#home" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.home') }}</a></li>
-            <li><a href="#services" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.services') }}</a></li>
-            <li><a href="#projects" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.projects') }}</a></li>
-            <li><a href="#about" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.about') }}</a></li>
-            <li><a href="#articles" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.articles') }}</a></li>
-            <li><a href="#media" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.media') }}</a></li>
-            <li><a href="#contact" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.contact') }}</a></li>
+            <li><a href="{{ route('home') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.home') }}</a></li>
+            @if($navAvailability['services'])<li><a href="{{ route('home_pages.services.index') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.services') }}</a></li>@endif
+            @if($navAvailability['projects'])<li><a href="{{ route('home_pages.projects.index') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.projects') }}</a></li>@endif
+            @if($navAvailability['about'])<li><a href="{{ route('home_pages.aboutus') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.about') }}</a></li>@endif
+            @if($navAvailability['articles'])<li><a href="{{ $homeAnchor('articles') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.articles') }}</a></li>@endif
+            @if($navAvailability['media'])<li><a href="{{ $homeAnchor('media') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.media') }}</a></li>@endif
+            @if($navAvailability['contact'])<li><a href="{{ $homeAnchor('contact') }}" class="hover:text-[var(--gold)] transition flex items-center gap-2"><i class="ri-arrow-left-s-line rtl:inline ltr:hidden text-xs text-[var(--gold)]"></i><i class="ri-arrow-right-s-line ltr:inline rtl:hidden text-xs text-[var(--gold)]"></i> {{ __('home.nav.contact') }}</a></li>@endif
           </ul>
         </div>
+        @if(($services ?? collect())->isNotEmpty())
         <div>
           <h4 class="font-extrabold text-base md:text-lg mb-4 md:mb-5 relative inline-block">{{ __('home.nav.services') }}<span class="absolute -bottom-2 start-0 h-1 w-10 bg-[var(--gold)] rounded-full"></span></h4>
           <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-white/70 mt-5">
-            @foreach($services->take(6) as $svc)
-              <li><a href="#services" class="hover:text-[var(--gold)] transition">{{ $tr($svc->name) }}</a></li>
+            @foreach(($services ?? collect())->take(6) as $svc)
+              <li><a href="{{ route('home_pages.services.view', $svc->slug) }}" class="hover:text-[var(--gold)] transition">{{ $tr($svc->name) }}</a></li>
             @endforeach
           </ul>
         </div>
+        @endif
         <div class="col-span-2 md:col-span-1">
           <h4 class="font-extrabold text-base md:text-lg mb-4 md:mb-5 relative inline-block">{{ __('home.nav.contact') }}<span class="absolute -bottom-2 start-0 h-1 w-10 bg-[var(--gold)] rounded-full"></span></h4>
           <ul class="space-y-3 md:space-y-4 text-xs md:text-sm text-white/70 mt-5">
@@ -81,6 +100,7 @@
     class="fixed bottom-6 end-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl pulse-ring transition-all duration-300 hover:scale-110"
     style="background:#25D366; padding:0;">
     <i class="ri-whatsapp-fill text-2xl text-white"></i>
+    <span class="sr-only">WhatsApp</span>
   </a>
   @endif
 
