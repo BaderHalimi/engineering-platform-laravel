@@ -348,6 +348,124 @@
         </form>
     </div>
 
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4a3 3 0 014 0l1 1 3-3a3 3 0 014 0v6M4 6h16M4 20h16"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">سلايدر الشاشة الرئيسية</h2>
+                    <p class="text-xs text-gray-400 mt-0.5">يدعم الصور والفيديو. إذا لم توجد سلايدات لن يظهر السكشن في الواجهة.</p>
+                </div>
+            </div>
+            <button
+                type="button"
+                wire:click="addHeroSlide"
+                class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 px-3 py-2 rounded-xl text-sm font-semibold transition"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                إضافة سلايد
+            </button>
+        </div>
+
+        <div class="p-6 space-y-4">
+            @forelse ($hero_slides as $index => $slide)
+                <div wire:key="hero-slide-{{ $index }}" x-data="{ open: true, locale: 'ar' }" class="border border-gray-100 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/50 rounded-2xl overflow-hidden">
+                    <div @click="open = !open" class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-semibold text-gray-400">سلايد #{{ $index + 1 }}</span>
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ $slide['title']['ar'] ?? 'سلايد جديد' }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" wire:click.stop="moveHeroSlide({{ $index }}, 'up')" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                            </button>
+                            <button type="button" wire:click.stop="moveHeroSlide({{ $index }}, 'down')" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <button type="button" wire:click.stop="removeHeroSlide({{ $index }})" wire:confirm="هل تريد حذف هذا السلايد؟" class="p-1.5 rounded-lg text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                            <span class="text-gray-400 transition" :class="open ? 'rotate-180' : ''">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div x-show="open" class="p-5 space-y-5 border-t border-gray-100 dark:border-gray-700">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">نوع الوسيط</label>
+                                <select wire:model="hero_slides.{{ $index }}.type" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500">
+                                    <option value="image">صورة</option>
+                                    <option value="video">فيديو</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1.5 md:col-span-2">
+                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">رفع صورة أو فيديو</label>
+                                <input type="file" wire:model="hero_slide_uploads.{{ $index }}" accept="image/*,video/mp4,video/webm,video/ogg" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"/>
+                                <div wire:loading wire:target="hero_slide_uploads.{{ $index }}" class="text-xs text-gray-400">جاري الرفع...</div>
+                                @if (!empty($slide['media_path']))
+                                    <p class="text-xs text-gray-400 mt-1" dir="ltr">{{ $slide['media_path'] }}</p>
+                                @endif
+                            </div>
+                            <div class="space-y-1.5 md:col-span-2">
+                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">مسار/رابط يدوي اختياري</label>
+                                <input type="text" wire:model="hero_slides.{{ $index }}.media_path" dir="ltr" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500"/>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">رابط الزر</label>
+                                <input type="text" wire:model="hero_slides.{{ $index }}.button_url" dir="ltr" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500"/>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">اللغة:</label>
+                            <select x-model="locale" class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option value="ar">العربية</option>
+                                <option value="en">English</option>
+                                <option value="fr">Francais</option>
+                            </select>
+                        </div>
+
+                        @foreach (['ar' => 'العربية', 'en' => 'English', 'fr' => 'Francais'] as $loc => $label)
+                            <div x-show="locale === '{{ $loc }}'" x-cloak class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">العنوان ({{ $label }})</label>
+                                    <input type="text" wire:model="hero_slides.{{ $index }}.title.{{ $loc }}" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500"/>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">نص الزر ({{ $label }})</label>
+                                    <input type="text" wire:model="hero_slides.{{ $index }}.button_text.{{ $loc }}" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500"/>
+                                </div>
+                                <div class="space-y-1.5 md:col-span-2">
+                                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">الوصف ({{ $label }})</label>
+                                    <textarea wire:model="hero_slides.{{ $index }}.description.{{ $loc }}" rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 resize-y"></textarea>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @empty
+                <div class="text-center py-12 border border-dashed border-gray-200 dark:border-gray-700 rounded-2xl">
+                    <p class="text-sm text-gray-400">لا توجد سلايدات بعد. عند عدم وجود سلايدات سيختفي سكشن السلايدر من الصفحة الرئيسية.</p>
+                </div>
+            @endforelse
+        </div>
+
+        <div class="p-6 border-t border-gray-100 dark:border-gray-800">
+            <button type="button" wire:click="saveHeroSlides" wire:loading.attr="disabled" class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all">
+                <span wire:loading.remove>حفظ السلايدر</span>
+                <span wire:loading class="flex items-center gap-2">جاري الحفظ...</span>
+            </button>
+        </div>
+    </div>
+
 @php
     $localeLabels = ['ar' => 'العربية', 'en' => 'English', 'fr' => 'Français'];
     $jsonCards = [

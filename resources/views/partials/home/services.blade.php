@@ -117,9 +117,13 @@
           </div>
           @endif
 
-          <a href="#contact" @click.prevent="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"
+          <a href="{{ $contactUrl ?? '#contact' }}" @if(empty($contactUrl)) @click.prevent="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif
              class="mt-auto request-link inline-flex items-center justify-center gap-2 font-bold text-sm">
             {{ __('home.services.request') }}
+            <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
+          </a>
+          <a href="{{ route('home_pages.services.view', $service->slug) }}" class="mt-3 inline-flex items-center justify-center gap-2 text-sm font-extrabold text-[var(--teal)] hover:text-[var(--gold-dark)] transition">
+            {{ app()->getLocale() === 'ar' ? 'معرفة المزيد' : 'Learn more' }}
             <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
           </a>
         </div>

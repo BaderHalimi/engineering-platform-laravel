@@ -8,13 +8,14 @@ use App\Models\Article;
 use App\Models\Faq;
 use App\Models\Project;
 use App\Models\ServicesType;
+use App\Models\Setup;
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        $services = ServicesType::query()->orderBy('sort_order')->get();
+        $services = ServicesType::query()->where('status', 'active')->orderBy('sort_order')->get();
         $projects = Project::query()->with('category')->where('is_active', true)
             ->orderBy('sort_order')->limit(9)->get();
         $articlesByCategory = Article::query()->with('category')
@@ -26,7 +27,8 @@ class HomeController extends Controller
         $images = AlbumImage::query()->where('visibility', 'public')->orderByDesc('featured')
             ->orderBy('sort_order')->limit(9)->get();
         $faqs = Faq::query()->where('is_active', true)->orderBy('id')->get();
+        $heroSlides = json_decode(Setup::get('hero_slides', '[]'), true) ?: [];
 
-        return view('home', compact('services', 'projects', 'articlesByCategory', 'videos', 'images', 'faqs'));
+        return view('home', compact('services', 'projects', 'articlesByCategory', 'videos', 'images', 'faqs', 'heroSlides'));
     }
 }

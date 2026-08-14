@@ -93,21 +93,49 @@ Route::get('projects/{slug}', function (string $slug) {
 
 Route::get('services', function () {
     $services = ServicesType::query()
-        ->where('is_active', true)
+        ->where('status', 'active')
         ->orderBy('sort_order')
-        ->paginate(10);
+        ->get();
 
-    return view('pages.services', compact('services'));
+    return view('home_pages.services.index', compact('services'));
 })->name('home_pages.services.index');
 
 Route::get('services/{slug}', function (string $slug) {
     $service = ServicesType::query()
-        ->where('is_active', true)
+        ->where('status', 'active')
         ->where('slug', $slug)
         ->firstOrFail();
 
-    return view('pages.service-show', compact('service'));
+    return view('home_pages.services.view', compact('service'));
 })->name('home_pages.services.view');
+
+Route::get('aboutus', function () {
+    $locales = ['ar', 'en', 'fr'];
+    $siteName = Setup::get('site_name', config('app.name'));
+    $aboutUs = json_decode(Setup::get('about_us', '[]'), true) ?: [];
+    $whyAldiwan = json_decode(Setup::get('why_aldiwan', '[]'), true) ?: [];
+    $workSteps = json_decode(Setup::get('work_steps', '[]'), true) ?: [];
+
+    $normalize = function (array $items, array $translatableFields) use ($locales) {
+        return array_map(function ($item) use ($locales, $translatableFields) {
+            foreach ($translatableFields as $field) {
+                $item[$field] = array_merge(
+                    array_fill_keys($locales, ''),
+                    is_array($item[$field] ?? null) ? $item[$field] : []
+                );
+            }
+
+            return $item;
+        }, $items);
+    };
+
+    return view('home_pages.aboutus', [
+        'siteName' => $siteName,
+        'aboutUs' => $normalize($aboutUs, ['title', 'description']),
+        'whyAldiwan' => $normalize($whyAldiwan, ['title', 'description']),
+        'workSteps' => $normalize($workSteps, ['title', 'description']),
+    ]);
+})->name('home_pages.aboutus');
 
 
 Route::get('videos', function (\Illuminate\Http\Request $request) {

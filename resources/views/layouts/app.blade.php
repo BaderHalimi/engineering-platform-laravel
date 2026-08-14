@@ -186,9 +186,21 @@ const swup = new Swup();
             </a>
         </li>
         <li>
+            <a href="{{ route('home_pages.services.index') }}"
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.services.*') ? 'active' : '' }}">
+                <i class="ri-compasses-2-line"></i> {{ app()->getLocale() === 'ar' ? 'الخدمات' : 'Services' }}
+            </a>
+        </li>
+        <li>
             <a href="{{ route('home_pages.projects.index') }}"
                class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.projects.*') ? 'active' : '' }}">
                 <i class="ri-briefcase-4-line"></i> {{ app()->getLocale() === 'ar' ? 'المشاريع' : 'Projects' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home_pages.aboutus') }}"
+               class="block px-5 py-2 rounded-full nav-link {{ request()->routeIs('home_pages.aboutus') ? 'active' : '' }}">
+                <i class="ri-information-line"></i> {{ app()->getLocale() === 'ar' ? 'من نحن' : 'About us' }}
             </a>
         </li>
         <li>
@@ -247,8 +259,18 @@ const swup = new Swup();
             </a>
         </li>
         <li>
+            <a href="{{ route('home_pages.services.index') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.services.*') ? 'active' : '' }}">
+                <i class="ri-compasses-2-line"></i> {{ app()->getLocale() === 'ar' ? 'الخدمات' : 'Services' }}
+            </a>
+        </li>
+        <li>
             <a href="{{ route('home_pages.projects.index') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.projects.*') ? 'active' : '' }}">
                 <i class="ri-briefcase-4-line"></i> {{ app()->getLocale() === 'ar' ? 'المشاريع' : 'Projects' }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('home_pages.aboutus') }}" class="block px-4 py-3 rounded-2xl nav-link {{ request()->routeIs('home_pages.aboutus') ? 'active' : '' }}">
+                <i class="ri-information-line"></i> {{ app()->getLocale() === 'ar' ? 'من نحن' : 'About us' }}
             </a>
         </li>
         <li>

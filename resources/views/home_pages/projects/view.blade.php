@@ -173,7 +173,7 @@
     <div class="main-card">
         @if($project->image)
             <div class="hero-image">
-                <img src="{{ Storage::disk('public')->url($project->image) }}" alt="{{ $project->title }}">
+                <img src="{{ asset('storage/' . ltrim($project->image, '/')) }}" alt="{{ $project->title }}">
                 @if($project->category)
                     <div class="hero-caption">
                         <span class="category-tag">
@@ -204,7 +204,7 @@
                 <div class="attachments-section">
                     <h3><i class="ri-attachment-2"></i> {{ app()->getLocale() === 'ar' ? 'المرفقات' : 'Attachments' }}</h3>
                     @foreach($project->attachments as $attachment)
-                        <a href="{{ Storage::disk('public')->url($attachment) }}" class="attachment-item" target="_blank">
+                        <a href="{{ asset('storage/' . ltrim($attachment, '/')) }}" class="attachment-item" target="_blank">
                             <span class="icon-wrap"><i class="ri-file-line"></i></span>
                             {{ basename($attachment) }}
                             <i class="ri-download-2-line download-icon"></i>

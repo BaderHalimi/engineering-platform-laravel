@@ -274,7 +274,7 @@
                 <a href="{{ route('home_pages.projects.view', $project->slug) }}" class="project-card">
                     <div class="thumb-wrap">
                         @if($project->image)
-                            <img src="{{ Storage::disk('public')->url($project->image) }}" alt="{{ $project->title }}">
+                            <img src="{{ asset('storage/' . ltrim($project->image, '/')) }}" alt="{{ $project->title }}">
                         @endif
                         @if($project->category)
                             <span class="category-badge">{{ $project->category->name }}</span>

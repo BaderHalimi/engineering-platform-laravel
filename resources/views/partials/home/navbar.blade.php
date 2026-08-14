@@ -15,10 +15,10 @@
 @endif <div class="w-10 hidden md:block"></div>
 
   <ul class="hidden md:flex items-center gap-3 text-gray-600 text-base font-bold">
-    <li><a href="#home" @click.prevent="activeSection = 'home'; $el.scrollIntoView ? document.querySelector('#home').scrollIntoView({behavior:'smooth'}) : null" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
-    <li><a href="#services" @click.prevent="activeSection = 'services'; document.querySelector('#services').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'services' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.services') }}</a></li>
-    <li><a href="#projects" @click.prevent="activeSection = 'projects'; document.querySelector('#projects').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'projects' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.projects') }}</a></li>
-    <li><a href="#about" @click.prevent="activeSection = 'about'; document.querySelector('#about').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'about' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.about') }}</a></li>
+    <li><a href="{{ route('home') }}" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
+    <li><a href="{{ route('home_pages.services.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.services') }}</a></li>
+    <li><a href="{{ route('home_pages.projects.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.projects') }}</a></li>
+    <li><a href="{{ route('home_pages.aboutus') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.about') }}</a></li>
     <li><a href="#articles" @click.prevent="activeSection = 'articles'; document.querySelector('#articles').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'articles' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.articles') }}</a></li>
     <li><a href="#media" @click.prevent="activeSection = 'media'; document.querySelector('#media').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'media' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.media') }}</a></li>
     <li><a href="#faqs" @click.prevent="activeSection = 'faqs'; document.querySelector('#faqs').scrollIntoView({behavior:'smooth'})" :class="activeSection === 'faqs' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.faqs') }}</a></li>
@@ -40,17 +40,23 @@
   <ul class="flex flex-col text-gray-600 text-base font-bold divide-y divide-gray-100">
     @foreach([
         ['home', 'home.nav.home'],
-        ['services', 'home.nav.services'],
-        ['projects', 'home.nav.projects'],
-        ['about', 'home.nav.about'],
+        [route('home_pages.services.index'), 'home.nav.services', false],
+        [route('home_pages.projects.index'), 'home.nav.projects', false],
+        [route('home_pages.aboutus'), 'home.nav.about', false],
         ['articles', 'home.nav.articles'],
         ['media', 'home.nav.media'],
         ['faqs', 'home.nav.faqs'],
         ['contact', 'home.nav.contact'],
-    ] as [$section, $label])
+    ] as $item)
+    @php
+      $section = $item[2] ?? $item[0];
+      $href = str_starts_with($item[0], 'http') || str_starts_with($item[0], '/') ? $item[0] : '#' . $item[0];
+      $label = $item[1];
+      $isSection = $item[2] ?? true;
+    @endphp
     <li>
-      <a href="#{{ $section }}"
-         @click.prevent="activeSection = '{{ $section }}'; mobileMenuOpen = false; document.querySelector('#{{ $section }}').scrollIntoView({behavior:'smooth'})"
+      <a href="{{ $href }}"
+         @if($isSection) @click.prevent="activeSection = '{{ $section }}'; mobileMenuOpen = false; document.querySelector('#{{ $section }}')?.scrollIntoView({behavior:'smooth'})" @else @click="mobileMenuOpen = false" @endif
          class="block px-4 py-3 rounded-2xl"
          :style="activeSection === '{{ $section }}' ? 'color:#fff;background-color:#f5ad2a;' : ''">
         {{ __($label) }}

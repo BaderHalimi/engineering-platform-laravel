@@ -8,7 +8,7 @@ use App\Http\Middleware\IsCustomer;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(CheckSiteMaintenance::class)->group(function () {
-    Route::get('/', HomeController::class);
+    Route::get('/', HomeController::class)->name('home');
 
     require __DIR__.'/home.php';
 

@@ -93,11 +93,11 @@
 
 @include('partials.home.navbar', ['siteLogo' => $siteLogo, 'asset' => $asset])
 
-@include('partials.home.hero', ['heroImage' => $heroImage, 'siteLogo' => $siteLogo, 'asset' => $asset, 'tr' => $tr])
+@include('partials.home.hero-slider', ['heroSlides' => $heroSlides ?? []])
 
 @include('partials.home.about', ['aboutUs' => $aboutUs, 'siteName' => $siteName, 'tr' => $tr])
 
-@include('partials.home.services', ['services' => $services, 'tr' => $tr, 'asset' => $asset])
+@include('partials.home.services', ['services' => $services, 'tr' => $tr, 'asset' => $asset, 'contactUrl' => null])
 
 @include('partials.home.why-us', ['whyAldiwan' => $whyAldiwan, 'tr' => $tr])
 
