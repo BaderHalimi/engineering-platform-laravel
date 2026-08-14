@@ -3,6 +3,53 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 
+@font-face {
+    font-family: 'DIN Next LT Arabic';
+    src: url('/fonts/ArbFONTS-DINNextLTArabic-UltraLight-4 (1).ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Next LT Arabic';
+    src: url('/fonts/ArbFONTS-DINNEXTLTARABIC-LIGHT-2-2 (1).ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Next LT Arabic';
+    src: url('/fonts/ArbFONTS-DINNextLTArabic-Regular-4 (1).ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Next LT Arabic';
+    src: url('/fonts/ArbFONTS-DINNextLTArabic-Medium-4 (1).ttf') format('truetype');
+    font-weight: 500 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Next LT Arabic';
+    src: url('/fonts/ArbFONTS-DINNextLTArabic-Bold-4 (1).ttf') format('truetype');
+    font-weight: 700 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN Next LT Arabic';
+    src: url('/fonts/ArbFONTS-DINNextLTArabic-Heavy2-2 (1).ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
 
 @theme {
     /* Primary — Bright Orange */
@@ -46,6 +93,8 @@
 
     --color-ivory: #f8f4ec;
     --color-mist:  #eef2f3;
+
+    --font-sans: 'DIN Next LT Arabic', ui-sans-serif, system-ui, sans-serif;
 }
 
 
@@ -92,6 +141,7 @@
     /* Brand surfaces */
     --ivory: #f8f4ec;
     --mist:  #eef2f3;
+    --font-primary: 'DIN Next LT Arabic', ui-sans-serif, system-ui, sans-serif;
 }
 
 .dark {
@@ -135,3 +185,11 @@
     --mist:  #222a2e;
 }
 
+html,
+body,
+button,
+input,
+textarea,
+select {
+    font-family: var(--font-primary);
+}

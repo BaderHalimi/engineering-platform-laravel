@@ -25,7 +25,7 @@
     --line:#E7E2D8;
     --bg-soft:#fafbfc;
   }
-  .font-body{ font-family:'IBM Plex Sans Arabic',sans-serif; }
+  .font-body{ font-family:var(--font-primary); }
 
   .section-title-underline{ width:70px; height:4px; background:linear-gradient(to left, var(--gold), var(--gold-dark)); border-radius:999px; }
 

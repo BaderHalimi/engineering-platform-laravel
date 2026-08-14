@@ -10,7 +10,7 @@
         table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
         img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
         table { border-collapse: collapse !important; }
-        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #eef2f3; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #eef2f3; font-family: 'DIN Next LT Arabic', Tahoma, Arial, sans-serif; }
 
         /* تنسيق محاكاة الـ Blur والـ Premium Theme الخاص بك */
         .email-bg {

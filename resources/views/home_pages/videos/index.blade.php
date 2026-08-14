@@ -13,7 +13,7 @@
         padding: 32px 0 8px;
     }
     .page-header h1 {
-        font-family: 'Cairo', sans-serif;
+        font-family:var(--font-primary);
         font-weight: 800;
         font-size: 30px;
         color: #22262B;
@@ -49,7 +49,7 @@
         border: 1px solid #E6E3DC;
         border-radius: 999px;
         padding: 12px 20px;
-        font-family: 'IBM Plex Sans Arabic', sans-serif;
+        font-family:var(--font-primary);
         font-size: 14px;
         outline: none;
         transition: border-color .2s ease;
@@ -164,7 +164,7 @@
     }
     .card-body { padding: 16px; }
     .card-body h3 {
-        font-family: 'Cairo', sans-serif;
+        font-family:var(--font-primary);
         font-weight: 700;
         font-size: 15px;
         color: #22262B;

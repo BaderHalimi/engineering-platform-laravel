@@ -171,7 +171,7 @@
   .stamp-code{
     font-size: 11px; font-weight: 900; letter-spacing: .05em;
     color: var(--teal-dark);
-    font-family: 'Tajawal', sans-serif;
+    font-family:var(--font-primary);
   }
 
   /* ===== رأس الكارت (صورة/أيقونة) ===== */

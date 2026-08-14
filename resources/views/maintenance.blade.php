@@ -11,10 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     @vite(['resources/css/maintenance.css'])
 
-    <!-- Google Fonts: Tajawal (Arabic) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    @include('partials.local-fonts')
 
     <script>
         tailwind.config = {
@@ -28,7 +25,7 @@
                         'brand-slate':  '#3d5057',
                     },
                     fontFamily: {
-                        'arabic': ['Tajawal', 'sans-serif'],
+                        'arabic': ['DIN Next LT Arabic', 'sans-serif'],
                     },
                 }
             }
@@ -37,7 +34,7 @@
 
     <style>
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family:var(--font-primary);
             background: linear-gradient(135deg, #f8f4ec 0%, #eef2f3 100%);
             min-height: 100vh;
             overflow-x: hidden;

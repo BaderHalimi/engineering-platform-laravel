@@ -76,7 +76,7 @@
         gap: 16px;
         flex-wrap: wrap;
     }
-    .title-row h1 { font-family: 'Cairo', sans-serif; font-weight: 800; font-size: 26px; color: var(--ink); margin: 0; }
+    .title-row h1 { font-family:var(--font-primary); font-weight: 800; font-size: 26px; color: var(--ink); margin: 0; }
     .byline { font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
     .byline i { color: var(--slate); margin-inline-end: 4px; }
 
@@ -115,7 +115,7 @@
     }
     .stat:last-child { border-inline-end: none; }
     .stat i { font-size: 18px; }
-    .stat span.num { font-family: 'Cairo', sans-serif; font-weight: 800; color: var(--ink); }
+    .stat span.num { font-family:var(--font-primary); font-weight: 800; color: var(--ink); }
 
     .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
     .btn {
@@ -153,7 +153,7 @@
         color: var(--ink-soft);
         margin-bottom: 10px;
     }
-    .description :is(h1,h2,h3,h4) { font-family: 'Cairo', sans-serif; margin: 16px 0 8px; }
+    .description :is(h1,h2,h3,h4) { font-family:var(--font-primary); margin: 16px 0 8px; }
     .description p { margin: 0 0 12px; }
 
     .sidebar-card {

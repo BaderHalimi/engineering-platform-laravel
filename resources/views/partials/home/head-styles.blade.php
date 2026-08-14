@@ -9,7 +9,7 @@
     --line:#E7E2D8;
     --bg-soft:#fafbfc;
   }
-  *{ font-family:'Cairo','Tajawal',sans-serif; }
+  *{ font-family:var(--font-primary); }
   html{ scroll-behavior:smooth; }
   body{ background-color:#fff; color:var(--teal); overflow-x:hidden; }
   .site-container{ width:100%; margin-inline:auto; padding-inline:1.25rem; }
@@ -20,9 +20,9 @@
     .site-nav{ width:80%; }
     .site-topbar{ padding-inline:10vw; }
   }
-  .font-body{ font-family:'IBM Plex Sans Arabic',sans-serif; }
-  .font-display{font-family:'Tajawal',sans-serif;}
-  [dir="ltr"] .font-body, [dir="ltr"] .font-display{ font-family:'Tajawal','Cairo',sans-serif; }
+  .font-body{ font-family:var(--font-primary); }
+  .font-display{font-family:var(--font-primary);}
+  [dir="ltr"] .font-body, [dir="ltr"] .font-display{ font-family:var(--font-primary); }
   .nav-link{ position:relative; transition:color .35s ease, background-color .35s ease, transform .35s ease; z-index:1; }
   .nav-link:hover{ color:var(--teal); }
   .nav-link.active{ color:#fff !important; background-color:var(--gold) !important; box-shadow:0 6px 16px -6px rgba(245,173,42,.55); }

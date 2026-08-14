@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الدخول</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    @include('partials.local-fonts')
 
     <script>
         tailwind.config = {
@@ -27,8 +25,8 @@
                         slateLight: '#5c7d85',
                     },
                     fontFamily: {
-                        display: ['"El Messiri"', 'sans-serif'],
-                        body: ['Tajawal', 'sans-serif'],
+                        display: ['"DIN Next LT Arabic"', 'sans-serif'],
+                        body: ['"DIN Next LT Arabic"', 'sans-serif'],
                     }
                 }
             }
@@ -37,8 +35,8 @@
 
     <style>
         [x-cloak] { display: none !important; }
-        * { font-family: 'Tajawal', sans-serif; }
-        .font-display { font-family: 'El Messiri', sans-serif; }
+        * { font-family: var(--font-primary); }
+        .font-display { font-family: var(--font-display); }
 
         body {
             background: linear-gradient(160deg, #eef2f3 0%, #f8f4ec 55%, #eef2f3 100%);

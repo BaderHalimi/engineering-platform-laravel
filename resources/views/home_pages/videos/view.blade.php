@@ -99,7 +99,7 @@
         flex-wrap: wrap;
     }
     .title-row h1 {
-        font-family: 'Cairo', sans-serif;
+        font-family:var(--font-primary);
         font-weight: 800;
         font-size: 26px;
         color: #22262B;
@@ -142,7 +142,7 @@
     }
     .stat:last-child { border-inline-end: none; }
     .stat i { font-size: 18px; }
-    .stat span.num { font-family: 'Cairo', sans-serif; font-weight: 800; color: #22262B; }
+    .stat span.num { font-family:var(--font-primary); font-weight: 800; color: #22262B; }
 
     .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
     .btn {
@@ -181,7 +181,7 @@
         color: #5B6067;
         margin-bottom: 10px;
     }
-    .description :is(h1,h2,h3,h4) { font-family: 'Cairo', sans-serif; margin: 16px 0 8px; }
+    .description :is(h1,h2,h3,h4) { font-family:var(--font-primary); margin: 16px 0 8px; }
     .description p { margin: 0 0 12px; }
 
     .sidebar-card {

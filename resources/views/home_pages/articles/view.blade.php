@@ -43,7 +43,7 @@
     --line:#E7E2D8;
     --bg-soft:#fafbfc;
   }
-  .font-body{ font-family:'IBM Plex Sans Arabic',sans-serif; }
+  .font-body{ font-family:var(--font-primary); }
 
   .share-btn{
     width:42px; height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center;
@@ -61,13 +61,13 @@
   .generic-reveal.visible{ opacity:1; transform:translateY(0); }
 
   .prose-article{
-    font-family:'IBM Plex Sans Arabic',sans-serif;
+    font-family:var(--font-primary);
     color:var(--teal-dark);
     font-size:1.05rem;
     line-height:2.1;
   }
   .prose-article h2{
-    font-family:'Cairo','Tajawal',sans-serif;
+    font-family:var(--font-primary);
     color:var(--teal);
     font-weight:800;
     font-size:1.6rem;
@@ -77,7 +77,7 @@
     border-right:4px solid var(--gold);
   }
   .prose-article h3{
-    font-family:'Cairo','Tajawal',sans-serif;
+    font-family:var(--font-primary);
     color:var(--teal);
     font-weight:700;
     font-size:1.3rem;
