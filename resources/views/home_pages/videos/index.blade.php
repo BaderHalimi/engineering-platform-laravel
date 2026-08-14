@@ -1,8 +1,8 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', __('videos.library'))
 
-@section('description', app()->getLocale() === 'ar' ? 'ظ…ظƒطھط¨ط© ظپظٹط¯ظٹظˆظ‡ط§طھ ظ‡ظ†ط¯ط³ظٹط© ظ…ظ†ط´ظˆط±ط© ظ…ط¹ طµظپط­ط§طھ ظ…ط´ط§ظ‡ط¯ط© ظ…ط­ط³ظ†ط© ط¨ط¨ظٹط§ظ†ط§طھ ظپظٹط¯ظٹظˆ ظ…ظ†ط¸ظ…ط©.' : 'Published engineering video library with search and SEO-ready video detail pages.')
+@section('description', app()->getLocale() === 'ar' ? 'مكتبة فيديوهات هندسية منشورة مع صفحات مشاهدة محسنة ببيانات فيديو منظمة.' : 'Published engineering video library with search and SEO-ready video detail pages.')
 
 
 @push('styles')
@@ -211,11 +211,11 @@
 
     <div class="page-header">
         <h1>{{ __('videos.library') }}</h1>
-        <p>{{ $videos->total() }} {{ __('videos.views') === 'views' ? 'videos' : 'ظپظٹط¯ظٹظˆ' }}</p>
+        <p>{{ $videos->total() }} {{ __('videos.views') === 'views' ? 'videos' : 'فيديو' }}</p>
     </div>
 
     <div class="ad-slot ad-leaderboard">
-        <i class="ri-megaphone-line"></i> {{ __('videos.ad_label') }} 728أ—90
+        <i class="ri-megaphone-line"></i> {{ __('videos.ad_label') }} 728×90
     </div>
 
     <form method="GET" action="{{ route('home_pages.videos.index') }}" class="search-bar">
@@ -223,21 +223,21 @@
             type="text"
             name="search"
             value="{{ request('search') }}"
-            placeholder="{{ app()->getLocale() === 'ar' ? 'ط§ط¨ط­ط« ط¹ظ† ظپظٹط¯ظٹظˆ...' : 'Search videos...' }}"
+            placeholder="{{ app()->getLocale() === 'ar' ? 'ابحث عن فيديو...' : 'Search videos...' }}"
         >
         <button type="submit">
             <i class="ri-search-line"></i>
-            {{ app()->getLocale() === 'ar' ? 'ط¨ط­ط«' : 'Search' }}
+            {{ app()->getLocale() === 'ar' ? 'بحث' : 'Search' }}
         </button>
     </form>
 
     @if(request('search'))
         <div class="results-info">
-            {{ app()->getLocale() === 'ar' ? 'ظ†طھط§ط¦ط¬ ط§ظ„ط¨ط­ط« ط¹ظ†' : 'Results for' }}:
+            {{ app()->getLocale() === 'ar' ? 'نتائج البحث عن' : 'Results for' }}:
             <strong>"{{ request('search') }}"</strong>
             ({{ $videos->total() }})
             <a href="{{ route('home_pages.videos.index') }}" class="clear">
-                <i class="ri-close-circle-line"></i> {{ app()->getLocale() === 'ar' ? 'ظ…ط³ط­' : 'Clear' }}
+                <i class="ri-close-circle-line"></i> {{ app()->getLocale() === 'ar' ? 'مسح' : 'Clear' }}
             </a>
         </div>
     @endif
@@ -284,7 +284,7 @@
     @else
         <div class="empty-state">
             <i class="ri-video-off-line"></i>
-            {{ app()->getLocale() === 'ar' ? 'ظ„ط§ طھظˆط¬ط¯ ظ†طھط§ط¦ط¬ ظ…ط·ط§ط¨ظ‚ط©' : 'No videos found' }}
+            {{ app()->getLocale() === 'ar' ? 'لا توجد نتائج مطابقة' : 'No videos found' }}
         </div>
     @endif
 

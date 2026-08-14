@@ -1,9 +1,9 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
-@section('title', 'ظ…ط¹ط±ط¶ ط§ظ„طµظˆط± | ط§ظ„ط¯ظٹظˆط§ظ† ظ„ظ„ط§ط³طھط´ط§ط±ط§طھ ط§ظ„ظ‡ظ†ط¯ط³ظٹط©')
+@section('title', 'معرض الصور | الديوان للاستشارات الهندسية')
 
 
-@section('description', 'ظ…ط¹ط±ط¶ طµظˆط± ظ…ط´ط§ط±ظٹط¹ ظˆط£ط¹ظ…ط§ظ„ ط§ظ„ط¯ظٹظˆط§ظ† ظ„ظ„ط§ط³طھط´ط§ط±ط§طھ ط§ظ„ظ‡ظ†ط¯ط³ظٹط© ظ…ط¹ ظ†طµ ط¨ط¯ظٹظ„ ظˆط¨ظٹط§ظ†ط§طھ ظ‚ط§ط¨ظ„ط© ظ„ظ„ظپظ‡ط±ط³ط© ظ„ظƒظ„ طµظˆط±ط©.')
+@section('description', 'معرض صور مشاريع وأعمال الديوان للاستشارات الهندسية مع نص بديل وبيانات قابلة للفهرسة لكل صورة.')
 @php($seoImage = asset('logo.png'))
 
 @section('content')
@@ -62,11 +62,11 @@
   <div class="absolute -top-10 -left-10 w-72 h-72 rounded-full opacity-20 blur-3xl" style="background:var(--gold);"></div>
   <div class="container mx-auto px-5 md:px-6 relative z-10 text-center max-w-2xl">
     <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
-      <i class="ph-bold ph-images"></i> ظ…ط¹ط±ط¶ ط£ط¹ظ…ط§ظ„ظ†ط§
+      <i class="ph-bold ph-images"></i> معرض أعمالنا
     </div>
-    <h1 class="text-3xl md:text-5xl font-black text-[var(--teal)] mb-3 md:mb-4">ظ…ط¹ط±ط¶ ط§ظ„طµظˆط±</h1>
+    <h1 class="text-3xl md:text-5xl font-black text-[var(--teal)] mb-3 md:mb-4">معرض الصور</h1>
     <div class="section-title-underline mx-auto mb-4 md:mb-5"></div>
-    <p class="text-gray-500 text-sm md:text-lg">ظ„ظ…ط­ط© ط¨طµط±ظٹط© ط¹ظ„ظ‰ ظ…ط´ط§ط±ظٹط¹ظ†ط§ ط§ظ„ظ‡ظ†ط¯ط³ظٹط© ظˆط§ظ„ظ…ط¹ظ…ط§ط±ظٹط© ط§ظ„ظ…ظ†ط¬ط²ط©.</p>
+    <p class="text-gray-500 text-sm md:text-lg">لمحة بصرية على مشاريعنا الهندسية والمعمارية المنجزة.</p>
   </div>
 </section>
 
@@ -80,16 +80,16 @@
           type="text"
           name="search"
           value="{{ request('search') }}"
-          placeholder="ط§ط¨ط­ط« ط¹ظ† طµظˆط±ط©..."
+          placeholder="ابحث عن صورة..."
           class="field pr-11"
         >
       </div>
       <button type="submit" class="shrink-0 text-sm font-bold rounded-full px-6 py-3 flex items-center justify-center gap-2 text-white" style="background:linear-gradient(135deg, var(--gold), var(--gold-dark));">
-        <i class="ph-bold ph-magnifying-glass"></i> ط¨ط­ط«
+        <i class="ph-bold ph-magnifying-glass"></i> بحث
       </button>
       @if(request('search'))
         <a href="{{ route('home_pages.images.index') }}" class="shrink-0 text-sm font-bold rounded-full px-5 py-3 flex items-center justify-center gap-2 border border-gray-200 text-gray-500 hover:border-gray-300">
-          <i class="ph-bold ph-x"></i> ط¥ظ„ط؛ط§ط،
+          <i class="ph-bold ph-x"></i> إلغاء
         </a>
       @endif
     </form>
@@ -110,8 +110,8 @@
       @endphp
       <div class="flex items-center justify-between mb-8 generic-reveal">
         <p class="text-gray-500 text-sm">
-          ط¹ط±ط¶ <span class="font-bold text-[var(--teal)]">{{ $images->count() }}</span> ظ…ظ†
-          <span class="font-bold text-[var(--teal)]">{{ $images->total() }}</span> طµظˆط±ط©
+          عرض <span class="font-bold text-[var(--teal)]">{{ $images->count() }}</span> من
+          <span class="font-bold text-[var(--teal)]">{{ $images->total() }}</span> صورة
         </p>
       </div>
 
@@ -129,7 +129,7 @@
 
               @if($image->featured)
                 <span class="absolute top-4 right-4 bg-[var(--gold)] text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
-                  <i class="ph-fill ph-star"></i> ظ…ظ…ظٹط²
+                  <i class="ph-fill ph-star"></i> مميز
                 </span>
               @endif
 
@@ -150,7 +150,7 @@
                 </p>
               @endif
               <a href="{{ route('pages.image-show', $image->slug) }}" class="inline-flex items-center gap-1 text-[var(--gold-dark)] font-bold text-sm hover:gap-3 transition-all">
-                ط¹ط±ط¶ ط§ظ„طµظˆط±ط© <i class="ph-bold ph-arrow-left"></i>
+                عرض الصورة <i class="ph-bold ph-arrow-left"></i>
               </a>
             </div>
           </article>
@@ -184,10 +184,10 @@
         <div class="w-20 h-20 mx-auto rounded-3xl flex items-center justify-center mb-5" style="background:rgba(245,173,42,.1);">
           <i class="ph-bold ph-images text-4xl" style="color:var(--gold-dark);"></i>
         </div>
-        <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">ظ„ط§ طھظˆط¬ط¯ طµظˆط± ظ…ط·ط§ط¨ظ‚ط©</h3>
-        <p class="text-gray-500 text-sm md:text-base mb-6">ط¬ط±ظ‘ط¨ طھط؛ظٹظٹط± ظƒظ„ظ…ط§طھ ط§ظ„ط¨ط­ط« ط§ظ„ط­ط§ظ„ظٹط©.</p>
+        <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">لا توجد صور مطابقة</h3>
+        <p class="text-gray-500 text-sm md:text-base mb-6">جرّب تغيير كلمات البحث الحالية.</p>
         <a href="{{ route('home_pages.images.index') }}" class="inline-flex items-center gap-2 text-sm font-bold rounded-full px-6 py-3 text-white" style="background:linear-gradient(135deg, var(--gold), var(--gold-dark));">
-          <i class="ph-bold ph-arrow-counter-clockwise"></i> ط¹ط±ط¶ ط¬ظ…ظٹط¹ ط§ظ„طµظˆط±
+          <i class="ph-bold ph-arrow-counter-clockwise"></i> عرض جميع الصور
         </a>
       </div>
     @endif

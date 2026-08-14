@@ -1,9 +1,9 @@
-﻿@extends('layouts.app') {{-- ط¹ط¯ظ‘ظ„ ط§ط³ظ… ط§ظ„ظ„ط§ظٹظˆطھ ط­ط³ط¨ ظ…ط´ط±ظˆط¹ظƒطŒ ط£ظˆ ط§ط­ط°ظپ ظ‡ط°ط§ ط§ظ„ط³ط·ط± ط¥ط°ط§ ط§ظ„طµظپط­ط© ظ…ط³طھظ‚ظ„ط© --}}
+@extends('layouts.app') {{-- عدّل اسم اللايوت حسب مشروعك، أو احذف هذا السطر إذا الصفحة مستقلة --}}
 
-@section('title', 'ط§ظ„ظ…ظ‚ط§ظ„ط§طھ | ط§ظ„ط¯ظٹظˆط§ظ† ظ„ظ„ط§ط³طھط´ط§ط±ط§طھ ط§ظ„ظ‡ظ†ط¯ط³ظٹط©')
+@section('title', 'المقالات | الديوان للاستشارات الهندسية')
 
 
-@section('description', 'ظ…ظ‚ط§ظ„ط§طھ ظˆظ†طµط§ط¦ط­ ظ‡ظ†ط¯ط³ظٹط© ظˆظ…ط¹ظ…ط§ط±ظٹط© ظ…ظ† ظپط±ظٹظ‚ ط§ظ„ط¯ظٹظˆط§ظ† ظ„ظ„ط§ط³طھط´ط§ط±ط§طھ ط§ظ„ظ‡ظ†ط¯ط³ظٹط© طھط³ط§ط¹ط¯ ط§ظ„ط¹ظ…ظ„ط§ط، ط¹ظ„ظ‰ ظپظ‡ظ… ط§ظ„ط±ط®طµ ظˆط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ط¥ط´ط±ط§ظپ.')
+@section('description', 'مقالات ونصائح هندسية ومعمارية من فريق الديوان للاستشارات الهندسية تساعد العملاء على فهم الرخص والتصميم والإشراف.')
 @php($seoImage = asset('logo.png'))
 
 @section('content')
@@ -70,11 +70,11 @@
   <div class="absolute -top-10 -left-10 w-72 h-72 rounded-full opacity-20 blur-3xl" style="background:var(--gold);"></div>
   <div class="container mx-auto px-5 md:px-6 relative z-10 text-center max-w-2xl">
     <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
-      <i class="ph-bold ph-newspaper"></i> ظ…ط¯ظˆظ‘ظ†طھظ†ط§ ط§ظ„ظ‡ظ†ط¯ط³ظٹط©
+      <i class="ph-bold ph-newspaper"></i> مدوّنتنا الهندسية
     </div>
-    <h1 class="text-3xl md:text-5xl font-black text-[var(--teal)] mb-3 md:mb-4">ط¬ظ…ظٹط¹ ط§ظ„ظ…ظ‚ط§ظ„ط§طھ</h1>
+    <h1 class="text-3xl md:text-5xl font-black text-[var(--teal)] mb-3 md:mb-4">جميع المقالات</h1>
     <div class="section-title-underline mx-auto mb-4 md:mb-5"></div>
-    <p class="text-gray-500 text-sm md:text-lg">ظ…ظ‚ط§ظ„ط§طھ ظˆظ†طµط§ط¦ط­ ظ…ط¹ظ…ط§ط±ظٹط© طھط³ط§ط¹ط¯ظƒ ط¹ظ„ظ‰ ظپظ‡ظ… ظ…ط´ط±ظˆط¹ظƒ ظˆط§طھط®ط§ط° ظ‚ط±ط§ط±ط§طھ ط£ظپط¶ظ„.</p>
+    <p class="text-gray-500 text-sm md:text-lg">مقالات ونصائح معمارية تساعدك على فهم مشروعك واتخاذ قرارات أفضل.</p>
   </div>
 </section>
 
@@ -88,16 +88,16 @@
           type="text"
           name="search"
           value="{{ request('search') }}"
-          placeholder="ط§ط¨ط­ط« ط¹ظ† ظ…ظ‚ط§ظ„..."
+          placeholder="ابحث عن مقال..."
           class="field pr-11"
         >
       </div>
       <button type="submit" class="shrink-0 text-sm font-bold rounded-full px-6 py-3 flex items-center justify-center gap-2 text-white" style="background:linear-gradient(135deg, var(--gold), var(--gold-dark));">
-        <i class="ph-bold ph-magnifying-glass"></i> ط¨ط­ط«
+        <i class="ph-bold ph-magnifying-glass"></i> بحث
       </button>
       @if(request('search') || request('category'))
         <a href="{{ route('home_pages.articles.index') }}" class="shrink-0 text-sm font-bold rounded-full px-5 py-3 flex items-center justify-center gap-2 border border-gray-200 text-gray-500 hover:border-gray-300">
-          <i class="ph-bold ph-x"></i> ط¥ظ„ط؛ط§ط،
+          <i class="ph-bold ph-x"></i> إلغاء
         </a>
       @endif
       @if(request('category'))
@@ -112,7 +112,7 @@
       <div class="flex items-center gap-2 overflow-x-auto mt-4 pb-1" style="scrollbar-width:none;">
         <a href="{{ route('home_pages.articles.index', array_filter(['search' => request('search')])) }}"
            class="chip {{ request('category') ? '' : 'active' }}">
-          <i class="ph-bold ph-squares-four"></i> ط§ظ„ظƒظ„
+          <i class="ph-bold ph-squares-four"></i> الكل
         </a>
         @foreach($availableCategories as $cat)
           <a href="{{ route('home_pages.articles.index', array_filter(['search' => request('search'), 'category' => $cat->slug ?? $cat->id])) }}"
@@ -139,8 +139,8 @@
       @endphp
       <div class="flex items-center justify-between mb-8 generic-reveal">
         <p class="text-gray-500 text-sm">
-          ط¹ط±ط¶ <span class="font-bold text-[var(--teal)]">{{ $articles->count() }}</span> ظ…ظ†
-          <span class="font-bold text-[var(--teal)]">{{ $articles->total() }}</span> ظ…ظ‚ط§ظ„
+          عرض <span class="font-bold text-[var(--teal)]">{{ $articles->count() }}</span> من
+          <span class="font-bold text-[var(--teal)]">{{ $articles->total() }}</span> مقال
         </p>
       </div>
 
@@ -161,7 +161,7 @@
               @endif
               @if($article->is_featured)
                 <span class="absolute top-4 left-4 bg-[var(--gold)] text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
-                  <i class="ph-fill ph-star"></i> ظ…ظ…ظٹط²
+                  <i class="ph-fill ph-star"></i> مميز
                 </span>
               @endif
             </a>
@@ -176,7 +176,7 @@
                 </span>
                 @if($article->reading_time)
                   <span class="flex items-center gap-1">
-                    <i class="ph-bold ph-clock"></i> {{ $article->reading_time }} ط¯
+                    <i class="ph-bold ph-clock"></i> {{ $article->reading_time }} د
                   </span>
                 @endif
               </div>
@@ -189,7 +189,7 @@
                 {{ $article->excerpt }}
               </p>
               <a href="{{ route('home_pages.articles.view', $article->slug) }}" class="inline-flex items-center gap-1 text-[var(--gold-dark)] font-bold text-sm hover:gap-3 transition-all">
-                ط§ظ‚ط±ط£ ط§ظ„ظ…ظ‚ط§ظ„ <i class="ph-bold ph-arrow-left"></i>
+                اقرأ المقال <i class="ph-bold ph-arrow-left"></i>
               </a>
             </div>
           </article>
@@ -223,10 +223,10 @@
         <div class="w-20 h-20 mx-auto rounded-3xl flex items-center justify-center mb-5" style="background:rgba(245,173,42,.1);">
           <i class="ph-bold ph-newspaper text-4xl" style="color:var(--gold-dark);"></i>
         </div>
-        <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">ظ„ط§ طھظˆط¬ط¯ ظ…ظ‚ط§ظ„ط§طھ ظ…ط·ط§ط¨ظ‚ط©</h3>
-        <p class="text-gray-500 text-sm md:text-base mb-6">ط¬ط±ظ‘ط¨ طھط؛ظٹظٹط± ظƒظ„ظ…ط§طھ ط§ظ„ط¨ط­ط« ط£ظˆ ط¥ط²ط§ظ„ط© ط§ظ„ظپظ„طھط±ط© ط§ظ„ط­ط§ظ„ظٹط©.</p>
+        <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">لا توجد مقالات مطابقة</h3>
+        <p class="text-gray-500 text-sm md:text-base mb-6">جرّب تغيير كلمات البحث أو إزالة الفلترة الحالية.</p>
         <a href="{{ route('home_pages.articles.index') }}" class="inline-flex items-center gap-2 text-sm font-bold rounded-full px-6 py-3 text-white" style="background:linear-gradient(135deg, var(--gold), var(--gold-dark));">
-          <i class="ph-bold ph-arrow-counter-clockwise"></i> ط¹ط±ط¶ ط¬ظ…ظٹط¹ ط§ظ„ظ…ظ‚ط§ظ„ط§طھ
+          <i class="ph-bold ph-arrow-counter-clockwise"></i> عرض جميع المقالات
         </a>
       </div>
     @endif
