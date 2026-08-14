@@ -48,8 +48,10 @@ class HeroSlides extends Page
 
     protected function normalizeHeroSlide(array $item): array
     {
+        $type = $item['type'] ?? 'image';
+
         return [
-            'type' => in_array($item['type'] ?? 'image', ['image', 'video'], true) ? $item['type'] : 'image',
+            'type' => in_array($type, ['image', 'video'], true) ? $type : 'image',
             'media_path' => $item['media_path'] ?? '',
             'title' => array_merge(array_fill_keys($this->locales, ''), is_array($item['title'] ?? null) ? $item['title'] : []),
             'description' => array_merge(array_fill_keys($this->locales, ''), is_array($item['description'] ?? null) ? $item['description'] : []),
