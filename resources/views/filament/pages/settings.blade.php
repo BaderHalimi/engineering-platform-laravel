@@ -461,8 +461,8 @@
 
         <div class="p-6 border-t border-gray-100 dark:border-gray-800">
             <button type="button" wire:click="saveHeroSlides" wire:loading.attr="disabled" class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all">
-                <span wire:loading.remove>حفظ السلايدر</span>
-                <span wire:loading class="flex items-center gap-2">جاري الحفظ...</span>
+                <span wire:loading.remove wire:target="saveJsonCollection('{{ $collection }}')">حفظ السلايدر</span>
+                <span wire:loading wire:target="saveJsonCollection('{{ $collection }}')" class="flex items-center gap-2">جاري الحفظ...</span>
             </button>
         </div>
     </div>
@@ -666,6 +666,7 @@
                 type="button"
                 wire:click="saveJsonCollection('{{ $collection }}')"
                 wire:loading.attr="disabled"
+                wire:target="saveJsonCollection('{{ $collection }}')"
                 class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
             >
                 <span wire:loading.remove>حفظ {{ $card['title'] }}</span>
@@ -798,7 +799,7 @@
 
                 <button
                     type="button"
-                    wire:click="regenerateSitemap"
+                    wire:click.prevent="regenerateSitemap"
                     wire:loading.attr="disabled"
                     wire:target="regenerateSitemap"
                     class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm"
