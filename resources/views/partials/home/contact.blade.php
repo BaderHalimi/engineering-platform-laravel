@@ -41,23 +41,24 @@
         </div>
         @endif
 
-        <div class="relative overflow-hidden rounded-3xl border border-[var(--gold)]/25 bg-white p-5 md:p-6 shadow-xl shadow-gray-200/60">
-          <div class="absolute top-0 inset-inline-end-0 h-full w-1.5 bg-gradient-to-b from-[var(--gold)] to-[var(--gold-dark)]"></div>
-          <div class="relative">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-2xl text-[var(--gold-dark)]">
+        <div class="rounded-3xl border border-[var(--gold)]/25 bg-white p-5 md:p-6 shadow-xl shadow-gray-200/60">
+          <div class="mb-5 flex items-start gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-2xl text-[var(--gold-dark)] shrink-0">
               <i class="ri-mail-send-line"></i>
             </div>
-            <h3 class="mb-2 text-lg md:text-xl font-black text-[var(--teal)]">اشترك بالحملة البريدية</h3>
-            <p class="mb-5 text-sm leading-7 text-gray-500">استقبل تحديثات الخدمات، المقالات، وآخر الأعمال الهندسية مباشرة على بريدك.</p>
-            <form action="{{ $siteEmail ? 'mailto:' . $siteEmail : '#' }}" method="GET" class="flex flex-col gap-3">
-              <input type="hidden" name="subject" value="اشتراك بالحملة البريدية">
-              <input type="email" name="body" class="field rounded-full" placeholder="example@email.com">
-              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-[rgba(245,173,42,.25)] transition hover:bg-[var(--gold-dark)]">
-                اشترك الآن
-                <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
-              </button>
-            </form>
+            <div>
+              <h3 class="mb-1 text-lg md:text-xl font-black text-[var(--teal)]">اشترك بالحملة البريدية</h3>
+              <p class="text-sm leading-7 text-gray-500">تحديثات مختصرة عن الخدمات، المقالات، وآخر الأعمال الهندسية.</p>
+            </div>
           </div>
+          <form action="{{ $siteEmail ? 'mailto:' . $siteEmail : '#' }}" method="GET" class="flex flex-col gap-3">
+            <input type="hidden" name="subject" value="اشتراك بالحملة البريدية">
+            <input type="email" name="body" class="field rounded-full text-center" placeholder="example@email.com">
+            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-[rgba(245,173,42,.25)] transition hover:bg-[var(--gold-dark)]">
+              اشترك الآن
+              <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
+            </button>
+          </form>
         </div>
       </div>
 
