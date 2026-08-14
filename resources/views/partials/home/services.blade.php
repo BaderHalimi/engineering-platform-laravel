@@ -83,8 +83,8 @@
   /* ===== الكارت ===== */
   .services-marquee-shell{
     position: relative;
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
+    margin-inline: 0;
     overflow: hidden;
     padding-block: 1.5rem 2.25rem;
     -webkit-mask-image: linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
