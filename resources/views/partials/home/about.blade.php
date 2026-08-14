@@ -1,3 +1,4 @@
+@if(count($aboutUs ?? []) > 0)
 <section id="about" class="relative w-full py-16 md:py-24 mt-8 font-body">
   @if(count($aboutUs) > 0)
   <div class="md:hidden max-w-md mx-auto px-5">
@@ -47,3 +48,4 @@
     </div>
   </div>
 </section>
+@endif

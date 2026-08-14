@@ -1,5 +1,13 @@
+@php
+  $faqItems = collect($faqs ?? []);
+  $faqCount = $faqItems->count();
+  $faqListClass = $faqCount === 2 ? 'grid gap-3 md:grid-cols-2 md:gap-5' : 'space-y-3';
+  $faqContainerClass = $faqCount === 1 ? 'max-w-2xl' : ($faqCount === 2 ? 'max-w-5xl' : 'max-w-3xl');
+@endphp
+
+@if($faqItems->isNotEmpty())
 <section id="faqs" class="relative py-16 md:py-24 bg-white overflow-hidden">
-  <div class="container mx-auto px-5 md:px-6 max-w-3xl">
+  <div class="container mx-auto px-5 md:px-6 {{ $faqContainerClass }}">
     <div class="text-center mb-10 md:mb-14 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-question-answer-line"></i> {{ __('home.faqs.badge') }}
@@ -8,8 +16,8 @@
       <div class="section-title-underline mx-auto"></div>
     </div>
 
-    <div class="space-y-3">
-      @forelse($faqs as $faq)
+    <div class="{{ $faqListClass }}">
+      @foreach($faqItems as $faq)
         <div class="border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm" x-data="{ open: false }">
           {{-- سؤال قابل للطي (collapsed) --}}
           <button type="button" @click="open = !open" class="w-full flex items-center justify-between gap-4 p-4 md:p-5 text-start">
@@ -22,9 +30,8 @@
             {{ $faq->answer }}
           </div>
         </div>
-      @empty
-        <div class="text-center text-gray-400 py-10">{{ __('home.faqs.empty') }}</div>
-      @endforelse
+      @endforeach
     </div>
   </div>
 </section>
+@endif

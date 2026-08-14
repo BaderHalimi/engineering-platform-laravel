@@ -1,5 +1,7 @@
 @php
   $steps = collect($workSteps ?? [])->values();
+  $stepCount = $steps->count();
+  $stepsWrapClass = $stepCount === 1 ? 'max-w-md mx-auto' : ($stepCount === 2 ? 'max-w-4xl mx-auto' : '');
 @endphp
 
 @if($steps->isNotEmpty())
@@ -21,7 +23,7 @@
     <div class="relative">
       <div class="hidden lg:block absolute top-[52px] start-0 end-0 h-px process-connector"></div>
 
-      <div class="process-steps-grid grid gap-5 md:grid-cols-2" style="--process-cols: {{ min($steps->count(), 4) }};">
+      <div class="process-steps-grid grid gap-5 md:grid-cols-2 {{ $stepsWrapClass }}" style="--process-cols: {{ min($stepCount, 4) }};">
         @foreach($steps as $index => $step)
           @php
             $number = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);

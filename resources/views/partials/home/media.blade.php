@@ -1,7 +1,26 @@
+@php
+  $videoItems = collect($videos ?? []);
+  $imageItems = collect($images ?? []);
+  $hasVideos = $videoItems->isNotEmpty();
+  $hasImages = $imageItems->isNotEmpty();
+  $videoGridClass = $videoItems->count() === 1
+    ? 'grid grid-cols-1 gap-5 md:gap-7 mb-14 md:mb-20 max-w-md mx-auto'
+    : ($videoItems->count() === 2
+      ? 'grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 mb-14 md:mb-20 max-w-5xl mx-auto'
+      : 'grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7 mb-14 md:mb-20');
+  $imageGridClass = $imageItems->count() === 1
+    ? 'grid grid-cols-1 gap-5 md:gap-7 max-w-md mx-auto'
+    : ($imageItems->count() === 2
+      ? 'grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 max-w-5xl mx-auto'
+      : 'grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7');
+@endphp
+
+@if($hasVideos || $hasImages)
 <section id="media" class="relative py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
   <div class="site-container">
 
     {{-- ====== فيديوهات (تُعرض عبر الثمبنيل - يُفتح الفيديو عند الضغط) ====== --}}
+    @if($hasVideos)
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-12 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-play-circle-line"></i> {{ __('home.media.videos_badge') }}
@@ -10,8 +29,8 @@
       <div class="section-title-underline mx-auto mb-4"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7 mb-14 md:mb-20">
-      @forelse($videos as $video)
+    <div class="{{ $videoGridClass }}">
+        @foreach($videoItems as $video)
         <div class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal"
              x-data="{ playing: false }" x-intersect.once="$el.classList.add('visible')">
           <div class="relative overflow-hidden h-52 bg-black">
@@ -48,12 +67,12 @@
             </div>
           </div>
         </div>
-      @empty
-        <div class="col-span-3 text-center text-gray-400 py-6">{{ __('home.media.videos_empty') }}</div>
-      @endforelse
+      @endforeach
     </div>
+    @endif
 
     {{-- ====== معرض الصور (روابط storage) ====== --}}
+    @if($hasImages)
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-12 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-image-line"></i> {{ __('home.media.gallery_badge') }}
@@ -62,8 +81,8 @@
       <div class="section-title-underline mx-auto mb-4"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7">
-      @forelse($images as $img)
+    <div class="{{ $imageGridClass }}">
+        @foreach($imageItems as $img)
       <div class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal group" x-data x-intersect.once="$el.classList.add('visible')">
         <div class="relative overflow-hidden h-64">
           <img src="{{ $asset($img->image_path) }}" alt="{{ $img->alt_text ?: $img->title }}" class="w-full h-full object-cover project-img" loading="lazy">
@@ -80,10 +99,10 @@
           <span class="flex items-center gap-1"><i class="ri-heart-line"></i> {{ $img->likes }}</span>
         </div>
       </div>
-      @empty
-      <div class="col-span-3 text-center text-gray-400 py-6">{{ __('home.media.gallery_empty') }}</div>
-      @endforelse
+      @endforeach
     </div>
+    @endif
 
   </div>
 </section>
+@endif

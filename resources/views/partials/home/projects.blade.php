@@ -1,3 +1,14 @@
+@php
+  $projectItems = collect($projects ?? []);
+  $projectCount = $projectItems->count();
+  $projectGridClass = $projectCount === 1
+    ? 'grid grid-cols-1 gap-5 md:gap-7 max-w-md mx-auto'
+    : ($projectCount === 2
+      ? 'grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 max-w-5xl mx-auto'
+      : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7');
+@endphp
+
+@if($projectItems->isNotEmpty())
 <section id="projects" class="relative py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
   <div class="site-container">
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
@@ -9,8 +20,8 @@
       <p class="text-gray-500 text-sm md:text-lg">{{ __('home.projects.subtitle') }}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
-      @forelse($projects as $project)
+    <div class="{{ $projectGridClass }}">
+      @foreach($projectItems as $project)
       <div class="project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
         <div class="relative overflow-hidden h-64">
           <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
@@ -28,9 +39,8 @@
           <p class="text-gray-500 text-xs md:text-sm mb-3 md:mb-4">{{ Str::limit(strip_tags($project->description ?? ''), 100) }}</p>
         </div>
       </div>
-      @empty
-      <div class="col-span-3 text-center text-gray-400 py-10">{{ __('home.projects.empty') }}</div>
-      @endforelse
+      @endforeach
     </div>
   </div>
 </section>
+@endif

@@ -16,6 +16,12 @@
   — المواصفات (سعر/وقت/توثيق) بشكل جدول فني مصغّر بدل الفقاعات
   ============================================================
 -->
+@php
+  $serviceItems = collect($services ?? [])->values();
+  $serviceCount = $serviceItems->count();
+@endphp
+
+@if($serviceItems->isNotEmpty())
 <section id="services" class="relative w-full py-16 md:py-28 bg-white overflow-hidden">
 
   <!-- خلفية شبكية دقيقة تحاكي ورق المخططات -->
@@ -35,14 +41,24 @@
     </div>
 
     <!-- ===== شبكة الخدمات ===== -->
-    @if(($services ?? collect())->count())
       @php
         $siteDir = in_array(app()->getLocale(), ['ar', 'he', 'fa', 'ur'], true) ? 'rtl' : 'ltr';
-        $serviceItems = ($services ?? collect())->values();
-        $serviceCount = max(1, $serviceItems->count());
         $itemsPerLoop = max($serviceCount, (int) ceil(14 / $serviceCount) * $serviceCount);
         $marqueeCopies = 2;
       @endphp
+      @if($serviceCount < 3)
+        <div class="services-static-grid services-static-grid-{{ $serviceCount }}">
+          @foreach($serviceItems as $index => $service)
+            @include('partials.home.service-card', [
+              'service' => $service,
+              'index' => $index,
+              'tr' => $tr,
+              'asset' => $asset,
+              'contactUrl' => $contactUrl ?? null,
+            ])
+          @endforeach
+        </div>
+      @else
       <div class="services-marquee-shell" data-marquee-dir="{{ $siteDir }}" style="--marquee-copy-count: {{ $marqueeCopies }};">
         <div class="services-marquee-track">
           @for($copy = 0; $copy < $marqueeCopies; $copy++)
@@ -64,9 +80,7 @@
           @endfor
         </div>
       </div>
-    @else
-      <div class="text-center text-gray-400 py-10">{{ __('home.services.empty') }}</div>
-    @endif
+      @endif
   </div>
 </section>
 
@@ -121,6 +135,24 @@
   }
   .services-marquee-shell[data-marquee-dir="rtl"] .services-marquee-group{
     direction: rtl;
+  }
+  .services-static-grid{
+    display:grid;
+    gap:1.75rem;
+    margin-inline:auto;
+    align-items:stretch;
+  }
+  .services-static-grid-1{
+    max-width:430px;
+    grid-template-columns:minmax(0, 1fr);
+  }
+  .services-static-grid-2{
+    max-width:900px;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+  .services-static-grid .service-marquee-card{
+    width:100%;
+    flex:auto;
   }
   .services-marquee-group[aria-hidden="true"]{
     pointer-events: none;
@@ -257,4 +289,11 @@
     .services-marquee-track{ animation:none !important; }
     .blueprint-card, .blueprint-thumb, .stamp-ring, .request-link{ transition:none !important; }
   }
+  @media (max-width: 767px){
+    .services-static-grid-2{
+      grid-template-columns:minmax(0, 1fr);
+      max-width:430px;
+    }
+  }
 </style>
+@endif

@@ -1,3 +1,4 @@
+@if(count($whyAldiwan ?? []) > 0)
 <section id="why-us" class="relative w-full py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
   <div class="md:hidden px-5">
     <div class="why-reveal mb-8" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -57,3 +58,4 @@
     </div>
   </div>
 </section>
+@endif

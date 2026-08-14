@@ -1,4 +1,8 @@
-@if(($articlesByCategory ?? collect())->flatten()->isNotEmpty())
+@php
+  $hasArticles = collect($articlesByCategory ?? [])->contains(fn ($items) => collect($items)->isNotEmpty());
+@endphp
+
+@if($hasArticles)
 <section id="articles" class="relative py-16 md:py-24 bg-white overflow-hidden">
   <div class="site-container">
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
@@ -11,13 +15,22 @@
     </div>
 
     @foreach($articlesByCategory as $categoryName => $categoryArticles)
+      @php
+        $categoryArticleItems = collect($categoryArticles);
+        $articleCount = $categoryArticleItems->count();
+        $articleGridClass = $articleCount === 1
+          ? 'grid grid-cols-1 gap-5 md:gap-7 max-w-md mx-auto'
+          : ($articleCount === 2
+            ? 'grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 max-w-5xl mx-auto'
+            : 'grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7');
+      @endphp
       <div class="mb-12 md:mb-16">
         <div class="flex items-center gap-3 mb-6">
           <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)]">{{ $categoryName }}</h3>
           <span class="flex-1 h-px bg-gray-100"></span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7">
-          @foreach($categoryArticles as $article)
+        <div class="{{ $articleGridClass }}">
+          @foreach($categoryArticleItems as $article)
           <article class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
             <div class="relative overflow-hidden h-52">
               <img src="{{ $asset($article->thumbnail) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $article->title }}" class="w-full h-full object-cover project-img">
