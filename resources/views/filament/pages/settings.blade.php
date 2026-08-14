@@ -669,8 +669,8 @@
                 wire:target="saveJsonCollection('{{ $collection }}')"
                 class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
             >
-                <span wire:loading.remove>حفظ {{ $card['title'] }}</span>
-                <span wire:loading class="flex items-center gap-2">
+                <span wire:loading.remove wire:target="saveJsonCollection('{{ $collection }}')">حفظ {{ $card['title'] }}</span>
+                <span wire:loading wire:target="saveJsonCollection('{{ $collection }}')" class="flex items-center gap-2">
                     <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
