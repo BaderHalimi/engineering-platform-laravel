@@ -1,54 +1,94 @@
-<section class="relative overflow-hidden">
-  <div class="md:hidden min-h-screen flex flex-col bg-white">
-    <div class="px-6 pt-6 pb-4 flex items-center justify-between shrink-0">
-      <span class="font-display font-bold text-[11px] tracking-[0.35em]" style="color:var(--ink);">{{ $siteName }}</span>
-      <span class="h-px flex-1 mx-3" style="background:var(--line);"></span>
-      <span class="font-display font-bold text-[10px] tracking-[0.3em]" style="color:var(--gold);">EST. 2012</span>
-    </div>
-    <div class="px-6 text-start shrink-0 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-      <span class="font-display font-bold text-[11px] tracking-[0.3em]" style="color:var(--gold);">{{ __('home.process.eyebrow') }}</span>
-      <h1 class="font-display font-black text-4xl mt-1 mb-2" style="color:var(--ink);">{{ __('home.process.title') }}</h1>
-      <p class="text-sm font-medium leading-7" style="color:var(--teal);">{{ __('home.process.subtitle') }}</p>
-    </div>
-    <div class="px-6 mt-6 pb-8">
-      <div class="relative">
-        <div class="absolute top-2 bottom-2 start-[33px] w-px" style="background:var(--line);"></div>
-        <div class="space-y-7">
-          @foreach($workSteps as $i => $step)
-          <div class="relative flex items-start gap-4 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-            <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center font-display font-black text-base shrink-0 z-10" style="background:{{ $loop->last ? 'var(--gold)' : 'var(--ink)' }}; color:{{ $loop->last ? 'var(--ink)' : 'var(--gold)' }};">{{ $loop->iteration }}</div>
-            <div class="text-start flex-1 pt-1.5">
-              <h3 class="font-display font-black text-base mb-1" style="color:var(--gold);">{{ $tr($step['title'] ?? []) }}</h3>
-              <p class="text-[13px] font-medium leading-relaxed" style="color:var(--teal);">{{ $tr($step['description'] ?? []) }}</p>
-            </div>
-          </div>
-          @endforeach
-        </div>
-      </div>
-    </div>
-  </div>
+@php
+  $steps = collect($workSteps ?? [])->values();
+@endphp
 
-  <div class="hidden md:flex site-container relative min-h-[70vh] overflow-hidden flex-col py-16">
-    <div class="text-start max-w-3xl generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="font-display font-bold text-[11px] tracking-[0.35em]" style="color:var(--gold);">{{ __('home.process.eyebrow') }}</span>
-        <span class="w-8 h-px" style="background:var(--gold);"></span>
+@if($steps->isNotEmpty())
+<section id="process" class="process-section relative overflow-hidden py-16 md:py-24 bg-white">
+  <div class="absolute inset-0 process-grid pointer-events-none"></div>
+  <div class="absolute -top-28 -end-24 h-72 w-72 rounded-full bg-[var(--gold)]/10 blur-3xl pointer-events-none"></div>
+
+  <div class="site-container relative z-10">
+    <div class="generic-reveal mx-auto max-w-3xl text-center mb-12 md:mb-16" x-data x-intersect.once="$el.classList.add('visible')">
+      <div class="inline-flex items-center gap-2 rounded-full border border-[var(--gold)]/40 bg-white/80 px-4 py-1.5 text-xs md:text-sm font-extrabold text-[var(--gold-dark)] shadow-sm">
+        <i class="ri-route-line"></i>
+        {{ __('home.process.eyebrow') }}
       </div>
-      <h1 class="font-display font-black text-5xl mb-3" style="color:var(--gold);">{{ __('home.process.title') }}</h1>
-      <p class="text-xl font-bold leading-relaxed" style="color:var(--teal);">{{ __('home.process.subtitle') }}</p>
+      <h2 class="mt-4 text-3xl md:text-5xl font-black text-[var(--teal)] leading-tight">{{ __('home.process.title') }}</h2>
+      <div class="section-title-underline mx-auto my-4"></div>
+      <p class="text-sm md:text-lg leading-8 text-gray-500">{{ __('home.process.subtitle') }}</p>
     </div>
-    <div class="flex-1 flex items-center mt-10">
-      <div class="w-full grid grid-cols-{{ max(count($workSteps), 2) }} gap-6 relative">
-        @foreach($workSteps as $i => $step)
-        <div class="relative text-start generic-reveal" x-data x-intersect.once="$el.classList.add('visible')" style="transition-delay:{{ $loop->iteration * 0.1 }}s;">
-          <div class="flex items-center justify-start mb-5">
-            <div class="w-[68px] h-[68px] rounded-full flex items-center justify-center font-display font-black text-2xl shrink-0" style="background:{{ $loop->last ? 'var(--gold)' : 'var(--ink)' }}; color:{{ $loop->last ? 'var(--ink)' : 'var(--gold)' }};">{{ $loop->iteration }}</div>
-          </div>
-          <h3 class="font-display font-black text-xl mb-2" style="color:var(--gold);">{{ $tr($step['title'] ?? []) }}</h3>
-          <p class="text-[15px] font-medium leading-relaxed" style="color:var(--teal);">{{ $tr($step['description'] ?? []) }}</p>
-        </div>
+
+    <div class="relative">
+      <div class="hidden lg:block absolute top-[52px] start-0 end-0 h-px process-connector"></div>
+
+      <div class="process-steps-grid grid gap-5 md:grid-cols-2" style="--process-cols: {{ min($steps->count(), 4) }};">
+        @foreach($steps as $index => $step)
+          @php
+            $number = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);
+            $icon = $step['icon'] ?? 'ri-compasses-2-line';
+          @endphp
+
+          <article
+            class="process-card generic-reveal group relative flex min-h-[255px] flex-col rounded-2xl border border-[var(--line)] bg-white p-6 shadow-sm transition duration-500 hover:-translate-y-1 hover:border-[var(--gold)] hover:shadow-2xl hover:shadow-[rgba(82,105,112,.12)]"
+            x-data
+            x-intersect.once="$el.classList.add('visible')"
+            style="transition-delay:{{ $loop->iteration * 0.08 }}s;"
+          >
+            <div class="mb-6 flex items-start justify-between gap-4">
+              <div class="process-step-mark relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--teal)] text-xl font-black text-white shadow-lg shadow-[rgba(82,105,112,.22)] transition group-hover:bg-[var(--gold)] group-hover:text-white">
+                {{ $number }}
+              </div>
+
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-2xl text-[var(--gold-dark)] transition group-hover:scale-110 group-hover:bg-[var(--teal)] group-hover:text-white">
+                <i class="{{ $icon }}"></i>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-black leading-snug text-[var(--teal)] mb-3">{{ $tr($step['title'] ?? []) }}</h3>
+            <p class="text-sm leading-7 font-semibold text-gray-500">{{ $tr($step['description'] ?? []) }}</p>
+
+            <div class="mt-auto pt-6">
+              <div class="h-px w-full process-ruler"></div>
+            </div>
+          </article>
         @endforeach
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .process-grid{
+    background-image:
+      linear-gradient(rgba(82,105,112,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(82,105,112,.045) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 65% at 50% 25%, black 0%, transparent 78%);
+  }
+  .process-connector{
+    background-image: repeating-linear-gradient(to left, rgba(216,147,32,.45) 0 10px, transparent 10px 20px);
+  }
+  .process-ruler{
+    background-image: repeating-linear-gradient(to left, var(--line) 0 8px, transparent 8px 16px);
+  }
+  @media (min-width: 1024px){
+    .process-steps-grid{
+      grid-template-columns: repeat(var(--process-cols), minmax(0, 1fr));
+    }
+  }
+  .process-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:1rem;
+    background:linear-gradient(135deg, rgba(245,173,42,.08), transparent 42%);
+    opacity:0;
+    transition:opacity .45s ease;
+    pointer-events:none;
+  }
+  .process-card:hover::before{ opacity:1; }
+  @media (max-width: 767px){
+    .process-card{ min-height:0; }
+  }
+</style>
+@endif
