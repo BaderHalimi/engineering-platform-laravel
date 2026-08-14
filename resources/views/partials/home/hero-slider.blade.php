@@ -30,8 +30,6 @@
   class="home-hero-slider relative overflow-hidden bg-[#11191d]"
   x-data="{ active: 0, total: {{ $slides->count() }}, timer: null, start() { this.timer = setInterval(() => this.active = (this.active + 1) % this.total, 5000) }, stop() { if (this.timer) clearInterval(this.timer) } }"
   x-init="start()"
-  @mouseenter="stop()"
-  @mouseleave="start()"
 >
   @foreach($slides as $index => $slide)
     @php
