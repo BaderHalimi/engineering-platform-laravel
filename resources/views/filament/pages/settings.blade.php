@@ -348,6 +348,7 @@
         </form>
     </div>
 
+    @if(false)
     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -465,6 +466,7 @@
             </button>
         </div>
     </div>
+    @endif
 
 @php
     $localeLabels = ['ar' => 'العربية', 'en' => 'English', 'fr' => 'Français'];

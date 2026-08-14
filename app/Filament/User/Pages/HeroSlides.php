@@ -9,15 +9,12 @@ use Filament\Support\Icons\Heroicon;
 use Illuminate\Http\UploadedFile;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
-use UnitEnum;
 
 class HeroSlides extends Page
 {
     use WithFileUploads;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
-
-    protected static string|UnitEnum|null $navigationGroup = 'المحتوى';
 
     protected static ?string $navigationLabel = 'سلايدر الرئيسية';
 
@@ -26,6 +23,11 @@ class HeroSlides extends Page
     protected static ?int $navigationSort = 0;
 
     protected string $view = 'filament.user.pages.hero-slides';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.content');
+    }
 
     public array $locales = ['ar', 'en', 'fr'];
 
