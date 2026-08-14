@@ -37,11 +37,9 @@
     <!-- ===== شبكة الخدمات ===== -->
     @if(($services ?? collect())->count())
       <div class="services-marquee-shell">
-        <div class="services-marquee-fade services-marquee-fade-start"></div>
-        <div class="services-marquee-fade services-marquee-fade-end"></div>
         <div class="services-marquee-track">
-          @for($copy = 0; $copy < 2; $copy++)
-            <div class="services-marquee-group" aria-hidden="{{ $copy === 1 ? 'true' : 'false' }}" @if($copy === 1) inert @endif>
+          @for($copy = 0; $copy < 3; $copy++)
+            <div class="services-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
               @foreach($services as $index => $service)
                 @include('partials.home.service-card', [
                   'service' => $service,
@@ -77,6 +75,8 @@
     width: 100%;
     overflow: hidden;
     padding-block: 1.5rem 2.25rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   }
   .services-marquee-track{
     display: flex;
@@ -94,30 +94,17 @@
     gap: 1.75rem;
     padding-inline: .25rem;
   }
+  .services-marquee-group[aria-hidden="true"]{
+    pointer-events: none;
+  }
   .service-marquee-card{
     width: min(82vw, 390px);
     min-height: 100%;
     flex: 0 0 min(82vw, 390px);
   }
-  .services-marquee-fade{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 5;
-    width: min(12vw, 120px);
-    pointer-events: none;
-  }
-  .services-marquee-fade-start{
-    inset-inline-start: 0;
-    background: linear-gradient(to left, transparent, #fff);
-  }
-  .services-marquee-fade-end{
-    inset-inline-end: 0;
-    background: linear-gradient(to right, transparent, #fff);
-  }
   @keyframes services-marquee{
     from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
+    to{ transform: translateX(-33.333333%); }
   }
   .blueprint-card{
     border: 1.5px solid #e7e2d8;
