@@ -13,9 +13,9 @@
   @if($floating)
     x-data="{ scrolled: window.scrollY > 48 }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 48, { passive: true })"
-    :class="scrolled ? 'top-4 md:top-5' : 'top-20 md:top-24'"
+    :class="scrolled ? 'top-4 md:top-5 bg-white/95 border-gray-100 shadow-gray-200/50' : 'top-16 md:top-20 bg-white/16 border-white/25 shadow-black/20'"
   @endif
-  class="{{ $navPositionClass }} bg-white/95 backdrop-blur border border-gray-100 rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color] duration-500 ease-out"
+  class="{{ $navPositionClass }} {{ $floating ? '' : 'bg-white/95 border-gray-100 shadow-gray-200/50' }} backdrop-blur-xl border rounded-full shadow-lg px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color,border-color] duration-500 ease-out"
 >
   <!-- @if($siteLogo)
     <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}" class="h-8" style="height:52px;width:auto;">
@@ -31,7 +31,7 @@
        style="height:52px;width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
 @endif <div class="w-10 hidden md:block"></div>
 
-  <ul class="hidden md:flex items-center gap-3 text-gray-600 text-base font-bold">
+  <ul class="hidden md:flex items-center gap-3 text-base font-bold {{ $floating ? 'text-white/90' : 'text-gray-600' }}" @if($floating) :class="scrolled ? 'text-gray-600' : 'text-white/90'" @endif>
     <li><a href="{{ route('home') }}" :class="activeSection === 'home' ? 'nav-link active' : 'nav-link'" class="block px-5 py-2 rounded-full">{{ __('home.nav.home') }}</a></li>
     <li><a href="{{ route('home_pages.services.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.services') }}</a></li>
     <li><a href="{{ route('home_pages.projects.index') }}" class="block px-5 py-2 rounded-full nav-link">{{ __('home.nav.projects') }}</a></li>
