@@ -1,18 +1,25 @@
 @extends('layouts.app')
 
 @section('title', $article->meta_title ?? $article->title)
+@section('description', $article->meta_description ?? $article->excerpt)
+@php
+    $seoCanonical = $article->canonical_url ?: url()->current();
+    $seoImage = \App\Support\Seo::imageUrl($article->og_image ?: $article->thumbnail);
+    $seoType = 'article';
+    $seoSchema = [
+        \App\Support\Seo::article($article),
+        \App\Support\Seo::breadcrumb([
+            ['name' => app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home', 'url' => route('home')],
+            ['name' => app()->getLocale() === 'ar' ? 'المقالات' : 'Articles', 'url' => route('home_pages.articles.index')],
+            ['name' => $article->title, 'url' => $seoCanonical],
+        ]),
+    ];
+@endphp
 
 @push('meta')
-<meta name="description" content="{{ $article->meta_description ?? $article->excerpt }}">
 @if($article->meta_keywords)
 <meta name="keywords" content="{{ is_array($article->meta_keywords) ? implode(', ', $article->meta_keywords) : $article->meta_keywords }}">
 @endif
-
-<meta property="og:type" content="article">
-<meta property="og:title" content="{{ $article->meta_title ?? $article->title }}">
-<meta property="og:description" content="{{ $article->meta_description ?? $article->excerpt }}">
-<meta property="og:image" content="{{ $article->og_image ? Storage::url($article->og_image) : ($article->thumbnail ? Storage::url($article->thumbnail) : asset('images/og-articles-cover.jpg')) }}">
-<meta property="og:url" content="{{ $article->canonical_url ?? url()->current() }}">
 <meta property="article:published_time" content="{{ optional($article->published_at)->toIso8601String() }}">
 @if($article->category)
 <meta property="article:section" content="{{ $article->category->name }}">
@@ -22,13 +29,6 @@
 <meta property="article:tag" content="{{ $tag }}">
 @endforeach
 @endif
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ $article->meta_title ?? $article->title }}">
-<meta name="twitter:description" content="{{ $article->meta_description ?? $article->excerpt }}">
-<meta name="twitter:image" content="{{ $article->og_image ? Storage::url($article->og_image) : ($article->thumbnail ? Storage::url($article->thumbnail) : asset('images/og-articles-cover.jpg')) }}">
-
-<link rel="canonical" href="{{ $article->canonical_url ?? url()->current() }}">
 @endpush
 
 @section('content')

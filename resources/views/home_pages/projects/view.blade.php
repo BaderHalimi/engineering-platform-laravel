@@ -2,10 +2,19 @@
 @extends('layouts.app')
 
 @section('title', $project->meta_title ?: $project->title)
-
-@push('meta')
-    <meta name="description" content="{{ $project->meta_description ?: $project->title }}">
-@endpush
+@section('description', $project->meta_description ?: \App\Support\Seo::clean($project->description, $project->title))
+@php
+    $seoCanonical = $project->canonical_url ?: url()->current();
+    $seoImage = \App\Support\Seo::imageUrl($project->og_image ?: $project->image);
+    $seoSchema = [
+        \App\Support\Seo::project($project),
+        \App\Support\Seo::breadcrumb([
+            ['name' => app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home', 'url' => route('home')],
+            ['name' => app()->getLocale() === 'ar' ? 'المشاريع' : 'Projects', 'url' => route('home_pages.projects.index')],
+            ['name' => $project->title, 'url' => $seoCanonical],
+        ]),
+    ];
+@endphp
 
 @push('styles')
 <style>

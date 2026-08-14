@@ -9,9 +9,9 @@
 <head>
     <meta charset="utf-8">
 
-    <link rel="canonical" href="{{ url()->current() }}">
     <link rel="icon" href="{{ asset('logo.png') }}">
-    <title>{{ $pageTitle }}</title>
+    <title>{{ \App\Support\Seo::title($pageTitle) }}</title>
+    @include('partials.seo', ['seoDescription' => $pageDescription])
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif

@@ -1,3 +1,4 @@
+@if(($articlesByCategory ?? collect())->flatten()->isNotEmpty())
 <section id="articles" class="relative py-16 md:py-24 bg-white overflow-hidden">
   <div class="site-container">
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
@@ -9,7 +10,7 @@
       <p class="text-gray-500 text-sm md:text-lg">{{ __('home.articles.subtitle') }}</p>
     </div>
 
-    @forelse($articlesByCategory as $categoryName => $categoryArticles)
+    @foreach($articlesByCategory as $categoryName => $categoryArticles)
       <div class="mb-12 md:mb-16">
         <div class="flex items-center gap-3 mb-6">
           <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)]">{{ $categoryName }}</h3>
@@ -37,8 +38,7 @@
           @endforeach
         </div>
       </div>
-    @empty
-      <div class="text-center text-gray-400 py-10">{{ __('home.articles.empty') }}</div>
-    @endforelse
+    @endforeach
   </div>
 </section>
+@endif

@@ -3,6 +3,8 @@
 
 @section('title', app()->getLocale() === 'ar' ? 'مشاريعنا' : 'Our Projects')
 
+@section('description', app()->getLocale() === 'ar' ? 'نماذج مشاريع وأعمال هندسية منشورة مع تصنيف وبحث وروابط تفاصيل قابلة للفهرسة.' : 'Published engineering project portfolio with filtering, search, and indexable detail pages.')
+
 @push('styles')
 <style>
     .projects-hero {
@@ -274,7 +276,7 @@
                 <a href="{{ route('home_pages.projects.view', $project->slug) }}" class="project-card">
                     <div class="thumb-wrap">
                         @if($project->image)
-                            <img src="{{ asset('storage/' . ltrim($project->image, '/')) }}" alt="{{ $project->title }}">
+                            <img src="{{ asset('storage/' . ltrim($project->image, '/')) }}" alt="{{ $project->title }}" loading="lazy">
                         @endif
                         @if($project->category)
                             <span class="category-badge">{{ $project->category->name }}</span>

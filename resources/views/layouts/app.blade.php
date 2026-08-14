@@ -5,10 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>@yield('title', 'الديوان للاستشارات الهندسية')</title>
+<title>{{ \App\Support\Seo::title(trim($__env->yieldContent('title')) ?: null) }}</title>
+@include('partials.seo')
+@stack('meta')
 
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@endif
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
 
 @include('partials.local-fonts')
@@ -25,8 +29,6 @@
 <script>
 const swup = new Swup();
 </script>
-@stack('meta')
-
 {{-- ===========================================================================
      هاذ الـ include هو المصدر الحقيقي لهوية الموقع: فيه تعريف .nav-link,
      .nav-link.active, .btn-blue, .lang-switch, ستايل التوب بار... إلخ.

@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Throwable;
 
 class Setup extends Model
 {
@@ -15,10 +16,14 @@ class Setup extends Model
 
     public static function get(string $key, $default = null)
     {
-        return Cache::rememberForever("setup_{$key}", function () use ($key, $default) {
-            $row = static::where('key', $key)->first();
-            return $row ? $row->value : $default;
-        });
+        try {
+            return Cache::rememberForever("setup_{$key}", function () use ($key, $default) {
+                $row = static::where('key', $key)->first();
+                return $row ? $row->value : $default;
+            });
+        } catch (Throwable) {
+            return $default;
+        }
     }
 
     public static function set(string $key, $value): void

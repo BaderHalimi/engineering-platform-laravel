@@ -4,13 +4,19 @@
     $serviceName = $service->name;
     $serviceSummary = $service->short_description ?: strip_tags($service->description ?? '');
     $asset = fn ($path) => $path ? asset('storage/' . ltrim($path, '/')) : null;
+    $seoImage = \App\Support\Seo::imageUrl($service->thumbnail);
+    $seoSchema = [
+        \App\Support\Seo::service($service),
+        \App\Support\Seo::breadcrumb([
+            ['name' => app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home', 'url' => route('home')],
+            ['name' => app()->getLocale() === 'ar' ? 'الخدمات' : 'Services', 'url' => route('home_pages.services.index')],
+            ['name' => $serviceName, 'url' => url()->current()],
+        ]),
+    ];
 @endphp
 
 @section('title', $service->meta_title ?: $serviceName)
-
-@push('meta')
-    <meta name="description" content="{{ $service->meta_description ?: $serviceSummary }}">
-@endpush
+@section('description', $service->meta_description ?: $serviceSummary)
 
 @section('content')
 <section class="relative overflow-hidden bg-white">

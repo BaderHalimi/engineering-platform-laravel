@@ -1,10 +1,20 @@
 @extends('layouts.app')
 
 @section('title', $video->seo_title ?: $video->title)
-
-@push('meta')
-    <meta name="description" content="{{ $video->seo_description ?: $video->description }}">
-@endpush
+@section('description', $video->seo_description ?: $video->description)
+@php
+    $seoCanonical = $video->canonical_url ?: url()->current();
+    $seoImage = \App\Support\Seo::imageUrl($video->og_image ?: $video->thumbnail);
+    $seoType = 'video.other';
+    $seoSchema = [
+        \App\Support\Seo::video($video),
+        \App\Support\Seo::breadcrumb([
+            ['name' => app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home', 'url' => route('home')],
+            ['name' => __('videos.library'), 'url' => route('home_pages.videos.index')],
+            ['name' => $video->title, 'url' => $seoCanonical],
+        ]),
+    ];
+@endphp
 
 @push('styles')
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">

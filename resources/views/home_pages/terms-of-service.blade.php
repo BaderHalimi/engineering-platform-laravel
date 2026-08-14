@@ -2,6 +2,8 @@
 
 @section('title', $title)
 
+@section('description', 'الشروط والأحكام الخاصة باستخدام منصة الديوان للاستشارات الهندسية وخدماتها الرقمية.')
+
 @section('content')
 <div class="static-page-wrapper">
     <div class="static-page-container">

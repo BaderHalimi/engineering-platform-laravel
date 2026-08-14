@@ -2,6 +2,8 @@
 
 @section('title', $title)
 
+@section('description', 'سياسة الخصوصية الخاصة بمنصة الديوان للاستشارات الهندسية وطريقة التعامل مع بيانات العملاء وطلبات الخدمة.')
+
 @section('content')
 <div class="static-page-wrapper">
     <div class="static-page-container">

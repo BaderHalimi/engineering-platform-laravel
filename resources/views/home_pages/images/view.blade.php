@@ -1,10 +1,20 @@
 @extends('layouts.app')
 
 @section('title', $image->seo_title ?: $image->title)
-
-@push('meta')
-    <meta name="description" content="{{ $image->seo_description ?: $image->description }}">
-@endpush
+@section('description', $image->seo_description ?: $image->description)
+@php
+    $seoCanonical = $image->canonical_url ?: url()->current();
+    $seoRobots = $image->indexable ? 'index,follow' : 'noindex,follow';
+    $seoImage = \App\Support\Seo::imageUrl($image->og_image ?: ($image->thumbnail_path ?: $image->image_path));
+    $seoSchema = [
+        \App\Support\Seo::image($image),
+        \App\Support\Seo::breadcrumb([
+            ['name' => app()->getLocale() === 'ar' ? 'الرئيسية' : 'Home', 'url' => route('home')],
+            ['name' => __('images.gallery'), 'url' => route('home_pages.images.index')],
+            ['name' => $image->title, 'url' => $seoCanonical],
+        ]),
+    ];
+@endphp
 
 @push('styles')
 <style>

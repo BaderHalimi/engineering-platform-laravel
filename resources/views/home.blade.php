@@ -53,6 +53,12 @@
     $marquee     = json_decode(Setup::get('marquee', '[]'), true) ?: [];
     $heroSliderEnabled = (bool) Setup::get('hero_slider_enabled', true);
     $hasHeroSlider = $heroSliderEnabled && collect($heroSlides ?? [])->contains(fn ($slide) => filled($slide['media_path'] ?? null));
+    $seoTitle = $siteName;
+    $seoDescription = \App\Support\Seo::description(Setup::get('site_description', __('home.hero.subtitle')));
+    $seoImage = $heroImage;
+    $seoSchema = array_filter([
+        \App\Support\Seo::faq($faqs ?? collect()),
+    ]);
 @endphp
 
 <!DOCTYPE html>
@@ -61,9 +67,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ $siteName }}</title>
+@include('partials.seo')
 
 {{-- Tailwind --}}
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@endif
 
 {{-- Remix Icon (بدل Phosphor) - الأيقونات في قاعدة البيانات مخزّنة بصيغة ri-xxx-line/fill --}}
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">

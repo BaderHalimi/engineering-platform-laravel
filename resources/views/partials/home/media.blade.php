@@ -17,7 +17,7 @@
           <div class="relative overflow-hidden h-52 bg-black">
             <template x-if="!playing">
         <a href="{{ route('home_pages.videos.view', $video->slug) }}" class="w-full h-full block relative">
-                <img src="{{ $asset($video->thumbnail) }}" class="w-full h-full object-cover">
+                <img src="{{ $asset($video->thumbnail) }}" alt="{{ $video->title }}" class="w-full h-full object-cover" loading="lazy">
                 <span class="absolute inset-0 flex items-center justify-center bg-black/20">
                   <i class="ri-play-fill text-white text-4xl bg-black/40 rounded-full p-3"></i>
                 </span>
@@ -66,7 +66,7 @@
       @forelse($images as $img)
       <div class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal group" x-data x-intersect.once="$el.classList.add('visible')">
         <div class="relative overflow-hidden h-64">
-          <img src="{{ $asset($img->image_path) }}" alt="{{ $img->alt_text ?: $img->title }}" class="w-full h-full object-cover project-img">
+          <img src="{{ $asset($img->image_path) }}" alt="{{ $img->alt_text ?: $img->title }}" class="w-full h-full object-cover project-img" loading="lazy">
           <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-5">
             <div class="text-white">
               @if($img->title)<h4 class="font-extrabold text-sm mb-1">{{ $img->title }}</h4>@endif

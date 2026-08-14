@@ -68,7 +68,7 @@
 
           {{-- إطار الصورة --}}
           <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/80">
-            <img src="{{ $heroImage }}" alt="{{ $siteName ?? '' }}" class="w-full h-auto object-cover aspect-[4/3]">
+            <img src="{{ $heroImage }}" alt="{{ $siteName ?? '' }}" class="w-full h-auto object-cover aspect-[4/3]" fetchpriority="high">
 
             {{-- تراكب متدرج --}}
             <div class="absolute inset-0 bg-gradient-to-t from-[#1E2A30]/60 via-transparent to-transparent"></div>
@@ -118,7 +118,7 @@
         <div class="flex items-center gap-4 {{ !$loop->last ? 'border-r border-[#E6E3DC]' : '' }} pr-5 last:pr-0">
           <div class="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style="background: rgba(245,173,42,0.12); color: #f5ad2a;">
             @if($svc->thumbnail ?? null)
-              <img src="{{ $asset($svc->thumbnail) }}" class="w-full h-full object-cover rounded-2xl">
+              <img src="{{ $asset($svc->thumbnail) }}" alt="{{ $tr(is_array($svc->name) ? $svc->name : ['ar' => $svc->name]) }}" class="w-full h-full object-cover rounded-2xl" loading="lazy">
             @else
               <i class="{{ $svc->icon ?? 'ri-building-2-line' }} text-2xl"></i>
             @endif

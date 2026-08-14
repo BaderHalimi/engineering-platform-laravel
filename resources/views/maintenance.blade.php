@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
     <title>الموقع تحت الصيانة</title>
 
     <!-- Tailwind CSS -->
 
     <!-- Remixicon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    @vite(['resources/css/maintenance.css'])
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/maintenance.css'])
+    @endif
 
     @include('partials.local-fonts')
 

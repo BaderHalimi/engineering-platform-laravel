@@ -2,6 +2,8 @@
 
 @section('title', app()->getLocale() === 'ar' ? 'الخدمات' : 'Services')
 
+@section('description', app()->getLocale() === 'ar' ? 'خدمات هندسية تشمل التصميم والرخص والإشراف والسلامة وإدارة المشاريع والمساحة مع صفحات تفاصيل محسنة لمحركات البحث.' : 'Engineering services including design, permits, supervision, safety, project management, and surveying with SEO-ready detail pages.')
+
 @section('content')
 @php
     $locale = app()->getLocale();
