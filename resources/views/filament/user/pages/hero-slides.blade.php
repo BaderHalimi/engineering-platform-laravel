@@ -6,6 +6,28 @@
             </div>
         @endif
 
+        <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h2 class="text-base font-bold text-gray-900 dark:text-gray-100">حالة السلايدر</h2>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">يمكنك إيقاف ظهور السلايدر من الصفحة الرئيسية بدون حذف السلايدات.</p>
+                </div>
+
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <label class="inline-flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-800">
+                        <input type="checkbox" wire:model="hero_slider_enabled" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                        <span class="text-sm font-bold text-gray-700 dark:text-gray-200">
+                            {{ $hero_slider_enabled ? 'مفعل' : 'متوقف' }}
+                        </span>
+                    </label>
+
+                    <button type="button" wire:click="saveHeroSliderStatus" wire:loading.attr="disabled" class="inline-flex items-center justify-center rounded-xl bg-primary-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-primary-700 disabled:opacity-60">
+                        حفظ الحالة
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div class="rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <div class="flex flex-col gap-4 border-b border-gray-100 px-6 py-5 dark:border-gray-800 md:flex-row md:items-center md:justify-between">
                 <div>

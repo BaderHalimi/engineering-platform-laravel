@@ -36,10 +36,14 @@ class HeroSlides extends Page
     #[Validate(['hero_slide_uploads.*' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,mp4,webm,ogg|max:51200'])]
     public array $hero_slide_uploads = [];
 
+    public bool $hero_slider_enabled = true;
+
     public ?string $statusMessage = null;
 
     public function mount(): void
     {
+        $this->hero_slider_enabled = (bool) Setup::get('hero_slider_enabled', true);
+
         $this->hero_slides = array_map(
             fn ($item) => $this->normalizeHeroSlide($item),
             json_decode(Setup::get('hero_slides', '[]'), true) ?: []
@@ -63,6 +67,15 @@ class HeroSlides extends Page
     public function addHeroSlide(): void
     {
         $this->hero_slides[] = $this->normalizeHeroSlide([]);
+    }
+
+    public function saveHeroSliderStatus(): void
+    {
+        Setup::set('hero_slider_enabled', $this->hero_slider_enabled ? '1' : '0');
+
+        $this->statusMessage = $this->hero_slider_enabled
+            ? 'تم تفعيل سلايدر الشاشة الرئيسية.'
+            : 'تم إيقاف سلايدر الشاشة الرئيسية.';
     }
 
     public function removeHeroSlide(int $index): void
@@ -115,6 +128,7 @@ class HeroSlides extends Page
             ->all();
 
         Setup::set('hero_slides', json_encode($slides, JSON_UNESCAPED_UNICODE));
+        Setup::set('hero_slider_enabled', $this->hero_slider_enabled ? '1' : '0');
 
         $this->hero_slides = $slides;
         $this->hero_slide_uploads = [];

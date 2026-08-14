@@ -1,5 +1,8 @@
 @php
+  use App\Models\Setup;
+
   $locale = app()->getLocale();
+  $heroSliderEnabled = (bool) Setup::get('hero_slider_enabled', true);
   $slides = collect($heroSlides ?? [])
     ->filter(fn ($slide) => filled($slide['media_path'] ?? null))
     ->values();
@@ -21,7 +24,7 @@
   };
 @endphp
 
-@if($slides->isNotEmpty())
+@if($heroSliderEnabled && $slides->isNotEmpty())
 <section
   id="home"
   class="home-hero-slider relative min-h-screen overflow-hidden bg-[#11191d]"
