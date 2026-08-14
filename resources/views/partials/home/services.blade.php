@@ -36,13 +36,9 @@
 
     <!-- ===== شبكة الخدمات ===== -->
     @if(($services ?? collect())->count())
-      @php
-        $serviceCount = max(1, ($services ?? collect())->count());
-        $marqueeCopies = max(6, min(14, (int) ceil(16 / $serviceCount)));
-      @endphp
-      <div class="services-marquee-shell" style="--marquee-copy-count: {{ $marqueeCopies }};">
+      <div class="services-marquee-shell">
         <div class="services-marquee-track">
-          @for($copy = 0; $copy < $marqueeCopies; $copy++)
+          @for($copy = 0; $copy < 3; $copy++)
             <div class="services-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
               @foreach($services as $index => $service)
                 @include('partials.home.service-card', [
@@ -76,19 +72,16 @@
   /* ===== الكارت ===== */
   .services-marquee-shell{
     position: relative;
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     overflow: hidden;
     padding-block: 1.5rem 2.25rem;
-    -webkit-mask-image: linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-    mask-image: linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   }
   .services-marquee-track{
     display: flex;
     width: max-content;
     gap: 0;
-    direction: ltr;
-    padding-inline: clamp(1.25rem, 5vw, 6rem);
     animation: services-marquee 42s linear infinite;
     will-change: transform;
   }
@@ -111,7 +104,7 @@
   }
   @keyframes services-marquee{
     from{ transform: translateX(0); }
-    to{ transform: translateX(calc(-100% / var(--marquee-copy-count))); }
+    to{ transform: translateX(-33.333333%); }
   }
   .blueprint-card{
     border: 1.5px solid #e7e2d8;
