@@ -2,14 +2,21 @@
 @php
   $floating = $floating ?? false;
   $navPositionClass = $floating
-      ? 'fixed left-4 right-4 top-4 md:left-6 md:right-6 md:top-5'
+      ? 'fixed left-4 right-4 md:left-6 md:right-6'
       : 'sticky top-2 md:top-3 mx-4 md:mx-6 mt-4 md:mt-5';
   $mobileMenuPositionClass = $floating
       ? 'fixed left-4 right-4 top-24'
       : 'relative mx-4 mt-3';
 @endphp
 
-<nav class="{{ $navPositionClass }} bg-white/95 backdrop-blur border border-gray-100 rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-all duration-300">
+<nav
+  @if($floating)
+    x-data="{ scrolled: window.scrollY > 48 }"
+    x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 48, { passive: true })"
+    :class="scrolled ? 'top-4 md:top-5' : 'top-16 md:top-20'"
+  @endif
+  class="{{ $navPositionClass }} bg-white/95 backdrop-blur border border-gray-100 rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color] duration-500 ease-out"
+>
   <!-- @if($siteLogo)
     <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}" class="h-8" style="height:52px;width:auto;">
   @else
