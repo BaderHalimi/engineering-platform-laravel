@@ -27,7 +27,7 @@
 @if($heroSliderEnabled && $slides->isNotEmpty())
 <section
   id="home"
-  class="home-hero-slider relative min-h-screen overflow-hidden bg-[#11191d]"
+  class="home-hero-slider relative overflow-hidden bg-[#11191d]"
   x-data="{ active: 0, total: {{ $slides->count() }}, timer: null, start() { this.timer = setInterval(() => this.active = (this.active + 1) % this.total, 6500) }, stop() { if (this.timer) clearInterval(this.timer) } }"
   x-init="start()"
   @mouseenter="stop()"
@@ -50,18 +50,18 @@
       x-cloak
     >
       @if($type === 'video')
-        <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline>
+        <video class="hero-slide-media absolute inset-0 h-full w-full" autoplay muted loop playsinline>
           <source src="{{ $url }}">
         </video>
       @else
-        <img src="{{ $url }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover">
+        <img src="{{ $url }}" alt="{{ $title }}" class="hero-slide-media absolute inset-0 h-full w-full">
       @endif
       <div class="absolute inset-0 bg-gradient-to-l from-[#11191d]/88 via-[#11191d]/54 to-[#11191d]/20"></div>
       <div class="absolute inset-0 home-slider-grid"></div>
     </div>
   @endforeach
 
-  <div class="site-container relative z-10 min-h-screen flex items-center pt-44 pb-24 md:pt-52 md:pb-32">
+  <div class="site-container relative z-10 flex min-h-[560px] items-center py-24 md:min-h-[620px] md:py-28 lg:min-h-[700px] lg:py-32">
     @foreach($slides as $index => $slide)
       @php
         $title = $trSlide($slide, 'title');
@@ -132,6 +132,35 @@
       linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
     background-size: 42px 42px;
     mask-image: linear-gradient(to bottom, black, transparent 86%);
+  }
+  .home-hero-slider {
+    min-height: clamp(560px, 78svh, 760px);
+  }
+  .hero-slide-media {
+    object-fit: cover;
+    object-position: center center;
+  }
+  @media (max-width: 900px) {
+    .home-hero-slider {
+      min-height: 620px;
+    }
+    .hero-slide-media {
+      object-fit: contain;
+      object-position: left bottom;
+      background: #11191d;
+    }
+    [dir="ltr"] .hero-slide-media {
+      object-position: right bottom;
+    }
+  }
+  @media (max-width: 640px) {
+    .home-hero-slider {
+      min-height: 680px;
+    }
+    .hero-slide-media {
+      object-fit: cover;
+      opacity: .72;
+    }
   }
 </style>
 @endif
