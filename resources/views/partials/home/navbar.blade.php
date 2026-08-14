@@ -1,5 +1,5 @@
 {{-- Nav: desktop (md+) --}}
-<nav class="bg-white/95 backdrop-blur border border-gray-100 rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 mx-4 md:mx-6 mt-4 md:mt-5 flex items-center justify-between sticky top-2 md:top-3 z-50 transition-all duration-300">
+<nav class="bg-white/95 backdrop-blur border border-gray-100 rounded-full shadow-lg shadow-gray-200/50 px-4 md:px-6 py-2.5 md:py-3 mx-4 md:mx-6 mt-4 md:mt-5 -mb-[76px] md:-mb-[92px] flex items-center justify-between sticky top-2 md:top-3 z-50 transition-all duration-300">
   <!-- @if($siteLogo)
     <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}" class="h-8" style="height:52px;width:auto;">
   @else
@@ -36,7 +36,7 @@
 </nav>
 
 {{-- Mobile menu (drawer) --}}
-<div x-show="mobileMenuOpen" x-cloak x-transition class="md:hidden mx-4 mt-3 bg-white border border-gray-100 rounded-3xl shadow-lg shadow-gray-200/50 p-3">
+<div x-show="mobileMenuOpen" x-cloak x-transition class="relative z-50 md:hidden mx-4 mt-3 bg-white border border-gray-100 rounded-3xl shadow-lg shadow-gray-200/50 p-3">
   <ul class="flex flex-col text-gray-600 text-base font-bold divide-y divide-gray-100">
     @foreach([
         ['home', 'home.nav.home'],
