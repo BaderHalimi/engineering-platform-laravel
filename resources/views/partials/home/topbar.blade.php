@@ -4,18 +4,26 @@
 </div>
 @endif --}}
 
-<div class="site-topbar w-full bg-gradient-to-l from-[var(--teal)] to-[var(--teal-dark)] text-white text-sm py-2 items-center justify-between hidden md:flex">
-  <div class="flex items-center gap-5">
+<div class="site-topbar w-full bg-gradient-to-l from-[var(--teal)] to-[var(--teal-dark)] text-white text-sm py-2 items-center gap-4 hidden md:flex">
+  <div class="flex shrink-0 items-center gap-5">
     @if($sitePhone)<a href="tel:{{ preg_replace('/[^0-9+]/', '', $sitePhone) }}" class="flex items-center gap-2 hover:text-[var(--gold)] transition"><i class="ri-phone-fill"></i> {{ $sitePhone }}</a>@endif
     @if($siteEmail)<a href="mailto:{{ $siteEmail }}" class="flex items-center gap-2 hover:text-[var(--gold)] transition"><i class="ri-mail-fill"></i> {{ $siteEmail }}</a>@endif
-    @if($siteAddress)<span class="flex items-center gap-2"><i class="ri-map-pin-fill"></i> {{ $siteAddress }}</span>@endif
   </div>
-  <div class="flex items-center gap-3 text-white/80">
+
+  @if($siteAddress)
+    <div class="flex min-w-0 flex-1 justify-center text-center font-bold leading-6">
+      <span class="inline-flex max-w-full items-center justify-center gap-2">
+        <i class="ri-map-pin-fill shrink-0"></i>
+        <span>{{ $siteAddress }}</span>
+      </span>
+    </div>
+  @endif
+
+  <div class="flex shrink-0 items-center gap-3 text-white/80">
     @foreach($socialLinks as $link)
       @if(filled($link['url'] ?? null) && ($link['url'] ?? '#') !== '#')
         <a href="{{ $link['url'] }}" target="_blank" rel="noopener" aria-label="{{ $link['label'] ?? 'Social link' }}" class="hover:text-[var(--gold)] transition">
           <i class="{{ $link['icon'] ?? 'ri-links-line' }}"></i>
-          <span class="sr-only">{{ $link['label'] ?? 'Social link' }}</span>
         </a>
       @endif
     @endforeach

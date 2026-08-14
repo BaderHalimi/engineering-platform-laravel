@@ -752,6 +752,70 @@
         </div>
     </div>
 
+    {{-- ===== بطاقة السايتماب ===== --}}
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">إدارة السايتماب</h2>
+                    <p class="text-xs text-gray-400 mt-0.5">توليد ملف public/sitemap.xml من بيانات الموقع الحالية</p>
+                </div>
+            </div>
+
+            <a
+                href="{{ url('/sitemap.xml') }}"
+                target="_blank"
+                class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+            >
+                فتح السايتماب
+            </a>
+        </div>
+
+        <div class="p-6 space-y-4">
+            @error('sitemap')
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+                    {{ $message }}
+                </div>
+            @enderror
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-800/50 p-4">
+                <div>
+                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                        آخر توليد:
+                        <span class="font-bold text-emerald-600 dark:text-emerald-400">
+                            {{ $sitemapLastGenerated ?: 'لم يتم توليد ملف ثابت بعد' }}
+                        </span>
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">
+                        بعد الضغط، سيتم تحديث الملف الذي تقرأه محركات البحث من robots.txt.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    wire:click="regenerateSitemap"
+                    wire:loading.attr="disabled"
+                    wire:target="regenerateSitemap"
+                    class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm"
+                >
+                    <span wire:loading.remove wire:target="regenerateSitemap">إعادة توليد السايتماب</span>
+                    <span wire:loading wire:target="regenerateSitemap" class="flex items-center gap-2">
+                        <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        </svg>
+                        جاري التوليد...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     {{-- ===== بطاقة الباك أب ===== --}}
     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
 

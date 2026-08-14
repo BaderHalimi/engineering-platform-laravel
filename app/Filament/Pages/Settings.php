@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 
 use App\Models\Setup;
 use App\Services\BackupService;
+use App\Services\SitemapService;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
@@ -51,6 +52,10 @@ class Settings extends Page
     public ?string $maintenance_message = null;
 
     public ?string $statusMessage = null;
+
+    public ?string $sitemapLastGenerated = null;
+
+    public ?int $sitemapUrlCount = null;
 
     // ===== حقول المحتوى النصي =====
 
@@ -131,6 +136,7 @@ public array $terms_and_conditions = [];
         );
 
         $this->refreshBackupsList();
+        $this->refreshSitemapInfo();
     }
 
     protected function normalizeHeroSlide(array $item): array
@@ -208,6 +214,24 @@ public array $terms_and_conditions = [];
         Setup::set('maintenance_message', $this->maintenance_message);
         $this->statusMessage = 'تم حفظ رسالة الصيانة.';
     }
+    public function regenerateSitemap(): void
+    {
+        try {
+            $result = app(SitemapService::class)->writePublicFile();
+
+            $this->sitemapUrlCount = $result['url_count'];
+            $this->sitemapLastGenerated = $result['generated_at']->format('Y-m-d H:i');
+            $this->statusMessage = "تم توليد السايتماب بنجاح ({$this->sitemapUrlCount} رابط).";
+        } catch (\Throwable $e) {
+            $this->addError('sitemap', 'فشل توليد السايتماب: ' . $e->getMessage());
+        }
+    }
+
+    public function refreshSitemapInfo(): void
+    {
+        $this->sitemapLastGenerated = app(SitemapService::class)->publicFileGeneratedAt();
+    }
+
     public function removeLogo(): void
     {
         if ($this->current_logo_path && Storage::disk('public')->exists($this->current_logo_path)) {

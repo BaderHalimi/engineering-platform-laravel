@@ -32,7 +32,6 @@
               @if(filled($link['url'] ?? null) && ($link['url'] ?? '#') !== '#')
                 <a href="{{ $link['url'] }}" target="_blank" rel="noopener" aria-label="{{ $link['label'] ?? 'Social link' }}" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-[var(--gold)] flex items-center justify-center transition">
                   <i class="{{ $link['icon'] ?? 'ri-links-line' }} text-base md:text-lg"></i>
-                  <span class="sr-only">{{ $link['label'] ?? 'Social link' }}</span>
                 </a>
               @endif
             @endforeach
@@ -95,7 +94,7 @@
 
   @if($sitePhone)
   <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $sitePhone) }}"
-    target="_blank" rel="noopener"
+    target="_blank" rel="noopener" aria-label="WhatsApp"
     title="تواصل معنا عبر واتساب"
     class="fixed bottom-6 end-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl pulse-ring transition-all duration-300 hover:scale-110"
     style="background:#25D366; padding:0;">
