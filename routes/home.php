@@ -109,6 +109,24 @@ Route::get('services/{slug}', function (string $slug) {
     return view('home_pages.services.view', compact('service'));
 })->name('home_pages.services.view');
 
+Route::get('media', function () {
+    $videos = AlbumVideo::query()
+        ->where('is_published', true)
+        ->where('visibility', 'public')
+        ->orderByDesc('published_at')
+        ->limit(9)
+        ->get();
+
+    $images = AlbumImage::query()
+        ->where('visibility', 'public')
+        ->orderByDesc('featured')
+        ->orderBy('sort_order')
+        ->limit(9)
+        ->get();
+
+    return view('home_pages.media.index', compact('videos', 'images'));
+})->name('home_pages.media.index');
+
 Route::get('aboutus', function () {
     $locales = ['ar', 'en', 'fr'];
     $siteName = Setup::get('site_name', config('app.name'));

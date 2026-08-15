@@ -30,14 +30,7 @@
   @font-face {
     font-family: 'DIN Next LT Arabic';
     src: url('{{ asset('fonts/ArbFONTS-DINNextLTArabic-Bold-4 (1).ttf') }}') format('truetype');
-    font-weight: 700 800;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DIN Next LT Arabic';
-    src: url('{{ asset('fonts/ArbFONTS-DINNextLTArabic-Heavy2-2 (1).ttf') }}') format('truetype');
-    font-weight: 900;
+    font-weight: 700 900;
     font-style: normal;
     font-display: swap;
   }

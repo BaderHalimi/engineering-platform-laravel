@@ -20,6 +20,7 @@
   $serviceItems = collect($services ?? [])->values();
   $serviceCount = $serviceItems->count();
   $servicesHeadingTag = $servicesHeadingTag ?? 'h2';
+  $servicesSlider = $servicesSlider ?? true;
 @endphp
 
 @if($serviceItems->isNotEmpty())
@@ -47,8 +48,8 @@
         $itemsPerLoop = max($serviceCount, (int) ceil(14 / $serviceCount) * $serviceCount);
         $marqueeCopies = 2;
       @endphp
-      @if($serviceCount < 3)
-        <div class="services-static-grid services-static-grid-{{ $serviceCount }}">
+      @if(! $servicesSlider || $serviceCount < 3)
+        <div class="services-static-grid {{ (! $servicesSlider && $serviceCount > 2) ? 'services-static-grid-page' : '' }} services-static-grid-{{ $serviceCount }}">
           @foreach($serviceItems as $index => $service)
             @include('partials.home.service-card', [
               'service' => $service,
@@ -150,6 +151,20 @@
   .services-static-grid-2{
     max-width:900px;
     grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+  .services-static-grid-3,
+  .services-static-grid-4,
+  .services-static-grid-5,
+  .services-static-grid-6,
+  .services-static-grid-7,
+  .services-static-grid-8,
+  .services-static-grid-9{
+    max-width:1180px;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+  }
+  .services-static-grid-page{
+    max-width:1180px;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
   }
   .services-static-grid .service-marquee-card{
     width:100%;
@@ -291,7 +306,15 @@
     .blueprint-card, .blueprint-thumb, .stamp-ring, .request-link{ transition:none !important; }
   }
   @media (max-width: 767px){
-    .services-static-grid-2{
+    .services-static-grid-2,
+    .services-static-grid-3,
+    .services-static-grid-4,
+    .services-static-grid-5,
+    .services-static-grid-6,
+    .services-static-grid-7,
+    .services-static-grid-8,
+    .services-static-grid-9,
+    .services-static-grid-page{
       grid-template-columns:minmax(0, 1fr);
       max-width:430px;
     }

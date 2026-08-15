@@ -21,7 +21,7 @@
       ['key' => 'projects', 'label' => __('home.nav.projects'), 'href' => route('home_pages.projects.index'), 'route' => 'home_pages.projects.*', 'section' => null],
       ['key' => 'about', 'label' => __('home.nav.about'), 'href' => route('home_pages.aboutus'), 'route' => 'home_pages.aboutus', 'section' => null],
       ['key' => 'articles', 'label' => __('home.nav.articles'), 'href' => $sectionHref('articles'), 'route' => 'home_pages.articles.*', 'section' => 'articles'],
-      ['key' => 'media', 'label' => __('home.nav.media'), 'href' => $sectionHref('media'), 'route' => 'home_pages.images.*|home_pages.videos.*|pages.image-show', 'section' => 'media'],
+      ['key' => 'media', 'label' => __('home.nav.media'), 'href' => route('home_pages.media.index'), 'route' => 'home_pages.media.*|home_pages.images.*|home_pages.videos.*|pages.image-show', 'section' => null],
       ['key' => 'faqs', 'label' => __('home.nav.faqs'), 'href' => $sectionHref('faqs'), 'route' => null, 'section' => 'faqs'],
       ['key' => 'contact', 'label' => __('home.nav.contact'), 'href' => $sectionHref('contact'), 'route' => null, 'section' => 'contact'],
   ];

@@ -24,6 +24,7 @@
         'asset' => $asset,
         'contactUrl' => route('home') . '#contact',
         'servicesHeadingTag' => 'h1',
+        'servicesSlider' => false,
     ])
 </div>
 @endsection

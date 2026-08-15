@@ -20,6 +20,7 @@ class SitemapService
             ['loc' => route('home_pages.services.index'), 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.projects.index'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.articles.index'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => now()],
+            ['loc' => route('home_pages.media.index'), 'priority' => '0.7', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.images.index'), 'priority' => '0.6', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.videos.index'), 'priority' => '0.6', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.aboutus'), 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => now()],
