@@ -14,6 +14,7 @@ class AlbumImage extends Model
         'image_path',
         'thumbnail_path',
         'alt_text',
+        'link_url',
         'visibility',
         'featured',
         'sort_order',

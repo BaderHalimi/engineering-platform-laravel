@@ -83,17 +83,30 @@
 
     <div class="{{ $imageGridClass }}">
         @foreach($imageItems as $img)
+        @php($imageLink = filled($img->link_url ?? null) ? $img->link_url : null)
       <div class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal group" x-data x-intersect.once="$el.classList.add('visible')">
-        <div class="relative overflow-hidden h-64">
-          <img src="{{ $asset($img->image_path) }}" alt="{{ $img->alt_text ?: $img->title }}" class="w-full h-full object-cover project-img" loading="lazy">
-          <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-5">
-            <div class="text-white">
-              @if($img->title)<h4 class="font-extrabold text-sm mb-1">{{ $img->title }}</h4>@endif
-              @if($img->description)<p class="text-xs text-white/80 line-clamp-2">{{ $img->description }}</p>@endif
+        @if($imageLink)
+          <a
+            href="{{ $imageLink }}"
+            aria-label="{{ $img->title ?: ($img->alt_text ?: __('home.media.gallery_title')) }}"
+            class="relative overflow-hidden h-64 block"
+          >
+        @else
+          <div class="relative overflow-hidden h-64 block">
+        @endif
+            <img src="{{ $asset($img->image_path) }}" alt="{{ $img->alt_text ?: $img->title }}" class="w-full h-full object-cover project-img" loading="lazy">
+            <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-5">
+              <div class="text-white">
+                @if($img->title)<h4 class="font-extrabold text-sm mb-1">{{ $img->title }}</h4>@endif
+                @if($img->description)<p class="text-xs text-white/80 line-clamp-2">{{ $img->description }}</p>@endif
+              </div>
             </div>
+            @if($img->featured)<span class="absolute top-4 end-4 bg-[var(--gold)] text-white text-xs font-bold px-3 py-1.5 rounded-full">{{ __('home.media.featured') }}</span>@endif
+        @if($imageLink)
+          </a>
+        @else
           </div>
-          @if($img->featured)<span class="absolute top-4 end-4 bg-[var(--gold)] text-white text-xs font-bold px-3 py-1.5 rounded-full">{{ __('home.media.featured') }}</span>@endif
-        </div>
+        @endif
         <div class="p-4 flex items-center justify-between text-xs text-gray-500">
           <span class="flex items-center gap-1"><i class="ri-eye-line"></i> {{ $img->views }}</span>
           <span class="flex items-center gap-1"><i class="ri-heart-line"></i> {{ $img->likes }}</span>

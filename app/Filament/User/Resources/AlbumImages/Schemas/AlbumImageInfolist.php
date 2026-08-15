@@ -81,6 +81,12 @@ class AlbumImageInfolist
                             ->label(__('album_images.fields.alt_text'))
                             ->placeholder('-'),
 
+                        TextEntry::make('link_url')
+                            ->label(__('album_images.fields.link_url'))
+                            ->url(fn (?string $state) => $state)
+                            ->openUrlInNewTab()
+                            ->placeholder('-'),
+
                         TextEntry::make('description')
                             ->label(__('album_images.fields.description'))
                             ->html()

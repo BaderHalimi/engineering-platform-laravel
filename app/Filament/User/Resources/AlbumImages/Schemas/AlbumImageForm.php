@@ -65,6 +65,14 @@ class AlbumImageForm
                                                 TextInput::make('alt_text')
                                                     ->label(__('album_images.fields.alt_text'))
                                                     ->default(null),
+
+                                                TextInput::make('link_url')
+                                                    ->label(__('album_images.fields.link_url'))
+                                                    ->url()
+                                                    ->maxLength(255)
+                                                    ->placeholder('https://example.com')
+                                                    ->helperText(__('album_images.help.link_url'))
+                                                    ->default(null),
                                             ]),
 
                                         // القوائم الصغيرة - يسار

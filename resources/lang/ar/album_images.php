@@ -19,6 +19,7 @@ return [
         'description'    => 'الوصف',
         'image_path'     => 'الصورة',
         'alt_text'       => 'النص البديل',
+        'link_url'       => 'الرابط',
         'featured'       => 'مميز',
         'visibility'     => 'الظهور',
         'sort_order'     => 'ترتيب العرض',
@@ -43,6 +44,10 @@ return [
         'updated_at'     => 'تاريخ التحديث',
     ],
 
+    'help' => [
+        'link_url' => 'اختياري. عند تعبئته، الضغط على الصورة في الصفحة الرئيسية يفتح هذا الرابط.',
+    ],
+
     'visibility' => [
         'public'  => 'عام',
         'private' => 'خاص',
@@ -52,6 +57,5 @@ return [
 
 
 ];
-
 
 

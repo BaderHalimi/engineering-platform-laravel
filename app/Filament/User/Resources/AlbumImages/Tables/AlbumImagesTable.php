@@ -45,6 +45,13 @@ class AlbumImagesTable
                     ->badge()
                     ->color('primary'),
 
+                TextColumn::make('link_url')
+                    ->label(__('album_images.fields.link_url'))
+                    ->limit(30)
+                    ->url(fn ($record) => $record->link_url ?: null)
+                    ->openUrlInNewTab()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('views')
                     ->label(__('album_images.fields.views'))
                     ->numeric()

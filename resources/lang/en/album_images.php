@@ -21,6 +21,7 @@ return [
             'description'    => 'Description',
             'image_path'     => 'Image',
             'alt_text'       => 'Alt Text',
+            'link_url'       => 'Link URL',
             'featured'       => 'Featured',
             'visibility'     => 'Visibility',
             'sort_order'     => 'Sort Order',
@@ -43,6 +44,10 @@ return [
             'updated_at'     => 'Updated At',
         ],
 
+        'help' => [
+            'link_url' => 'Optional. When filled, clicking this image on the home page opens this link.',
+        ],
+
         'visibility' => [
             'public'  => 'Public',
             'private' => 'Private',
@@ -51,5 +56,4 @@ return [
 
 
 ];
-
 
