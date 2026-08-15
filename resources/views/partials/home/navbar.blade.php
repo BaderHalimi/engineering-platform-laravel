@@ -37,9 +37,9 @@
   @if($floating)
     x-data="{ scrolled: window.scrollY > 48 }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 48, { passive: true })"
-    :class="scrolled ? 'top-4 md:top-5 bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25' : 'top-16 md:top-20 bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25'"
+    :class="scrolled ? 'top-4 md:top-5 bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15' : 'top-16 md:top-20 bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15'"
   @endif
-  class="{{ $navPositionClass }} {{ $floating ? '' : 'bg-[rgba(17,25,29,0.42)] border-white/20 shadow-black/25' }} backdrop-blur-xl border rounded-full shadow-lg px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color,border-color] duration-500 ease-out"
+  class="{{ $navPositionClass }} {{ $floating ? '' : 'bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15' }} backdrop-blur-xl border rounded-full shadow-lg px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color,border-color] duration-500 ease-out"
 >
   <!-- @if($siteLogo)
     <img src="{{ $asset($siteLogo) }}" alt="{{ $siteName ?? '' }}" class="h-8" style="height:52px;width:auto;">
@@ -90,7 +90,7 @@
 </nav>
 
 {{-- Mobile menu (drawer) --}}
-<div x-show="mobileMenuOpen" x-cloak x-transition class="{{ $mobileMenuPositionClass }} z-50 md:hidden bg-[rgba(17,25,29,0.72)] backdrop-blur-xl border border-white/15 rounded-3xl shadow-lg shadow-black/25 p-3">
+<div x-show="mobileMenuOpen" x-cloak x-transition class="{{ $mobileMenuPositionClass }} z-50 md:hidden bg-[rgba(17,25,29,0.52)] backdrop-blur-xl border border-white/20 rounded-3xl shadow-lg shadow-black/20 p-3">
   <ul class="flex flex-col text-white/90 text-base font-bold divide-y divide-white/10">
     @foreach($navItems as $item)
     @continue($item['key'] !== 'home' && empty($navAvailability[$item['key']]))

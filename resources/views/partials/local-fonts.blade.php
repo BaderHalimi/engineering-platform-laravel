@@ -23,14 +23,14 @@
   @font-face {
     font-family: 'DIN Next LT Arabic';
     src: url('{{ asset('fonts/ArbFONTS-DINNextLTArabic-Medium-4 (1).ttf') }}') format('truetype');
-    font-weight: 500 600;
+    font-weight: 500 700;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'DIN Next LT Arabic';
     src: url('{{ asset('fonts/ArbFONTS-DINNextLTArabic-Bold-4 (1).ttf') }}') format('truetype');
-    font-weight: 700 900;
+    font-weight: 800 900;
     font-style: normal;
     font-display: swap;
   }
