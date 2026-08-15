@@ -1,50 +1,92 @@
-@if(count($aboutUs ?? []) > 0)
-<section id="about" class="relative w-full py-16 md:py-24 mt-8 font-body">
-  @if(count($aboutUs) > 0)
-  <div class="md:hidden max-w-md mx-auto px-5">
-    <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal flex items-center justify-between mb-6">
-      <span class="text-[11px] tracking-[0.3em] font-bold text-[var(--teal)]/70 font-display">AL-DIWAN ENG.</span>
-      <span class="text-[11px] tracking-[0.3em] font-bold font-display" style="color:var(--gold);">01</span>
-    </div>
-    <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal relative rounded-3xl overflow-hidden shadow-xl border border-[var(--line)]">
-      <img src="https://files.catbox.moe/3i7imq.webp" alt="{{ $siteName }} - {{ $tr($aboutUs[0]['title'] ?? ['ar' => 'من نحن']) }}" class="w-full h-80 object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-[var(--ink)]/10 to-transparent"></div>
-      <div class="corner corner-tl"></div>
-      <div class="corner corner-br"></div>
-      <div class="absolute bottom-0 end-0 p-5 text-end">
-        <p class="font-bold text-white text-3xl leading-tight mb-1 font-display">{{ $tr($aboutUs[0]['title'] ?? ['ar'=>'من نحن']) }}</p>
-        <p class="font-medium text-white/90 text-base font-display">{{ $siteName }}</p>
-      </div>
-    </div>
-    <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal mt-8 pe-4 border-e-4 ruler" style="border-color:var(--gold);">
-      <p class="text-[15px] leading-8">{{ $tr($aboutUs[0]['description'] ?? []) }}</p>
-    </div>
-    <div class="mt-10 space-y-5">
-      @foreach(array_slice($aboutUs, 1) as $i => $card)
-      <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal reveal-delay-{{ min($i + 1, 3) }} relative bg-white rounded-2xl shadow-lg border border-[var(--line)] p-5 pe-6 overflow-hidden">
-        <span class="absolute top-0 bottom-0 end-0 w-1.5" style="background:var(--gold);"></span>
-        <span class="text-xs font-semibold tracking-widest font-display" style="color:var(--gold);">{{ strtoupper($tr($card['label'] ?? ['ar'=>''])) }}</span>
-        <p class="mt-2 text-[15px] leading-8">{{ $tr($card['description'] ?? []) }}</p>
-      </div>
-      @endforeach
-    </div>
-  </div>
-  @endif
+@php
+  $aboutItems = collect($aboutUs ?? [])->values();
+  $aboutMain = $aboutItems->first();
+  $aboutFeatures = $aboutItems->slice(1)->values();
+  $aboutFeatureIcons = [
+    'ri-building-2-line',
+    'ri-shield-check-line',
+    'ri-customer-service-2-line',
+    'ri-compasses-2-line',
+  ];
+@endphp
 
-  <!-- Desktop about -->
-  <div class="hidden md:flex site-container items-center justify-between gap-10">
-    <img x-data x-intersect.once="$el.classList.add('is-visible')" src="https://files.catbox.moe/3i7imq.webp" alt="{{ $siteName }} - {{ $tr($aboutUs[0]['title'] ?? ['ar' => 'من نحن']) }}" class="reveal order-2 h-auto w-auto max-w-[35%] object-contain rounded-2xl shadow-xl">
-    <div class="order-1 max-w-[42%] text-start" style="color:var(--teal);">
-      <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal mb-10">
-        <h2 class="text-4xl lg:text-5xl font-semibold leading-tight mb-1">{{ $tr($aboutUs[0]['title'] ?? ['ar'=>'من نحن']) }}</h2>
-        <p class="text-2xl lg:text-3xl font-medium">{{ $siteName }}</p>
+@if($aboutItems->isNotEmpty())
+<section id="about" class="relative w-full overflow-hidden bg-white py-16 md:py-24 font-body">
+  <div class="absolute inset-0 blueprint-grid pointer-events-none"></div>
+  <div class="absolute -top-24 -start-24 h-72 w-72 rounded-full bg-[var(--gold)]/10 blur-3xl pointer-events-none"></div>
+
+  <div class="site-container relative z-10">
+    <div class="grid items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+      <div
+        x-data
+        x-intersect.once="$el.classList.add('is-visible')"
+        class="reveal order-2 lg:order-1"
+      >
+        <div class="relative overflow-hidden rounded-3xl border border-white shadow-2xl shadow-[rgba(82,105,112,.12)]">
+          <img
+            src="https://files.catbox.moe/3i7imq.webp"
+            alt="{{ $siteName }} - {{ $tr($aboutMain['title'] ?? ['ar' => 'من نحن']) }}"
+            class="h-[340px] w-full object-cover md:h-[520px]"
+          >
+        </div>
       </div>
-      @foreach(array_slice($aboutUs, 1) as $i => $card)
-      <div x-data x-intersect.once="$el.classList.add('is-visible')" class="reveal reveal-delay-{{ min($i + 1, 3) }} {{ $loop->last ? '' : 'bg-white' }} rounded-2xl shadow-xl border border-gray-100 p-5 mb-4">
-        <h3 class="text-2xl font-semibold mb-2" style="color:var(--gold);">{{ $tr($card['title'] ?? []) }}</h3>
-        <p class="text-lg leading-8">{{ $tr($card['description'] ?? []) }}</p>
+
+      <div class="order-1 lg:order-2 text-start" style="color:var(--teal);">
+        <div
+          x-data
+          x-intersect.once="$el.classList.add('is-visible')"
+          class="reveal mb-8"
+        >
+          <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-[var(--gold)]/10 px-4 py-1.5 text-xs md:text-sm font-bold text-[var(--gold-dark)]">
+            <i class="ri-information-line"></i>
+            {{ $tr($aboutMain['label'] ?? ['ar' => 'من نحن']) }}
+          </div>
+
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+            {{ $tr($aboutMain['title'] ?? ['ar' => 'من نحن']) }}
+          </h2>
+
+          <p class="mt-3 text-xl md:text-2xl font-medium leading-relaxed text-[var(--gold-dark)]">
+            {{ $siteName }}
+          </p>
+
+          <div class="section-title-underline mt-5 mb-8"></div>
+
+          @if(filled($tr($aboutMain['description'] ?? [])))
+            <p class="max-w-3xl text-base md:text-lg font-medium leading-9 text-gray-500">
+              {{ $tr($aboutMain['description'] ?? []) }}
+            </p>
+          @endif
+        </div>
+
+        @if($aboutFeatures->isNotEmpty())
+          <div class="space-y-6">
+            @foreach($aboutFeatures as $i => $card)
+              <div
+                x-data
+                x-intersect.once="$el.classList.add('is-visible')"
+                class="reveal reveal-delay-{{ min($i + 1, 3) }} flex items-start gap-4"
+              >
+                <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-2xl text-[var(--gold-dark)]">
+                  <i class="{{ $card['icon'] ?? $aboutFeatureIcons[$i % count($aboutFeatureIcons)] }}"></i>
+                </div>
+
+                <div>
+                  <h3 class="text-xl md:text-2xl font-bold leading-snug text-[var(--teal)]">
+                    {{ $tr($card['title'] ?? $card['label'] ?? []) }}
+                  </h3>
+
+                  @if(filled($tr($card['description'] ?? [])))
+                    <p class="mt-1 text-sm md:text-base font-medium leading-8 text-gray-500">
+                      {{ $tr($card['description'] ?? []) }}
+                    </p>
+                  @endif
+                </div>
+              </div>
+            @endforeach
+          </div>
+        @endif
       </div>
-      @endforeach
     </div>
   </div>
 </section>
