@@ -42,18 +42,18 @@
             {{ $tr($aboutMain['label'] ?? ['ar' => 'من نحن']) }}
           </div>
 
-          <h2 class="text-4xl lg:text-5xl font-black text-[var(--teal)] mb-3 leading-tight">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[var(--teal)] mb-3 leading-snug">
             {{ $tr($aboutMain['title'] ?? ['ar' => 'من نحن']) }}
           </h2>
 
-          <p class="mt-3 text-xl md:text-2xl font-medium leading-relaxed text-[var(--gold-dark)]">
+          <p class="mt-3 text-base md:text-lg font-bold leading-relaxed text-[var(--gold-dark)]">
             {{ $siteName }}
           </p>
 
           <div class="section-title-underline mt-5 mb-8"></div>
 
           @if(filled($tr($aboutMain['description'] ?? [])))
-            <p class="max-w-3xl text-base md:text-lg font-medium leading-9 text-gray-500">
+            <p class="max-w-3xl text-base md:text-lg font-normal leading-relaxed text-gray-500">
               {{ $tr($aboutMain['description'] ?? []) }}
             </p>
           @endif
@@ -72,12 +72,12 @@
                 </div>
 
                 <div>
-                  <h3 class="text-xl md:text-2xl font-bold leading-snug text-[var(--teal)]">
+                  <h3 class="text-lg md:text-xl font-bold leading-snug text-[var(--teal)]">
                     {{ $tr($card['title'] ?? $card['label'] ?? []) }}
                   </h3>
 
                   @if(filled($tr($card['description'] ?? [])))
-                    <p class="mt-1 text-sm md:text-base font-medium leading-8 text-gray-500">
+                    <p class="mt-1 text-sm md:text-base font-normal leading-relaxed text-gray-500">
                       {{ $tr($card['description'] ?? []) }}
                     </p>
                   @endif

@@ -4,9 +4,9 @@
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-feedback-line"></i> {{ __('home.feedback.badge') }}
       </div>
-      <h2 class="text-3xl md:text-4xl font-black text-[var(--teal)] mb-3">{{ __('home.feedback.title') }}</h2>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[var(--teal)] mb-3 leading-snug">{{ __('home.feedback.title') }}</h2>
       <div class="section-title-underline mx-auto mb-4"></div>
-      <p class="text-gray-500 text-sm md:text-base">{{ __('home.feedback.subtitle') }}</p>
+      <p class="text-gray-500 text-sm md:text-base font-normal leading-relaxed">{{ __('home.feedback.subtitle') }}</p>
     </div>
 
     <form action="{{ route('feedback.store') }}" method="POST" enctype="multipart/form-data"

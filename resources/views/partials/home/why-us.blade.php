@@ -5,7 +5,7 @@
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 py-1.5 rounded-full text-xs font-bold mb-4">
         <i class="ri-question-line"></i> {{ __('home.why.badge') }}
       </div>
-      <p class="text-3xl font-black text-[var(--teal)] mb-3 leading-tight">{{ __('home.why.title') }}</p>
+      <p class="text-3xl font-extrabold text-[var(--teal)] mb-3 leading-snug">{{ __('home.why.title') }}</p>
       <p class="text-lg font-bold text-[var(--gold-dark)] mb-3 leading-snug">{{ __('home.why.subtitle') }}</p>
       <div class="section-title-underline mb-4"></div>
       <p class="text-gray-500 text-sm leading-relaxed">{{ __('home.why.description') }}</p>
@@ -39,10 +39,10 @@
         <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-4 py-1.5 rounded-full text-sm font-bold mb-4">
           <i class="ri-question-line"></i> {{ __('home.why.badge') }}
         </div>
-        <h2 class="text-4xl lg:text-5xl font-black text-[var(--teal)] mb-3 leading-tight">{{ __('home.why.title') }}</h2>
-        <p class="text-xl lg:text-2xl font-bold text-[var(--gold-dark)] mb-4 leading-snug">{{ __('home.why.subtitle') }}</p>
+        <h2 class="text-3xl lg:text-4xl font-extrabold text-[var(--teal)] mb-3 leading-snug">{{ __('home.why.title') }}</h2>
+        <p class="text-base lg:text-lg font-bold text-[var(--gold-dark)] mb-4 leading-snug">{{ __('home.why.subtitle') }}</p>
         <div class="section-title-underline mb-6"></div>
-        <p class="text-gray-500 text-lg mb-8 leading-relaxed">{{ __('home.why.description') }}</p>
+        <p class="text-gray-500 text-base font-normal mb-8 leading-relaxed">{{ __('home.why.description') }}</p>
         <div class="space-y-5">
           @foreach($whyAldiwan as $why)
           <div class="flex items-start gap-4">

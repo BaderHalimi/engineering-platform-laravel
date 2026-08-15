@@ -25,7 +25,7 @@
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-play-circle-line"></i> {{ __('home.media.videos_badge') }}
       </div>
-      <h2 class="text-3xl md:text-4xl font-black text-[var(--teal)] mb-3">{{ __('home.media.videos_title') }}</h2>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[var(--teal)] mb-3 leading-snug">{{ __('home.media.videos_title') }}</h2>
       <div class="section-title-underline mx-auto mb-4"></div>
     </div>
 
@@ -77,7 +77,7 @@
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-image-line"></i> {{ __('home.media.gallery_badge') }}
       </div>
-      <h2 class="text-3xl md:text-4xl font-black text-[var(--teal)] mb-3">{{ __('home.media.gallery_title') }}</h2>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[var(--teal)] mb-3 leading-snug">{{ __('home.media.gallery_title') }}</h2>
       <div class="section-title-underline mx-auto mb-4"></div>
     </div>
 

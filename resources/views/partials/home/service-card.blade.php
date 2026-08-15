@@ -31,7 +31,7 @@
   </div>
 
   <div class="p-6 md:p-7 flex flex-col flex-1 text-right">
-    <h3 class="text-xl md:text-2xl font-extrabold text-[var(--teal)] mb-2">{{ $svcName }}</h3>
+    <h3 class="text-lg md:text-xl font-bold text-[var(--teal)] mb-2">{{ $svcName }}</h3>
 
     @if($svcShort)
       <p class="text-gray-500 text-sm md:text-base leading-relaxed mb-5">{{ $svcShort }}</p>
@@ -76,7 +76,7 @@
       {{ __('home.services.request') }}
       <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
     </a>
-    <a href="{{ route('home_pages.services.view', $service->slug) }}" class="mt-3 inline-flex items-center justify-center gap-2 text-sm font-extrabold text-[var(--teal)] hover:text-[var(--gold-dark)] transition">
+    <a href="{{ route('home_pages.services.view', $service->slug) }}" class="mt-3 inline-flex items-center justify-center gap-2 text-sm font-bold text-[var(--teal)] hover:text-[var(--gold-dark)] transition">
       {{ app()->getLocale() === 'ar' ? 'معرفة المزيد' : 'Learn more' }}
       <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
     </a>

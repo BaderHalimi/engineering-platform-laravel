@@ -15,9 +15,9 @@
         <i class="ri-route-line"></i>
         {{ __('home.process.eyebrow') }}
       </div>
-      <h2 class="mt-4 text-3xl md:text-5xl font-black text-[var(--teal)] leading-tight">{{ __('home.process.title') }}</h2>
+      <h2 class="mt-4 text-3xl md:text-4xl font-extrabold text-[var(--teal)] leading-snug">{{ __('home.process.title') }}</h2>
       <div class="section-title-underline mx-auto my-4"></div>
-      <p class="text-sm md:text-lg leading-8 text-gray-500">{{ __('home.process.subtitle') }}</p>
+      <p class="text-sm md:text-base font-normal leading-relaxed text-gray-500">{{ __('home.process.subtitle') }}</p>
     </div>
 
     <div class="relative">

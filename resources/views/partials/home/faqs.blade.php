@@ -12,7 +12,7 @@
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">
         <i class="ri-question-answer-line"></i> {{ __('home.faqs.badge') }}
       </div>
-      <h2 class="text-3xl md:text-5xl font-black text-[var(--teal)] mb-3 md:mb-4">{{ __('home.faqs.title') }}</h2>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[var(--teal)] mb-3 md:mb-4 leading-snug">{{ __('home.faqs.title') }}</h2>
       <div class="section-title-underline mx-auto"></div>
     </div>
 

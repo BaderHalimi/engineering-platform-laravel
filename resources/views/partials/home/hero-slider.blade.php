@@ -81,21 +81,21 @@
           {{ __('home.hero.badge') }}
         </div>
         @if($title && $index === 0)
-          <h1 class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
+          <h1 class="max-w-4xl text-3xl md:text-5xl lg:text-6xl font-black leading-snug mb-6">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
         @elseif($title)
-          <p class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">{{ $title }}</p>
+          <p class="max-w-4xl text-3xl md:text-5xl lg:text-6xl font-black leading-snug mb-6">{{ $title }}</p>
         @endif
         @if($description)
-          <p class="max-w-2xl text-base md:text-xl leading-9 text-white/82 mb-8">{{ $description }}</p>
+          <p class="max-w-2xl text-base md:text-lg font-normal leading-relaxed text-white/80 mb-8">{{ $description }}</p>
         @endif
         <div class="flex flex-wrap items-center gap-4">
           @if($buttonText && $buttonUrl)
-            <a href="{{ $buttonUrl }}" class="inline-flex items-center gap-2 rounded-full bg-[var(--gold)] px-8 py-4 text-base font-extrabold text-white shadow-2xl shadow-black/20 transition hover:-translate-y-0.5">
+            <a href="{{ $buttonUrl }}" class="inline-flex items-center gap-2 rounded-full bg-[var(--gold)] px-8 py-3.5 text-base font-bold text-white shadow-lg shadow-black/25 transition hover:-translate-y-1 hover:shadow-xl">
               {{ $buttonText }}
               <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
             </a>
           @endif
-          <a href="{{ route('home_pages.services.index') }}" class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur-md transition hover:bg-white hover:text-[var(--teal)]">
+          <a href="{{ route('home_pages.services.index') }}" class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-8 py-3.5 text-base font-medium text-white backdrop-blur-md transition hover:-translate-y-1 hover:bg-white hover:text-[var(--teal)]">
             {{ __('home.nav.services') }}
           </a>
         </div>
