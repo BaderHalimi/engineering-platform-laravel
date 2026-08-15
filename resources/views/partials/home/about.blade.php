@@ -42,7 +42,7 @@
             {{ $tr($aboutMain['label'] ?? ['ar' => 'من نحن']) }}
           </div>
 
-          <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+          <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">
             {{ $tr($aboutMain['title'] ?? ['ar' => 'من نحن']) }}
           </h2>
 
