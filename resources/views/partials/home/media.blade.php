@@ -88,6 +88,8 @@
         @if($imageLink)
           <a
             href="{{ $imageLink }}"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="{{ $img->title ?: ($img->alt_text ?: __('home.media.gallery_title')) }}"
             class="relative overflow-hidden h-64 block"
           >
