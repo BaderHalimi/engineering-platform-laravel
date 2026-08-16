@@ -82,7 +82,7 @@
           <p class="hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-3">{{ $title }}</p>
         @endif
         @if($description)
-          <p class="max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-4">{{ $description }}</p>
+          <p class="shadow-md max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-4">{{ $description }}</p>
         @endif
         <div class="flex flex-wrap items-center gap-4">
           @if($buttonText && $buttonUrl)
@@ -137,7 +137,7 @@
     font-size: clamp(1rem, 2.8vw, 2.55rem);
     line-height: 1.28;
     text-wrap: balance;
-    text-shadow: 0 1px 2px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.5);
+    text-shadow: 0 1px 4px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.5);
   }
   .hero-slide-media {
     object-fit: cover;
