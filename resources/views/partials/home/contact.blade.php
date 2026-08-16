@@ -43,8 +43,8 @@
       @endif
     </div>
 
-    <div class="mt-8 grid grid-cols-1 lg:grid-cols-[1.05fr_.95fr] gap-6 md:gap-8">
-      <div class="rounded-3xl border border-[var(--gold)]/25 bg-white p-5 md:p-6 shadow-xl shadow-gray-200/60 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
+    <div class="mt-8">
+      <div class="mx-auto max-w-4xl rounded-3xl border border-[var(--gold)]/25 bg-white p-5 md:p-6 shadow-xl shadow-gray-200/60 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
         <div class="mb-5 flex items-start gap-4">
           <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-2xl text-[var(--gold-dark)] shrink-0">
             <i class="ri-mail-send-line"></i>
@@ -62,22 +62,6 @@
             <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
           </button>
         </form>
-      </div>
-
-      <div class="rounded-3xl bg-gradient-to-l from-[var(--gold)] to-[var(--gold-dark)] p-6 md:p-8 text-white shadow-2xl generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-        <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-3xl">
-          <i class="ri-customer-service-2-line"></i>
-        </div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3">{{ __('home.nav.request_service') }}</h3>
-        <p class="text-white/90 text-sm md:text-base leading-8 mb-6">
-          {{ app()->getLocale() === 'ar'
-              ? 'أرسل تفاصيل مشروعك من صفحة الطلب المخصصة، وسيتم تسجيل الطلب مباشرة في لوحة التحكم.'
-              : 'Send your project details from the dedicated request page and it will be registered in the admin panel.' }}
-        </p>
-        <a href="{{ route('service-request.create') }}" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm md:text-base font-extrabold text-[var(--gold-dark)] transition hover:-translate-y-1">
-          {{ __('home.nav.request_service') }}
-          <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
-        </a>
       </div>
     </div>
   </div>
