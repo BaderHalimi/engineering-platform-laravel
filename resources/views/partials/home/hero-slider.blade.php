@@ -77,9 +77,9 @@
         x-cloak
       >
         @if($title && $index === 0)
-          <h1 class="hero-slider-title max-w-xl font-extrabold text-white mb-3">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
+          <h1 class="hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-3">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
         @elseif($title)
-          <p class="hero-slider-title max-w-xl font-extrabold text-white mb-3">{{ $title }}</p>
+          <p class="hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-3">{{ $title }}</p>
         @endif
         @if($description)
           <p class="max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-4">{{ $description }}</p>
