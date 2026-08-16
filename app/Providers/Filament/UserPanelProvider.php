@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Http\Middleware\Authenticate;
+use App\Http\Middleware\AuthManualMiddleware;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -73,11 +74,12 @@ class UserPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                                \App\Http\Middleware\SetLocale::class,
+                \App\Http\Middleware\SetLocale::class,
+                AuthManualMiddleware::class,
 
             ])
             ->authMiddleware([
-                Authenticate::class,
+            Authenticate::class,
             ]);
     }
 }
