@@ -60,7 +60,7 @@
     </div>
   @endforeach
 
-  <div class="site-container relative z-10 flex min-h-[560px] items-center pt-32 pb-28 md:min-h-[620px] md:pt-36 md:pb-32 lg:min-h-[680px] lg:pt-40 lg:pb-36">
+  <div class="site-container relative z-10 flex min-h-[520px] items-center pt-32 pb-24 md:min-h-[570px] md:pt-36 md:pb-28 lg:min-h-[620px] lg:pt-40 lg:pb-32">
     @foreach($slides as $index => $slide)
       @php
         $title = $trSlide($slide, 'title');
@@ -81,9 +81,9 @@
           {{ __('home.hero.badge') }}
         </div>
         @if($title && $index === 0)
-          <h1 class="hero-slider-title max-w-3xl font-black text-white mb-5">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
+          <h1 class="hero-slider-title max-w-3xl font-extrabold text-white mb-5">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
         @elseif($title)
-          <p class="hero-slider-title max-w-3xl font-black text-white mb-5">{{ $title }}</p>
+          <p class="hero-slider-title max-w-3xl font-extrabold text-white mb-5">{{ $title }}</p>
         @endif
         @if($description)
           <p class="max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-6">{{ $description }}</p>
@@ -104,9 +104,9 @@
   </div>
 
   @if($slides->count() > 1)
-    <div class="absolute bottom-5 md:bottom-8 left-0 right-0 z-20">
+    <div class="absolute bottom-6 md:bottom-8 left-0 right-0 z-30 pointer-events-none">
       <div class="site-container flex items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 pointer-events-auto">
           @foreach($slides as $index => $slide)
             <button
               type="button"
@@ -117,9 +117,9 @@
             ></button>
           @endforeach
         </div>
-        <div class="flex items-center gap-2">
-          <button type="button" @click="active = (active - 1 + total) % total" class="h-12 w-12 rounded-full border border-white/30 bg-white/18 text-white shadow-lg shadow-black/20 backdrop-blur-md transition hover:bg-white hover:text-[var(--teal)]"><i class="ri-arrow-right-line text-xl"></i></button>
-          <button type="button" @click="active = (active + 1) % total" class="h-12 w-12 rounded-full border border-white/30 bg-white/18 text-white shadow-lg shadow-black/20 backdrop-blur-md transition hover:bg-white hover:text-[var(--teal)]"><i class="ri-arrow-left-line text-xl"></i></button>
+        <div class="flex items-center gap-2 pointer-events-auto">
+          <button type="button" @click="active = (active - 1 + total) % total" class="h-11 w-11 md:h-12 md:w-12 rounded-full border border-white/35 bg-[#11191d]/45 text-white shadow-lg shadow-black/25 backdrop-blur-md transition hover:bg-white hover:text-[var(--teal)]"><i class="ri-arrow-right-line text-xl"></i></button>
+          <button type="button" @click="active = (active + 1) % total" class="h-11 w-11 md:h-12 md:w-12 rounded-full border border-white/35 bg-[#11191d]/45 text-white shadow-lg shadow-black/25 backdrop-blur-md transition hover:bg-white hover:text-[var(--teal)]"><i class="ri-arrow-left-line text-xl"></i></button>
         </div>
       </div>
     </div>
@@ -135,11 +135,11 @@
     mask-image: linear-gradient(to bottom, black, transparent 86%);
   }
   .home-hero-slider {
-    min-height: clamp(560px, 76svh, 740px);
+    min-height: clamp(520px, 72svh, 680px);
   }
   .hero-slider-title {
-    font-size: clamp(2.2rem, 4.8vw, 4.25rem);
-    line-height: 1.22;
+    font-size: clamp(2rem, 3.8vw, 3.55rem);
+    line-height: 1.28;
     text-wrap: balance;
   }
   .hero-slide-media {
@@ -148,7 +148,7 @@
   }
   @media (max-width: 900px) {
     .home-hero-slider {
-      min-height: 600px;
+      min-height: 560px;
     }
     .hero-slide-media {
       object-fit: contain;
@@ -161,10 +161,10 @@
   }
   @media (max-width: 640px) {
     .home-hero-slider {
-      min-height: 620px;
+      min-height: 580px;
     }
     .hero-slider-title {
-      font-size: clamp(2rem, 10vw, 3.1rem);
+      font-size: clamp(1.85rem, 8.5vw, 2.65rem);
     }
     .hero-slide-media {
       object-fit: cover;
