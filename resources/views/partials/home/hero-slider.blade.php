@@ -137,6 +137,7 @@
     font-size: clamp(1rem, 2.8vw, 2.55rem);
     line-height: 1.28;
     text-wrap: balance;
+    text-shadow: 0 1px 2px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.5);
   }
   .hero-slide-media {
     object-fit: cover;
