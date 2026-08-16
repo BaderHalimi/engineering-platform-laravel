@@ -134,7 +134,7 @@
     min-height: clamp(520px, 72svh, 680px);
   }
   .hero-slider-title {
-    font-size: clamp(2rem, 3.8vw, 3.55rem);
+    font-size: clamp(1rem, 2.8vw, 2.55rem);
     line-height: 1.28;
     text-wrap: balance;
   }
