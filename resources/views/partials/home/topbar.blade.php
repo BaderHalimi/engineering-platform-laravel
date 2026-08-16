@@ -1,5 +1,5 @@
 {{-- @if($topNotice)
-<div class="w-full bg-[var(--gold)] text-[var(--ink)] text-sm py-2 px-6 text-center font-bold">
+<div class="w-full bg-[var(--gold)] text-[var(--ink)] text-sm py-2 px-6 text-center">
   {{ $topNotice }}
 </div>
 @endif --}}
@@ -11,7 +11,7 @@
   </div>
 
   @if($siteAddress)
-    <div class="flex min-w-0 flex-1 justify-center text-center font-bold leading-6">
+    <div class="flex min-w-0 flex-1 justify-center text-center leading-6">
       <span class="inline-flex max-w-full items-center justify-center gap-2">
         <i class="ri-map-pin-fill shrink-0"></i>
         <span>{{ $siteAddress }}</span>
@@ -34,7 +34,7 @@
     <button
         @click="langOpen = !langOpen"
         @click.outside="langOpen = false"
-        class="flex items-center gap-1 hover:text-[var(--gold)] transition uppercase font-bold">
+        class="flex items-center gap-1 hover:text-[var(--gold)] transition uppercase">
         <i class="ri-global-line"></i>
         {{ app()->getLocale() }}
     </button>
@@ -52,7 +52,7 @@
             @else
                 <a
                    href="{{ route('set-locale', $code) }}"
-                   class="block px-4 py-1.5 text-sm hover:bg-gray-50 {{ app()->getLocale() === $code ? 'font-bold text-[var(--gold-dark)]' : '' }}">
+                   class="block px-4 py-1.5 text-sm hover:bg-gray-50 {{ app()->getLocale() === $code ? 'text-[var(--gold-dark)]' : '' }}">
                     {{ $label }}
                 </a>
             @endif
