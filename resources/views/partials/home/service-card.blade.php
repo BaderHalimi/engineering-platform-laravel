@@ -71,7 +71,7 @@
       </div>
     @endif
 
-    <a href="{{ $contactUrl ?? '#contact' }}" @if(empty($contactUrl)) @click.prevent="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif
+    <a href="{{ $contactUrl ?? route('service-request.create', ['service' => $service->slug]) }}"
        class="mt-auto request-link inline-flex items-center justify-center gap-2 font-bold text-sm">
       {{ __('home.services.request') }}
       <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>

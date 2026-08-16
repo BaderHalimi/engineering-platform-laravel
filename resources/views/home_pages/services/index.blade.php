@@ -22,7 +22,7 @@
         'services' => $services,
         'tr' => $tr,
         'asset' => $asset,
-        'contactUrl' => route('home') . '#contact',
+        'contactUrl' => null,
         'servicesHeadingTag' => 'h1',
         'servicesSlider' => false,
     ])

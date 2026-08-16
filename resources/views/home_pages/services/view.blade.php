@@ -32,7 +32,7 @@
                     <p class="max-w-2xl text-gray-500 text-lg leading-9 mb-8">{{ $service->short_description }}</p>
                 @endif
                 <div class="flex flex-wrap gap-4">
-                    <a href="{{ route('home') }}#contact" class="btn-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-white font-bold">
+                    <a href="{{ route('service-request.create', ['service' => $service->slug]) }}" class="btn-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-white font-bold">
                         {{ app()->getLocale() === 'ar' ? 'اطلب الخدمة' : 'Request service' }}
                         <i class="ri-arrow-left-line"></i>
                     </a>

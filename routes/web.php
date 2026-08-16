@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Middleware\CheckSiteMaintenance;
 use App\Http\Middleware\IsCustomer;
+use App\Models\ServicesType;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(CheckSiteMaintenance::class)->group(function () {
@@ -20,6 +22,25 @@ Route::middleware(CheckSiteMaintenance::class)->group(function () {
         ->name('home_pages.terms_of_service');
 
     Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+    Route::get('/request-service', function (Request $request) {
+        $services = ServicesType::query()
+            ->where('status', 'active')
+            ->orderBy('sort_order')
+            ->get();
+
+        $selectedServiceId = null;
+
+        if ($request->filled('service_id')) {
+            $selectedServiceId = $request->input('service_id');
+        } elseif ($request->filled('service')) {
+            $selectedServiceId = $services
+                ->firstWhere('slug', $request->input('service'))
+                ?->id;
+        }
+
+        return view('home_pages.request-service', compact('services', 'selectedServiceId'));
+    })->name('service-request.create');
+
     Route::post('/service-request', [ServiceRequestController::class, 'store'])
         ->name('service-request.store');
 

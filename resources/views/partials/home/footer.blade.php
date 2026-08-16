@@ -16,7 +16,7 @@
       <h3 class="text-lg md:text-2xl font-black text-white mb-1">{{ __('home.footer.cta_title') }}</h3>
       <p class="text-white/90 text-xs md:text-sm">{{ __('home.footer.cta_subtitle') }}</p>
     </div>
-    <a href="{{ $homeAnchor('contact') }}" @if(request()->routeIs('home')) @click.prevent="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif class="bg-white text-[var(--gold-dark)] font-extrabold text-sm md:text-base rounded-full inline-flex items-center gap-2 hover:scale-105 transition" style="padding:.7rem 1.5rem;">
+    <a href="{{ route('service-request.create') }}" class="bg-white text-[var(--gold-dark)] font-extrabold text-sm md:text-base rounded-full inline-flex items-center gap-2 hover:scale-105 transition" style="padding:.7rem 1.5rem;">
       {{ __('home.footer.cta_button') }} <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
     </a>
   </div>

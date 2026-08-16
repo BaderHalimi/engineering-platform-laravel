@@ -7,7 +7,7 @@
   - $asset() للثمبنيل
   - price_type labels (fixed / starting_from / quote)
   - documented / visit_required / estimated_time
-  - رابط الطلب إلى #contact
+  - رابط الطلب إلى صفحة طلب الخدمة
 
   التصميم: مستوحى من "لوحة المخطط الهندسي" (Blueprint / Technical Drawing)
   — رمز مرجعي بأسلوب رموز الرسم الهندسي (A-01, A-02...)

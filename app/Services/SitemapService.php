@@ -24,6 +24,7 @@ class SitemapService
             ['loc' => route('home_pages.images.index'), 'priority' => '0.6', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.videos.index'), 'priority' => '0.6', 'changefreq' => 'weekly', 'lastmod' => now()],
             ['loc' => route('home_pages.aboutus'), 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => now()],
+            ['loc' => route('service-request.create'), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => now()],
             ['loc' => route('privacy-policy'), 'priority' => '0.3', 'changefreq' => 'yearly', 'lastmod' => now()],
             ['loc' => route('terms-conditions'), 'priority' => '0.3', 'changefreq' => 'yearly', 'lastmod' => now()],
         ]);

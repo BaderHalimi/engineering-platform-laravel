@@ -75,13 +75,10 @@
     @endforeach
   </ul>
 
-  @if($navAvailability['contact'])
-  <a href="{{ $sectionHref('contact') }}"
-     @if($isHomePage) @click.prevent="activeSection = 'contact'; document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'})" @endif
+  <a href="{{ route('service-request.create') }}"
      class="btn-blue text-sm md:text-base font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-full flex items-center gap-2">
     {{ __('home.nav.request_service') }} <i class="ri-arrow-left-line rtl:inline ltr:hidden"></i><i class="ri-arrow-right-line ltr:inline rtl:hidden"></i>
   </a>
-  @endif
 
   <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full" style="background-color:#f5ad2a;">
     <i class="ri-menu-line text-white text-xl" x-show="!mobileMenuOpen"></i>

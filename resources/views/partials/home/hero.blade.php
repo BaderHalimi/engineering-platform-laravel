@@ -31,7 +31,7 @@
 
         {{-- الأزرار --}}
         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
-          <a href="#contact" @click.prevent="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"
+          <a href="{{ route('service-request.create') }}"
              class="btn-primary inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-white font-bold text-base transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5">
             <span>{{ __('home.hero.cta') }}</span>
             <i class="ri-arrow-right-line text-xl"></i>
