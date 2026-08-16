@@ -76,10 +76,6 @@
         x-transition:enter-end="opacity-100 translate-y-0"
         x-cloak
       >
-        <div class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-bold backdrop-blur-md mb-5">
-          <span class="h-2.5 w-2.5 rounded-full bg-[var(--gold)]"></span>
-          {{ __('home.hero.badge') }}
-        </div>
         @if($title && $index === 0)
           <h1 class="hero-slider-title max-w-3xl font-extrabold text-white mb-5">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
         @elseif($title)

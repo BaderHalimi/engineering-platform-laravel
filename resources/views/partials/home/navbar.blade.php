@@ -37,7 +37,7 @@
   @if($floating)
     x-data="{ scrolled: window.scrollY > 48 }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 48, { passive: true })"
-    :class="scrolled ? 'top-4 md:top-5 bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15' : 'top-16 md:top-20 bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15'"
+    :class="scrolled ? 'top-4 md:top-5 bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15' : 'top-16 md:top-[4.5rem] bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15'"
   @endif
   class="{{ $navPositionClass }} {{ $floating ? '' : 'bg-[rgba(17,25,29,0.26)] border-white/25 shadow-black/15' }} backdrop-blur-xl border rounded-full shadow-lg px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between z-50 transition-[top,transform,box-shadow,background-color,border-color] duration-500 ease-out"
 >
