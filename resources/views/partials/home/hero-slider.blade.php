@@ -60,7 +60,7 @@
     </div>
   @endforeach
 
-  <div class="site-container relative z-10 flex min-h-[520px] items-center pt-32 pb-24 md:min-h-[570px] md:pt-36 md:pb-28 lg:min-h-[620px] lg:pt-40 lg:pb-32">
+  <div class="site-container relative z-10 flex min-h-[450px] items-center pt-32 pb-24 md:min-h-[500px] md:pt-36 md:pb-28 lg:min-h-[570px] lg:pt-32 lg:pb-32">
     @foreach($slides as $index => $slide)
       @php
         $title = $trSlide($slide, 'title');
@@ -77,12 +77,12 @@
         x-cloak
       >
         @if($title && $index === 0)
-          <h1 class="hero-slider-title max-w-3xl font-extrabold text-white mb-5">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
+          <h1 class="hero-slider-title max-w-3xl font-extrabold text-white mb-3">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
         @elseif($title)
-          <p class="hero-slider-title max-w-3xl font-extrabold text-white mb-5">{{ $title }}</p>
+          <p class="hero-slider-title max-w-3xl font-extrabold text-white mb-3">{{ $title }}</p>
         @endif
         @if($description)
-          <p class="max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-6">{{ $description }}</p>
+          <p class="max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-4">{{ $description }}</p>
         @endif
         <div class="flex flex-wrap items-center gap-4">
           @if($buttonText && $buttonUrl)
