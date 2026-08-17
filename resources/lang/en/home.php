@@ -51,6 +51,33 @@ return [
         'description' => 'We work with passion to turn architectural visions into an officially approved reality.',
     ],
 
+    'madinah' => [
+        'badge'         => 'Madinah Al-Munawwarah',
+        'eyebrow'       => 'Our services in Madinah',
+        'title'         => 'We Turn Your Idea into a Clear Engineering File',
+        'description1'  => 'At Al-Diwan Engineering Consultancy, we help individuals and companies transform their project idea into a clear, organised engineering file — through design, permits, supervision, safety, facades, project management, and surveying services.',
+        'description2'  => 'We start by understanding your needs, then lay out the engineering path in clear, manageable steps.',
+        'tag_design'    => 'Design',
+        'tag_permits'   => 'Permits',
+        'tag_safety'    => 'Safety',
+        'tag_supervision' => 'Supervision',
+        'cta_whatsapp'  => 'Chat on WhatsApp',
+        'cta_services'  => 'Explore Our Services',
+    ],
+
+    'trust' => [
+        'badge'       => 'Why Choose Us?',
+        'title'       => 'Start Your Project on a Clearer Engineering Foundation',
+        'description' => 'We deliver integrated engineering services that combine precision and clarity, giving your project a solid start.',
+        'points' => [
+            'Practical design tailored to your needs.',
+            'A clearer building permit process.',
+            'Deep understanding of Madinah project requirements.',
+            'Integrated engineering services from idea to implementation.',
+            'Direct and organised communication with the client.',
+        ],
+    ],
+
     'process' => [
         'eyebrow' => 'HOW WE WORK',
         'title' => 'How We Work',
