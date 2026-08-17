@@ -1,4 +1,4 @@
-<section id="madinah" class="relative w-full overflow-hidden bg-[var(--bg-soft)]">
+<section id="madinah" class="relative w-full overflow-hidden" style="background-color: rgb(250, 247, 239);">
 
   {{-- زخرفة شبكة هندسية خفيفة --}}
   <div class="absolute inset-0 pointer-events-none" style="
@@ -14,12 +14,14 @@
   <div class="blob hidden md:block" style="width:200px;height:200px;background:var(--teal);bottom:-40px;inset-inline-start:10%;opacity:.06;"></div>
 
   <div class="site-container relative z-10">
-    <div class="grid items-center gap-0 lg:grid-cols-2" dir="ltr">
+    <div class="grid items-center gap-0 lg:grid-cols-2 lg:gap-16" dir="ltr">
 
       {{-- ===== الجانب الأيسر: الصورة ===== --}}
       <div class="reveal order-2 lg:order-1 flex items-center justify-center py-12 lg:py-16"
            x-data x-intersect.once="$el.classList.add('is-visible')">
-        <div class="relative overflow-hidden rounded-3xl border border-white shadow-2xl shadow-[rgba(82,105,112,.12)] w-full">
+        
+           
+           <div class="relative overflow-hidden rounded-3xl border border-white shadow-2xl shadow-[rgba(82,105,112,.12)] w-full">
           <img
             src="https://files.catbox.moe/3i7imq.webp"
             alt="{{ $siteName ?? '' }} — {{ __('home.madinah.title') }}"

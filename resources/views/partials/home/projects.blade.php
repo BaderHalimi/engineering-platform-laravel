@@ -6,8 +6,8 @@
   $marqueeCopies = 2;
 @endphp
 
-@if($projectItems->isNotEmpty())
-<section id="projects" class="relative py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
+@if($projectItems->isNotEmpty())  
+<section id="projects" class="relative py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden" style="background-color: rgb(241, 245, 247);">
   <div class="site-container">
     <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-4">

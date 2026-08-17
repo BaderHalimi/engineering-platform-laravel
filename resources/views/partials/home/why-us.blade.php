@@ -1,5 +1,5 @@
 @if(count($whyAldiwan ?? []) > 0)
-<section id="why-us" class="relative w-full py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
+<section id="why-us" class="relative w-full py-16 md:py-24 overflow-hidden" style="background-color: rgb(241, 245, 247);">
   <div class="md:hidden px-5">
     <div class="why-reveal mb-8" x-data x-intersect.once="$el.classList.add('is-visible')">
       <div class="inline-flex items-center gap-2 bg-[var(--gold)]/10 text-[var(--gold-dark)] px-3 py-1.5 rounded-full text-xs font-bold mb-4">
