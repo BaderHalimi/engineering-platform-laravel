@@ -8,7 +8,7 @@
         ->filter(fn ($row) => $row->isNotEmpty())
         ->values()
     : collect();
-  $marqueeCopies = 3;
+  $marqueeCopies = 2;
 @endphp
 
 @if($projectItems->isNotEmpty())  
@@ -27,9 +27,9 @@
       @foreach($projectRows as $rowIndex => $projectRow)
         @php
           $rowProjectCount = $projectRow->count();
-          $itemsPerLoop = max($rowProjectCount, (int) ceil(12 / $rowProjectCount) * $rowProjectCount);
+          $itemsPerLoop = max($rowProjectCount, (int) ceil(6 / $rowProjectCount) * $rowProjectCount);
         @endphp
-        <div class="projects-marquee-shell" data-marquee-dir="{{ $siteDir }}" data-row="{{ $rowIndex + 1 }}" style="--project-copy-count: {{ $marqueeCopies }};">
+        <div class="projects-marquee-shell" data-row="{{ $rowIndex + 1 }}">
           <div class="projects-marquee-track">
             @for($copy = 0; $copy < $marqueeCopies; $copy++)
               <div class="projects-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
@@ -37,7 +37,7 @@
                   @php
                     $project = $projectRow[$loopIndex % $rowProjectCount];
                   @endphp
-                  <div class="project-slide-card project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
+                  <div class="project-slide-card project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100" dir="{{ $siteDir }}">
                     <div class="relative overflow-hidden h-80">
                       <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
                       <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-6">
@@ -71,24 +71,6 @@
 </section>
 
 <style>
-  .projects-static-grid{
-    display:grid;
-    gap:1.75rem;
-    margin-inline:auto;
-    align-items:stretch;
-  }
-  .projects-static-grid-1{
-    max-width:520px;
-    grid-template-columns:minmax(0, 1fr);
-  }
-  .projects-static-grid-2{
-    max-width:1100px;
-    grid-template-columns:repeat(2, minmax(0, 1fr));
-  }
-  .projects-static-grid-3{
-    max-width:1180px;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-  }
   .projects-marquee-shell{
     position: relative;
     width: 100%;
@@ -109,20 +91,12 @@
     gap: 0;
     flex-direction: row;
     direction: ltr;
-    animation: projects-marquee-ltr 110s linear infinite;
+    animation: projects-marquee 70s linear infinite;
     will-change: transform;
   }
   .projects-marquee-shell[data-row="2"] .projects-marquee-track{
-    animation-duration:125s;
-    animation-direction:reverse;
-  }
-  .projects-marquee-shell[data-marquee-dir="ltr"] .projects-marquee-track{
-    direction:ltr;
-    animation-name:projects-marquee-ltr;
-  }
-  .projects-marquee-shell[data-marquee-dir="rtl"] .projects-marquee-track{
-    direction:rtl;
-    animation-name:projects-marquee-rtl;
+    animation-duration:78s;
+    animation-direction: reverse;
   }
   .projects-marquee-shell:hover .projects-marquee-track{
     animation-play-state: paused;
@@ -141,10 +115,6 @@
     width: min(84vw, 430px);
     flex: 0 0 min(84vw, 430px);
   }
-  .projects-static-grid .project-slide-card{
-    width: 100%;
-    flex: auto;
-  }
   .project-separator-card{
     width:min(42vw, 150px);
     flex:0 0 min(42vw, 150px);
@@ -161,23 +131,17 @@
     object-fit:cover;
     display:block;
   }
-  @keyframes projects-marquee-ltr{
+  @keyframes projects-marquee{
     from{ transform: translateX(0); }
-    to{ transform: translateX(calc(-100% / var(--project-copy-count))); }
-  }
-  @keyframes projects-marquee-rtl{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(calc(100% / var(--project-copy-count))); }
+    to{ transform: translateX(-50%); }
   }
   @media (prefers-reduced-motion: reduce){
     .projects-marquee-track{ animation: none !important; }
   }
   @media (max-width: 767px){
-    .projects-static-grid-2,
-    .projects-static-grid-3{
-      grid-template-columns: minmax(0, 1fr);
-      max-width: 430px;
-    }
+    .projects-marquee-stack{ gap:1rem; }
+    .projects-marquee-track{ animation-duration:48s; }
+    .projects-marquee-shell[data-row="2"] .projects-marquee-track{ animation-duration:54s; }
   }
 </style>
 @endif
