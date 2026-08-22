@@ -188,6 +188,10 @@
     from{ transform: translateX(0); }
     to{ transform: translateX(calc(-100% / var(--project-copy-count))); }
   }
+  @keyframes projects-marquee-rtl{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(calc(100% / var(--project-copy-count))); }
+  }
   @media (prefers-reduced-motion: reduce){
     .projects-marquee-track{ animation: none !important; }
   }
