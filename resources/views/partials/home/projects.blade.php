@@ -109,11 +109,11 @@
     gap: 0;
     flex-direction: row;
     direction: ltr;
-    animation: projects-marquee-ltr 82s linear infinite;
+    animation: projects-marquee-ltr 110s linear infinite;
     will-change: transform;
   }
   .projects-marquee-shell[data-row="2"] .projects-marquee-track{
-    animation-duration:96s;
+    animation-duration:125s;
     animation-direction:reverse;
   }
   .projects-marquee-shell[data-marquee-dir="ltr"] .projects-marquee-track{
@@ -134,6 +134,7 @@
     gap: 1.75rem;
     padding-inline: .875rem;
     direction: ltr;
+    flex-shrink: 0;
   }
   .projects-marquee-group[aria-hidden="true"]{ pointer-events: none; }
   .project-slide-card{
