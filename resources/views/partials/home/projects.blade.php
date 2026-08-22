@@ -46,7 +46,6 @@
       @endforeach
     </div>
     @else
-<<<<<<< HEAD
     <div class="projects-marquee-stack">
       @foreach($projectRows as $rowIndex => $projectRow)
         @php
@@ -62,7 +61,7 @@
                     $project = $projectRow[$loopIndex % $rowProjectCount];
                   @endphp
                   <div class="project-slide-card project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-                    <div class="relative overflow-hidden h-64">
+                    <div class="relative overflow-hidden h-80">
                       <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
                       <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-6">
                         <a href="{{ url('/projects/'.$project->slug) }}" aria-label="{{ $project->title }}" class="bg-white text-[var(--teal)] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[var(--gold)] hover:text-white transition">
@@ -77,23 +76,6 @@
                       <h3 class="font-extrabold text-[var(--teal)] text-base md:text-lg mb-2">{{ $project->title }}</h3>
                       <p class="text-gray-500 text-xs md:text-sm mb-3 md:mb-4">{{ Str::limit(strip_tags($project->description ?? ''), 100) }}</p>
                     </div>
-=======
-    <div class="projects-marquee-shell" data-marquee-dir="{{ $siteDir }}" style="--project-copy-count: {{ $marqueeCopies }};">
-      <div class="projects-marquee-track">
-        @for($copy = 0; $copy < $marqueeCopies; $copy++)
-          <div class="projects-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
-            @for($loopIndex = 0; $loopIndex < $itemsPerLoop; $loopIndex++)
-              @php
-                $project = $projectItems[$loopIndex % $projectCount];
-              @endphp
-              <div class="project-slide-card project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-                <div class="relative overflow-hidden h-80">
-                  <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
-                  <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-6">
-                    <a href="{{ url('/projects/'.$project->slug) }}" aria-label="{{ $project->title }}" class="bg-white text-[var(--teal)] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[var(--gold)] hover:text-white transition">
-                      <i class="ri-arrow-up-line rtl:rotate-45 ltr:-rotate-45 text-xl"></i>
-                    </a>
->>>>>>> cde227ff9be91a1f85a5769da5d10edec79f1d85
                   </div>
 
                   @if($project->separator_image)
@@ -132,23 +114,14 @@
     grid-template-columns:repeat(3, minmax(0, 1fr));
   }
   .projects-marquee-shell{
-<<<<<<< HEAD
-    position:relative;
-    width:100%;
-    overflow:hidden;
-    padding-block:.75rem 1rem;
-    -webkit-mask-image:linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-    mask-image:linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-=======
     position: relative;
     width: 100%;
     margin-inline: 0;
     overflow: hidden;
     direction: ltr;
-    padding-block: 1rem 2rem;
+    padding-block: .75rem 1rem;
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
->>>>>>> cde227ff9be91a1f85a5769da5d10edec79f1d85
   }
   .projects-marquee-stack{
     display:grid;
@@ -163,7 +136,6 @@
     animation: projects-marquee-ltr 82s linear infinite;
     will-change: transform;
   }
-<<<<<<< HEAD
   .projects-marquee-shell[data-row="2"] .projects-marquee-track{
     animation-duration:96s;
     animation-direction:reverse;
@@ -175,10 +147,9 @@
   .projects-marquee-shell[data-marquee-dir="rtl"] .projects-marquee-track{
     direction:rtl;
     animation-name:projects-marquee-rtl;
-=======
+  }
   .projects-marquee-shell:hover .projects-marquee-track{
     animation-play-state: paused;
->>>>>>> cde227ff9be91a1f85a5769da5d10edec79f1d85
   }
   .projects-marquee-group{
     display: flex;
