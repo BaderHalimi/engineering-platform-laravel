@@ -16,8 +16,10 @@
 @endphp
 
 @if($hasVideos || $hasImages)
-<section id="media" class="relative py-16 md:py-24 bg-[var(--bg-soft)] overflow-hidden">
-  <div class="site-container">
+<section id="media" class="relative py-16 md:py-24 bg-white overflow-hidden">
+   <div class="absolute inset-0 process-grid pointer-events-none"></div>
+  <div class="absolute -top-28 -end-24 h-72 w-72 rounded-full bg-[var(--gold)]/10 blur-3xl pointer-events-none"></div>
+  <div class="site-container relative z-10">
 
     {{-- ====== فيديوهات (تُعرض عبر الثمبنيل - يُفتح الفيديو عند الضغط) ====== --}}
     @if($hasVideos)

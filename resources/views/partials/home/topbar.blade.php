@@ -34,7 +34,7 @@
     <button
         @click="langOpen = !langOpen"
         @click.outside="langOpen = false"
-        class="flex items-center gap-1 hover:text-[var(--gold)] transition uppercase">
+        class="flex items-center gap-1 hover:text-[var(--gold)] transition uppercase cursor-pointer">
         <i class="ri-global-line"></i>
         {{ app()->getLocale() }}
     </button>
@@ -61,6 +61,6 @@
 </div>
 
     <span class="border-e border-white/30 h-4 mx-2"></span>
-    <button href="#" disabled class="disabled hover:text-[var(--gold)] transition flex items-center gap-1"><i class="ri-user-line"></i> {{ __('home.my_account') }}</button>
+    <button href="#" disabled class="disabled hover:text-[var(--gold)] transition flex items-center gap-1 cursor-pointer"><i class="ri-user-line"></i> {{ __('home.my_account') }}</button>
   </div>
 </div>

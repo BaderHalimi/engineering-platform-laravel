@@ -60,7 +60,7 @@
     </div>
   @endforeach
 
-  <div class="site-container relative z-10 flex min-h-[450px] items-center pt-32 pb-24 md:min-h-[500px] md:pt-36 md:pb-28 lg:min-h-[570px] lg:pt-32 lg:pb-32">
+  <div class="site-container relative z-10 flex min-h-[450px] items-center py-32 md:min-h-[500px] md:py-36 lg:min-h-[570px] lg:py-32">
     @foreach($slides as $index => $slide)
       @php
         $title = $trSlide($slide, 'title');
@@ -69,22 +69,19 @@
         $buttonUrl = $slide['button_url'] ?? '';
       @endphp
       <div
-        class="max-w-3xl text-white"
+        class="max-w-3xl text-white pt-15 md:pt-10 lg:pt-15"
         x-show="active === {{ $index }}"
-        x-transition:enter="transition ease-out duration-700"
-        x-transition:enter-start="opacity-0 translate-y-8"
-        x-transition:enter-end="opacity-100 translate-y-0"
         x-cloak
       >
         @if($title && $index === 0)
-          <h1 class="hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-3">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
+          <h1 class="hero-child-1 hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-5">{{ $title }}<span class="sr-only"> - {{ $siteName }}</span></h1>
         @elseif($title)
-          <p class="hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-3">{{ $title }}</p>
+          <p class="hero-child-1 hero-slider-title max-w-3xl text-xl font-extrabold text-white mb-5">{{ $title }}</p>
         @endif
         @if($description)
-          <p class="shadow-md max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-4">{{ $description }}</p>
+          <p class="hero-child-2 shadow-md max-w-2xl text-sm md:text-base lg:text-lg font-normal leading-8 text-white/86 mb-8">{{ $description }}</p>
         @endif
-        <div class="flex flex-wrap items-center gap-4">
+        <div class="hero-child-3 flex flex-wrap items-center gap-4">
           @if($buttonText && $buttonUrl)
             <a href="{{ $buttonUrl }}" class="inline-flex items-center gap-2 rounded-full bg-[var(--gold)] px-6 md:px-8 py-3 md:py-3.5 text-sm md:text-base font-bold text-white shadow-lg shadow-black/25 transition hover:-translate-y-1 hover:shadow-xl">
               {{ $buttonText }}
@@ -139,6 +136,13 @@
     text-wrap: balance;
     text-shadow: 0 1px 4px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.5);
   }
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-child-1 { animation: hero-fade-up .65s cubic-bezier(.2,.8,.2,1) .15s both; }
+  .hero-child-2 { animation: hero-fade-up .65s cubic-bezier(.2,.8,.2,1) .35s both; }
+  .hero-child-3 { animation: hero-fade-up .65s cubic-bezier(.2,.8,.2,1) .55s both; }
   .hero-slide-media {
     object-fit: cover;
     object-position: center center;

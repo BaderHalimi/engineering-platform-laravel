@@ -122,6 +122,10 @@
 
 @include('partials.home.about', ['aboutUs' => $aboutUs, 'siteName' => $siteName, 'tr' => $tr])
 
+@include('partials.home.madinah', ['sitePhone' => $sitePhone, 'siteName' => $siteName])
+
+@include('partials.home.trust')
+
 @include('partials.home.services', ['services' => $services, 'tr' => $tr, 'asset' => $asset, 'contactUrl' => null])
 
 @include('partials.home.why-us', ['whyAldiwan' => $whyAldiwan, 'tr' => $tr])

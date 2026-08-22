@@ -16,7 +16,7 @@
   <div class="absolute -top-24 -start-24 h-72 w-72 rounded-full bg-[var(--gold)]/10 blur-3xl pointer-events-none"></div>
 
   <div class="site-container relative z-10">
-    <div class="grid items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16" dir="ltr">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16" dir="ltr">
       <div
         x-data
         x-intersect.once="$el.classList.add('is-visible')"
