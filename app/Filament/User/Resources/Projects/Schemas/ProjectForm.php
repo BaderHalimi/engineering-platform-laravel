@@ -75,14 +75,32 @@ class ProjectForm
                                         Group::make()
                                             ->columnSpan(1)
                                             ->schema([
-                                                Section::make('الصورة')
+                                                Section::make('الصور')
                                                     ->schema([
                                                         FileUpload::make('image')
-                                                            ->label('صورة المشروع')
+                                                            ->label('صورة الغلاف')
                                                             ->image()
                                                             ->disk('public')
                                                             ->imageEditor()
                                                             ->directory('projects/images'),
+
+                                                        FileUpload::make('additional_images')
+                                                            ->label('صور أخرى')
+                                                            ->image()
+                                                            ->disk('public')
+                                                            ->imageEditor()
+                                                            ->directory('projects/gallery')
+                                                            ->multiple()
+                                                            ->reorderable()
+                                                            ->columnSpanFull(),
+
+                                                        FileUpload::make('separator_image')
+                                                            ->label('صورة الفاصل')
+                                                            ->image()
+                                                            ->disk('public')
+                                                            ->imageEditor()
+                                                            ->directory('projects/separators')
+                                                            ->helperText('تظهر بين المشاريع داخل سلايدر الصفحة الرئيسية.'),
                                                     ]),
 
                                                 Section::make('الإعدادات')

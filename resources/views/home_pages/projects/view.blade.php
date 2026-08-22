@@ -111,6 +111,47 @@
     .description img { border-radius: 12px; max-width: 100%; height: auto; }
     .description ul, .description ol { padding-inline-start: 22px; margin: 0 0 14px; }
 
+    .project-gallery {
+        border-top: 1px solid var(--line);
+        margin-top: 28px;
+        padding-top: 24px;
+    }
+    .project-gallery h3 {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+        color: var(--slate);
+        margin: 0 0 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .project-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+    .project-gallery-grid a {
+        display: block;
+        overflow: hidden;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+    }
+    .project-gallery-grid img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        display: block;
+        transition: transform .25s ease;
+    }
+    .project-gallery-grid a:hover img { transform: scale(1.04); }
+    @media (max-width: 640px) {
+        .content-pad { padding: 24px; }
+        .project-gallery-grid { grid-template-columns: 1fr; }
+    }
+
     .attachments-section {
         border-top: 1px solid var(--line);
         margin-top: 28px;
@@ -206,6 +247,19 @@
             @if($project->description)
                 <div class="description">
                     {!! $project->description !!}
+                </div>
+            @endif
+
+            @if(!empty($project->additional_images))
+                <div class="project-gallery">
+                    <h3><i class="ri-image-line"></i> {{ app()->getLocale() === 'ar' ? 'صور إضافية' : 'Additional Images' }}</h3>
+                    <div class="project-gallery-grid">
+                        @foreach($project->additional_images as $image)
+                            <a href="{{ asset('storage/' . ltrim($image, '/')) }}" target="_blank" aria-label="{{ $project->title }}">
+                                <img src="{{ asset('storage/' . ltrim($image, '/')) }}" alt="{{ $project->title }}" loading="lazy">
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             @endif
 

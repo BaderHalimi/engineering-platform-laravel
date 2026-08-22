@@ -11,6 +11,8 @@ class Project extends Model
         'slug',
         'description',
         'image',
+        'additional_images',
+        'separator_image',
         'attachments',
         'is_active',
         'sort_order',
@@ -28,6 +30,7 @@ class Project extends Model
 
     protected $casts = [
         'attachments' => 'array',
+        'additional_images' => 'array',
         'is_active' => 'boolean',
         'meta_keywords' => 'array',
 

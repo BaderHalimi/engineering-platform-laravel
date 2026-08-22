@@ -19,7 +19,7 @@ class ProjectsTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('الصورة')
+                    ->label('صورة الغلاف')
                     ->disk('public')
                     ->circular(),
 

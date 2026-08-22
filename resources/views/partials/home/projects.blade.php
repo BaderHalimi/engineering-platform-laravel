@@ -2,7 +2,12 @@
   $projectItems = collect($projects ?? [])->values();
   $projectCount = $projectItems->count();
   $siteDir = in_array(app()->getLocale(), ['ar', 'he', 'fa', 'ur'], true) ? 'rtl' : 'ltr';
-  $itemsPerLoop = $projectCount > 0 ? max($projectCount, (int) ceil(12 / $projectCount) * $projectCount) : 0;
+  $firstSliderCount = $projectCount > 0 ? (int) ceil($projectCount / 2) : 0;
+  $projectRows = $projectCount > 0
+    ? collect([$projectItems->take($firstSliderCount)->values(), $projectItems->slice($firstSliderCount)->values()])
+        ->filter(fn ($row) => $row->isNotEmpty())
+        ->values()
+    : collect();
   $marqueeCopies = 2;
 @endphp
 
@@ -41,35 +46,49 @@
       @endforeach
     </div>
     @else
-    <div class="projects-marquee-shell" data-marquee-dir="{{ $siteDir }}" style="--project-copy-count: {{ $marqueeCopies }};">
-      <div class="projects-marquee-track">
-        @for($copy = 0; $copy < $marqueeCopies; $copy++)
-          <div class="projects-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
-            @for($loopIndex = 0; $loopIndex < $itemsPerLoop; $loopIndex++)
-              @php
-                $project = $projectItems[$loopIndex % $projectCount];
-              @endphp
-              <div class="project-slide-card project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
-                <div class="relative overflow-hidden h-64">
-                  <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
-                  <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-6">
-                    <a href="{{ url('/projects/'.$project->slug) }}" aria-label="{{ $project->title }}" class="bg-white text-[var(--teal)] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[var(--gold)] hover:text-white transition">
-                      <i class="ri-arrow-up-line rtl:rotate-45 ltr:-rotate-45 text-xl"></i>
-                    </a>
+    <div class="projects-marquee-stack">
+      @foreach($projectRows as $rowIndex => $projectRow)
+        @php
+          $rowProjectCount = $projectRow->count();
+          $itemsPerLoop = max($rowProjectCount, (int) ceil(8 / $rowProjectCount) * $rowProjectCount);
+        @endphp
+        <div class="projects-marquee-shell" data-marquee-dir="{{ $siteDir }}" data-row="{{ $rowIndex + 1 }}" style="--project-copy-count: {{ $marqueeCopies }};">
+          <div class="projects-marquee-track">
+            @for($copy = 0; $copy < $marqueeCopies; $copy++)
+              <div class="projects-marquee-group" aria-hidden="{{ $copy > 0 ? 'true' : 'false' }}" @if($copy > 0) inert @endif>
+                @for($loopIndex = 0; $loopIndex < $itemsPerLoop; $loopIndex++)
+                  @php
+                    $project = $projectRow[$loopIndex % $rowProjectCount];
+                  @endphp
+                  <div class="project-slide-card project-card card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 generic-reveal" x-data x-intersect.once="$el.classList.add('visible')">
+                    <div class="relative overflow-hidden h-64">
+                      <img src="{{ $asset($project->image) ?: 'https://files.catbox.moe/8jxeio.jpg' }}" alt="{{ $project->title }}" class="project-img w-full h-full object-cover">
+                      <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[var(--teal)]/90 to-transparent flex items-end p-6">
+                        <a href="{{ url('/projects/'.$project->slug) }}" aria-label="{{ $project->title }}" class="bg-white text-[var(--teal)] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[var(--gold)] hover:text-white transition">
+                          <i class="ri-arrow-up-line rtl:rotate-45 ltr:-rotate-45 text-xl"></i>
+                        </a>
+                      </div>
+                      @if($project->category)
+                        <span class="absolute top-4 end-4 bg-[var(--gold)] text-white text-xs font-bold px-3 py-1.5 rounded-full">{{ $project->category->name }}</span>
+                      @endif
+                    </div>
+                    <div class="p-5 md:p-6">
+                      <h3 class="font-extrabold text-[var(--teal)] text-base md:text-lg mb-2">{{ $project->title }}</h3>
+                      <p class="text-gray-500 text-xs md:text-sm mb-3 md:mb-4">{{ Str::limit(strip_tags($project->description ?? ''), 100) }}</p>
+                    </div>
                   </div>
-                  @if($project->category)
-                    <span class="absolute top-4 end-4 bg-[var(--gold)] text-white text-xs font-bold px-3 py-1.5 rounded-full">{{ $project->category->name }}</span>
+
+                  @if($project->separator_image)
+                    <div class="project-separator-card" aria-hidden="true">
+                      <img src="{{ $asset($project->separator_image) }}" alt="" loading="lazy">
+                    </div>
                   @endif
-                </div>
-                <div class="p-5 md:p-6">
-                  <h3 class="font-extrabold text-[var(--teal)] text-base md:text-lg mb-2">{{ $project->title }}</h3>
-                  <p class="text-gray-500 text-xs md:text-sm mb-3 md:mb-4">{{ Str::limit(strip_tags($project->description ?? ''), 100) }}</p>
-                </div>
+                @endfor
               </div>
             @endfor
           </div>
-        @endfor
-      </div>
+        </div>
+      @endforeach
     </div>
     @endif
   </div>
@@ -94,15 +113,23 @@
     position:relative;
     width:100%;
     overflow:hidden;
-    padding-block:1rem 2rem;
+    padding-block:.75rem 1rem;
     -webkit-mask-image:linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
     mask-image:linear-gradient(270deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+  .projects-marquee-stack{
+    display:grid;
+    gap:1.75rem;
   }
   .projects-marquee-track{
     display:flex;
     width:max-content;
     animation:projects-marquee-rtl 82s linear infinite;
     will-change:transform;
+  }
+  .projects-marquee-shell[data-row="2"] .projects-marquee-track{
+    animation-duration:96s;
+    animation-direction:reverse;
   }
   .projects-marquee-shell[data-marquee-dir="ltr"] .projects-marquee-track{
     direction:ltr;
@@ -128,6 +155,22 @@
   .projects-static-grid .project-slide-card{
     width:100%;
     flex:auto;
+  }
+  .project-separator-card{
+    width:min(42vw, 150px);
+    flex:0 0 min(42vw, 150px);
+    align-self:center;
+    border-radius:28px;
+    overflow:hidden;
+    background:white;
+    border:1px solid rgba(82,105,112,.14);
+    box-shadow:0 20px 40px -28px rgba(34,38,43,.3);
+  }
+  .project-separator-card img{
+    width:100%;
+    aspect-ratio:3 / 4;
+    object-fit:cover;
+    display:block;
   }
   @keyframes projects-marquee-ltr{
     from{ transform:translateX(0); }
